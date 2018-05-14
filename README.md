@@ -14,3 +14,10 @@ The main features of this application are:
 4. Should be possible to update the data about the movies
 5. Should be possible to search a movie
 6. Should be possible to navigate on the list of movies.
+
+
+# License
+
+**MIT License**
+
+**Copyright (c) 2018 Amadeu Cavalcante**
