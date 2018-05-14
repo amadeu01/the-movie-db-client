@@ -5,6 +5,7 @@
 //  Created by Amadeu Cavalcante Filho on 03/05/18.
 //  Copyright © 2018 Amadeu Cavalcante Filho. All rights reserved.
 //
+// Protocols for List of Movies
 
 import Foundation
 import UIKit
@@ -34,6 +35,8 @@ protocol MovieListPresenterProtocol: class {
     var wireFrame: MovieListWireFrameProtocol? { get set }
     
     func viewDidLoad()
+    
+    func showMovieDetail(forMovieItem movieItem: Movie)
 }
 
 // MARK: - Interactors Protocol
@@ -42,29 +45,38 @@ protocol MovieListInteractorOutputProtocol: class {
     func onError()
 }
 
-protocol MovieListInteractorInputProtocol: class {
+protocol MovieListInteractorInputProtocol: class { // Presenter -> Interector
     var presenter: MovieListInteractorOutputProtocol? { get set }
     var localDatamanager: MovieListLocalDataManagerInputProtocol? { get set }
     var remoteDatamanager: MovieListRemoteDataManagerInputProtocol? { get set }
     
+    func getNextMoviesReleases()
+    
+    func searchMovie(forName name: String)
 }
 
 // MARK: - Data Manager Protocol
 
-protocol MovieListDataManagerInputProtocol: class {
+protocol MovieListDataManagerInputProtocol: class { // Interactor -> Data Manager
 }
 
-protocol MovieListRemoteDataManagerInputProtocol: class {
+protocol MovieListRemoteDataManagerInputProtocol: class { // Interactor -> Remote Data Manager
     var remoteRequestHandler: MovieListRemoteDataManagerOutputProtocol? { get set }
     
-    func retrieveBeerList()
+    func getNextMoviesReleases()
+    
+    func searchMovie(forName name: String)
 }
 
-protocol MovieListRemoteDataManagerOutputProtocol: class {
-    
+protocol MovieListRemoteDataManagerOutputProtocol: class { // Remote Data Manager -> Interactor
+    func onMovieRetrieved(_ movies: [Movie])
     func onError()
 }
 
-protocol MovieListLocalDataManagerInputProtocol: class {
+protocol MovieListLocalDataManagerInputProtocol: class { // Interactor -> Local Data Manager
+    func getNextMoviesReleases()
     
+    func searchMovie(forName name: String)
+    
+    func saveMovie() throws
 }

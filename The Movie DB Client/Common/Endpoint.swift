@@ -9,7 +9,8 @@
 import UIKit
 
 struct API {
-    static let baseUrl = "https://api.punkapi.com/v2/"
+    static let baseUrl = Secrets.Api.Endpoint.production
+    static let apiKey = Secrets.Api.Client.keyV3Auth
 }
 
 protocol Endpoint {
@@ -19,18 +20,18 @@ protocol Endpoint {
 
 enum Endpoints {
     
-    enum Beers: Endpoint {
+    enum Search: Endpoint {
         case fetch
         
         public var path: String {
             switch self {
-            case .fetch: return "/beers"
+            case .fetch: return "/search/"
             }
         }
         
         public var url: String {
             switch self {
-            case .fetch: return "\(API.baseUrl)\(path)"
+            case .fetch: return "\(API.baseUrl)\(path)?api_key=\(API.apiKey)"
             }
         }
     }

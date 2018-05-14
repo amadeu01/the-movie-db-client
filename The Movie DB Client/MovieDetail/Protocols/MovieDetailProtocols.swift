@@ -5,6 +5,7 @@
 //  Created by Amadeu Cavalcante Filho on 03/05/18.
 //  Copyright © 2018 Amadeu Cavalcante Filho. All rights reserved.
 //
+// Protocols for Detail Movie
 
 import Foundation
 import UIKit
@@ -56,7 +57,7 @@ protocol MovieDetailDataManagerInputProtocol: class {
 protocol MovieDetailRemoteDataManagerInputProtocol: class {
     var remoteRequestHandler: MovieDetailRemoteDataManagerOutputProtocol? { get set }
     
-    func retrieveBeerList()
+    func retrieveMovie()
 }
 
 protocol MovieDetailRemoteDataManagerOutputProtocol: class {
