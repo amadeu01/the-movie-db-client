@@ -26,6 +26,21 @@ class The_Movie_DB_ClientTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
     
+    func testShouldBePossibleToUpdateMovies() {
+        // TODO: Implement test
+    }
+    
+    func testShouldBePossibleToShowAllUpcomingReleases() {
+        // TODO: Implement test
+    }
+
+    func testShouldBePossibleToNavigateBetweenMovies() {
+        // TODO: Implement test
+    }
+    
+    func testShouldBePossibleToSearchMovies() {
+        // TODO: Implement test
+    }
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {
