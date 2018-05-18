@@ -35,4 +35,20 @@ enum Endpoints {
             }
         }
     }
+    
+    enum UpcomingMovie: Endpoint {
+        case fetch
+        
+        public var path: String {
+            switch self {
+            case .fetch: return "/movie/upcoming/"
+            }
+        }
+        
+        public var url: String {
+            switch self {
+            case .fetch: return "\(API.baseUrl)\(path)?api_key=\(API.apiKey)"
+            }
+        }
+    }
 }

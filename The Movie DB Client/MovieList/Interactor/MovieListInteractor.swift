@@ -22,7 +22,7 @@ class MovieListInteractor: MovieListInteractorInputProtocol {
 }
 
 extension MovieListInteractor: MovieListRemoteDataManagerOutputProtocol {
-    func onMovieRetrieved(_ movies: [Movie]) {
+    func onUpcomingMovieRetrieved(_ movies: MovieUpcomingResponse) {
         
     }
     

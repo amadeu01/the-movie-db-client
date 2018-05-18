@@ -8,17 +8,36 @@
 
 import UIKit
 
-class MovieDetailViewController: UIViewController {
-
+class MovieDetailView: UIViewController {
+    var presenter: MovieDetailPresenterProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
+}
+
+extension MovieDetailView: MovieDetailViewProtocol {
+    func showMovieDetail(forMovieItem movieItem: Movie) {
+        
+    }
+    
+    func showError() {
+        
+    }
+    
+    func showLoading() {
+        
+    }
+    
+    func hideLoading() {
+        
+    }
+    
+    
 }

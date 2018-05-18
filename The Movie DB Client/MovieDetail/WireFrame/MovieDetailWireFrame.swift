@@ -8,6 +8,25 @@
 
 import UIKit
 
-class MovieDetailWireFrame: NSObject {
-
+class MovieDetailWireFrame: MovieDetailWireFrameProtocol {
+    
+    class func createMovieDetailModule(forMovieItem movieItem: Movie) -> UIViewController {
+        let viewController = mainStoryboard.instantiateViewController(withIdentifier: "MovieDetailController")
+        if let view = viewController as? MovieDetailView {
+            let presenter: MovieDetailPresenterProtocol = MovieDetailPresenter()
+            let wireFrame: MovieDetailWireFrameProtocol = MovieDetailWireFrame()
+            
+            view.presenter = presenter
+            presenter.view = view
+            presenter.wireFrame = wireFrame
+            
+            return viewController
+        }
+        return UIViewController()
+    }
+    
+    static var mainStoryboard: UIStoryboard {
+        let bundle = Bundle(for: MovieDetailView.self)
+        return UIStoryboard(name: "Main", bundle: bundle)
+    }
 }

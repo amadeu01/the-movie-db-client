@@ -14,3 +14,35 @@ The main features of this application are:
 4. Should be possible to update the data about the movies
 5. Should be possible to search a movie
 6. Should be possible to navigate on the list of movies.
+
+
+## How to run
+Clone the project
+
+```bash
+git clone https://github.com/amadeu01/the-movie-db-client.git the-movie-db-client
+cd the-movie-db-client
+carthage update --platform iOS
+open The\ Movie\ DB\ Client.xcodeproj/
+```
+
+
+### Carthage
+
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
+
+You can install Carthage with [Homebrew](http://brew.sh/) using the following command:
+
+```bash
+$ brew update
+$ brew install carthage
+```
+
+Run `carthage update` to build the frameworks.
+
+
+### Author
+
+:name_badge: Amadeu Cavalcante Filho
+
+:email: amadeu01@gmail.com 

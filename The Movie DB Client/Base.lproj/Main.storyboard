@@ -13,7 +13,7 @@
         <!--Movie List View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MovieListViewController" customModule="The_Movie_DB_Client" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MovieListViewController" id="BYZ-38-t0r" customClass="MovieListViewController" customModule="The_Movie_DB_Client" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -58,10 +58,25 @@
             </objects>
             <point key="canvasLocation" x="1081" y="793"/>
         </scene>
+        <!--Movie Detail View Controller-->
+        <scene sceneID="xHP-Ee-noL">
+            <objects>
+                <viewController storyboardIdentifier="MovieDetailController" id="nMB-am-bSX" customClass="MovieDetailViewController" customModule="The_Movie_DB_Client" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tJh-io-eTT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="k8q-8u-i05"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pgp-f1-Mpx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1991" y="794"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="83k-y5-IWX">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NTH-v1-uh9" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MovieNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="NTH-v1-uh9" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UbT-k5-BzB">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>

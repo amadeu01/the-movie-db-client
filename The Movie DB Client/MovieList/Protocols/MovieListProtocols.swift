@@ -69,14 +69,14 @@ protocol MovieListRemoteDataManagerInputProtocol: class { // Interactor -> Remot
 }
 
 protocol MovieListRemoteDataManagerOutputProtocol: class { // Remote Data Manager -> Interactor
-    func onMovieRetrieved(_ movies: [Movie])
+    func onUpcomingMovieRetrieved(_ movies: MovieUpcomingResponse)
     func onError()
 }
 
 protocol MovieListLocalDataManagerInputProtocol: class { // Interactor -> Local Data Manager
-    func getNextMoviesReleases()
+    func getNextMoviesReleases() throws -> [Movie]
     
-    func searchMovie(forName name: String)
+    func searchMovie(forTitle title: String) throws -> [Movie]
     
-    func saveMovie() throws
+    func saveMovie(forMovieUpcomingResponse movieUpcomingResponse: MovieUpcomingResponse) throws
 }

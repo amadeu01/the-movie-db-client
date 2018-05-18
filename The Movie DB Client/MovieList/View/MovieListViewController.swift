@@ -8,8 +8,9 @@
 
 import UIKit
 
-class MovieListViewController: UIViewController {
-
+class MovieListView: UIViewController {
+    var presenter: MovieListPresenterProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -19,4 +20,34 @@ class MovieListViewController: UIViewController {
         
     }
 
+}
+
+extension MovieListView: MovieListViewProtocol {
+    
+    
+    func showError() {
+        
+    }
+    
+    func showLoading() {
+        
+    }
+    
+    func hideLoading() {
+        
+    }
+    
+    
+}
+
+extension MovieListView: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
+    }
+    
+    
 }

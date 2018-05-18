@@ -7,3 +7,9 @@
 //
 
 import Foundation
+import CoreData
+
+
+public class Collection: NSManagedObject {
+    
+}

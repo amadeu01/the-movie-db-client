@@ -8,6 +8,16 @@
 
 import UIKit
 
-class MovieDetailPresenter: NSObject {
-
+class MovieDetailPresenter: MovieDetailPresenterProtocol {
+    var movieItem: Movie?
+    
+    var view: MovieDetailViewProtocol?
+    
+    var interactor: MovieDetailInteractorInputProtocol?
+    
+    var wireFrame: MovieDetailWireFrameProtocol?
+    
+    func viewDidLoad() {
+        
+    }
 }
