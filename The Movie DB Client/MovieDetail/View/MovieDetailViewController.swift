@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PKHUD
 
 class MovieDetailView: UIViewController {
     var presenter: MovieDetailPresenterProtocol?
@@ -28,15 +29,15 @@ extension MovieDetailView: MovieDetailViewProtocol {
     }
     
     func showError() {
-        
+        HUD.flash(.label("Sorry, something terrible happened"), delay: 2.0)
     }
     
     func showLoading() {
-        
+        HUD.show(.progress)
     }
     
     func hideLoading() {
-        
+        HUD.hide()
     }
     
     

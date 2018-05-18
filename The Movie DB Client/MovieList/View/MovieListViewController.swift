@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PKHUD
 
 class MovieListView: UIViewController {
     var presenter: MovieListPresenterProtocol?
@@ -26,15 +27,15 @@ extension MovieListView: MovieListViewProtocol {
     
     
     func showError() {
-        
+        HUD.flash(.label("Internet not connected"), delay: 2.0)
     }
     
     func showLoading() {
-        
+        HUD.show(.progress)
     }
     
     func hideLoading() {
-        
+        HUD.hide()
     }
     
     
@@ -42,11 +43,11 @@ extension MovieListView: MovieListViewProtocol {
 
 extension MovieListView: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        return MovieListCollectionViewCell()
     }
     
     

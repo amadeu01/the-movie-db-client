@@ -51,4 +51,36 @@ enum Endpoints {
             }
         }
     }
+    
+    enum ApiConfiguration: Endpoint {
+        case fetch
+        
+        public var path: String {
+            switch self {
+            case .fetch: return "/configuration"
+            }
+        }
+        
+        public var url: String {
+            switch self {
+            case .fetch: return "\(API.baseUrl)\(path)?api_key=\(API.apiKey)"
+            }
+        }
+    }
+    
+    enum MovieDetail: Endpoint {
+        case fetch
+        
+        public var path: String {
+            switch self {
+            case .fetch: return "/movie/%s"
+            }
+        }
+        
+        public var url: String {
+            switch self {
+            case .fetch: return "\(API.baseUrl)\(path)?api_key=\(API.apiKey)"
+            }
+        }
+    }
 }

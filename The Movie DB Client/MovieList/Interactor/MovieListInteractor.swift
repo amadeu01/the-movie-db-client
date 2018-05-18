@@ -22,6 +22,10 @@ class MovieListInteractor: MovieListInteractorInputProtocol {
 }
 
 extension MovieListInteractor: MovieListRemoteDataManagerOutputProtocol {
+    func onTMDbApiConfigurationRetrieved(_ configuration: TMDbApiConfigurationResponse) {
+        
+    }
+    
     func onUpcomingMovieRetrieved(_ movies: MovieUpcomingResponse) {
         
     }

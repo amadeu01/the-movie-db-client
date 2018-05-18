@@ -1,2 +1,4 @@
 github "Alamofire/Alamofire" ~> 4.7
 github "Alamofire/AlamofireImage" ~> 3.3
+github "pkluz/PKHUD" ~> 5.0
+github "SwiftKickMobile/SwiftMessages"

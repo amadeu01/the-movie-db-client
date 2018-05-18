@@ -11,4 +11,6 @@ import CoreData
 
 public class Movie: NSManagedObject {
 
+    var posterImageUrl: String?
+    var backdropImageUrl: String?
 }

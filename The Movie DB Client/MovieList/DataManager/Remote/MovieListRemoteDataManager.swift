@@ -34,4 +34,23 @@ class MovieListRemoteDataManager: MovieListRemoteDataManagerInputProtocol {
                 }
         }
     }
+    
+    func getTMDbApiConfiguration() {
+        Alamofire
+            .request(Endpoints.ApiConfiguration.fetch.url, method: .get)
+            .validate()
+            .responseJSON { response in
+                switch response.result {
+                case .failure(_ ):
+                    self.remoteRequestHandler?.onError()
+                case .success(_):
+                    if let json = response.result.value {
+                        if let data = try? JSONSerialization.data(withJSONObject: json) {
+                            let configuration = try? JSONDecoder().decode(TMDbApiConfigurationResponse.self, from: data)
+                            self.remoteRequestHandler?.onTMDbApiConfigurationRetrieved(configuration!)
+                        }
+                    }
+                }
+        }
+    }
 }

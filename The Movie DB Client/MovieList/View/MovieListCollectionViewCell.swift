@@ -7,7 +7,30 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class MovieListCollectionViewCell: UICollectionViewCell {
+    @IBOutlet weak var moviePosterImageView: UIImageView!
     
+    @IBOutlet weak var movieTitleLabel: UILabel!
+    
+    @IBOutlet weak var movieReleaseDate: UILabel!
+    
+    @IBOutlet weak var movieOverviewLabel: UILabel!
+    
+    override func awakeFromNib() {
+        let screenSize = UIScreen.main.bounds
+        let separatorHeight = CGFloat(1.5)
+        let additionalSeparator = UIView.init(frame: CGRect(x: 0, y: self.frame.size.height-separatorHeight, width: screenSize.width, height: separatorHeight))
+        additionalSeparator.backgroundColor = UIColor.gray
+        self.addSubview(additionalSeparator)
+    }
+    
+    func set(forMovie movie: Movie) {
+        movieTitleLabel?.text = movie.title
+        movieOverviewLabel.text = movie.overview
+        movieReleaseDate.text = movie.releaseDate
+        
+        moviePosterImageView.af_setImage(withURL: URL(string: movie.posterImageUrl!)!)
+    }
 }

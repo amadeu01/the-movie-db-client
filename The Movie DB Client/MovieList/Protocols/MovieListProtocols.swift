@@ -70,6 +70,9 @@ protocol MovieListRemoteDataManagerInputProtocol: class { // Interactor -> Remot
 
 protocol MovieListRemoteDataManagerOutputProtocol: class { // Remote Data Manager -> Interactor
     func onUpcomingMovieRetrieved(_ movies: MovieUpcomingResponse)
+    
+    func onTMDbApiConfigurationRetrieved(_ configuration: TMDbApiConfigurationResponse)
+    
     func onError()
 }
 
