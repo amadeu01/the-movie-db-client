@@ -14,13 +14,16 @@ class MovieDetailView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        presenter?.viewDidLoad()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
 }
 
 extension MovieDetailView: MovieDetailViewProtocol {
@@ -39,6 +42,4 @@ extension MovieDetailView: MovieDetailViewProtocol {
     func hideLoading() {
         HUD.hide()
     }
-    
-    
 }

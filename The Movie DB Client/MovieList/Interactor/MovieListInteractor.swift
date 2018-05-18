@@ -14,6 +14,7 @@ class MovieListInteractor: MovieListInteractorInputProtocol {
     var remoteDatamanager: MovieListRemoteDataManagerInputProtocol?
     
     func getNextMoviesReleases() {
+        remoteDatamanager?.getNextMoviesReleases()
     }
     
     func searchMovie(forName name: String) {
@@ -27,10 +28,34 @@ extension MovieListInteractor: MovieListRemoteDataManagerOutputProtocol {
     }
     
     func onUpcomingMovieRetrieved(_ movies: MovieUpcomingResponse) {
+        let movieList = movies.results.map { (movieResponse: MovieUpcomingResponse.ResultsElement) -> Movie in
+            let movie = Movie()
+            movie.adult = NSNumber(booleanLiteral: movieResponse.adult!)
+            movie.genreIds = movieResponse.genreIds as [NSNumber]
+            movie.releaseDate = movieResponse.releaseDate
+            movie.title = movieResponse.title
+            movie.overview = movieResponse.overview
+            movie.originalTitle = movieResponse.originalTitle
+            movie.voteCount = Int32(movieResponse.voteCount!)
+            movie.popularity = movieResponse.popularity
+            movie.remoteId = Int32(movieResponse.id!)
+            movie.voteAverage = movieResponse.voteAverage
+            movie.popularity = movieResponse.popularity
+
+            return movie
+        }
         
+        do {
+            try localDatamanager?.saveMovie(forMovieUpcomingResponse: movies)
+            
+        } catch {
+            presenter?.onError()
+        }
+        
+        presenter?.didRetrieveUpcomingMovie(movieList)
     }
     
     func onError() {
-        
+       presenter?.onError()
     }
 }

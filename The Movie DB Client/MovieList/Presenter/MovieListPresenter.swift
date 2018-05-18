@@ -14,14 +14,22 @@ class MovieListPresenter: MovieListPresenterProtocol {
     var interactor: MovieListInteractorInputProtocol?
     
     func showMovieDetail(forMovieItem movieItem: Movie) {
+        wireFrame?.presentMovieDetailScreen(from: view!, forMovieItem: movieItem)
     }
     
     func viewDidLoad() {
         view?.showLoading()
+        interactor?.getNextMoviesReleases()
     }
 }
 
 extension MovieListPresenter: MovieListInteractorOutputProtocol {
+    func didRetrieveUpcomingMovie(_ movies: [Movie]) {
+        view?.hideLoading()
+        view?.showUpcomingMovies(with: movies)
+    }
+    
     func onError() {
+        view?.showError()
     }
 }
