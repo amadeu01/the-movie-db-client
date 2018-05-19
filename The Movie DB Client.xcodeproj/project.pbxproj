@@ -46,6 +46,7 @@
 		656AF51020AD9702009B153A /* CountryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656AF50A20AD9702009B153A /* CountryResponse.swift */; };
 		656AF51520AD9FF9009B153A /* MovieListLocalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656AF51420AD9FF9009B153A /* MovieListLocalDataManager.swift */; };
 		656AF51720ADA1F1009B153A /* MovieListRemoteDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656AF51620ADA1F1009B153A /* MovieListRemoteDataManager.swift */; };
+		65875EA220AF890E0076FC87 /* MovieEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65875EA120AF890E0076FC87 /* MovieEntity.swift */; };
 		65B32D5E20AE6544007F55B4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 65B32D5D20AE6543007F55B4 /* README.md */; };
 		65B32D6020AE6A8B007F55B4 /* PKHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B32D5F20AE6A8B007F55B4 /* PKHUD.framework */; };
 		65B32D6220AE6FF3007F55B4 /* get_api_configuration.json in Resources */ = {isa = PBXBuildFile; fileRef = 65B32D6120AE6FF3007F55B4 /* get_api_configuration.json */; };
@@ -133,6 +134,7 @@
 		656AF50A20AD9702009B153A /* CountryResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryResponse.swift; sourceTree = "<group>"; };
 		656AF51420AD9FF9009B153A /* MovieListLocalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListLocalDataManager.swift; sourceTree = "<group>"; };
 		656AF51620ADA1F1009B153A /* MovieListRemoteDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListRemoteDataManager.swift; sourceTree = "<group>"; };
+		65875EA120AF890E0076FC87 /* MovieEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieEntity.swift; sourceTree = "<group>"; };
 		65B32D5D20AE6543007F55B4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		65B32D5F20AE6A8B007F55B4 /* PKHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PKHUD.framework; path = Carthage/Build/iOS/PKHUD.framework; sourceTree = "<group>"; };
 		65B32D6120AE6FF3007F55B4 /* get_api_configuration.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = get_api_configuration.json; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 		6557FE6E209B553D004DEC8D /* MovieList */ = {
 			isa = PBXGroup;
 			children = (
+				65875EA020AF88C10076FC87 /* Entity */,
 				656AF51120AD9FAB009B153A /* DataManager */,
 				65F009AE20A9320700F4E363 /* WireFrame */,
 				65F009A020A9260100F4E363 /* Interactor */,
@@ -366,6 +369,14 @@
 				656AF51620ADA1F1009B153A /* MovieListRemoteDataManager.swift */,
 			);
 			path = Remote;
+			sourceTree = "<group>";
+		};
+		65875EA020AF88C10076FC87 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				65875EA120AF890E0076FC87 /* MovieEntity.swift */,
+			);
+			path = Entity;
 			sourceTree = "<group>";
 		};
 		65F0099020A915D100F4E363 /* Config */ = {
@@ -661,6 +672,7 @@
 				65FAE78B20AE5E7600041C70 /* MovieListCollectionViewCell.swift in Sources */,
 				65F009A720A9280D00F4E363 /* Movie+CoreDataProperties.swift in Sources */,
 				65F009B820A932E500F4E363 /* MovieDetailViewController.swift in Sources */,
+				65875EA220AF890E0076FC87 /* MovieEntity.swift in Sources */,
 				651BF97F20ABCD7A00B30FDD /* MovieUpcomingResponse.swift in Sources */,
 				6557FE7D209B57B9004DEC8D /* MovieListProtocols.swift in Sources */,
 			);

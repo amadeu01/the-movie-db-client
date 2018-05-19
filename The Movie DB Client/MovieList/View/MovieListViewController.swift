@@ -16,7 +16,7 @@ class MovieListView: UIViewController {
     
     var presenter: MovieListPresenterProtocol?
     
-    var movies: [Movie] = []
+    var movies: [MovieEntity] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +31,7 @@ class MovieListView: UIViewController {
 }
 
 extension MovieListView: MovieListViewProtocol {
-    func showUpcomingMovies(with movies: [Movie]) {
+    func showUpcomingMovies(with movies: [MovieEntity]) {
         self.movies = movies
         self.collectionView.reloadData()
     }

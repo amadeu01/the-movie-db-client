@@ -26,11 +26,13 @@ class MovieListCollectionViewCell: UICollectionViewCell {
         self.addSubview(additionalSeparator)
     }
     
-    func set(forMovie movie: Movie) {
+    func set(forMovie movie: MovieEntity) {
         movieTitleLabel?.text = movie.title
         movieOverviewLabel.text = movie.overview
         movieReleaseDate.text = movie.releaseDate
         
-        moviePosterImageView.af_setImage(withURL: URL(string: movie.posterImageUrl!)!)
+        if let url = movie.posterUrl {
+            moviePosterImageView.af_setImage(withURL: URL(string: url)!)
+        }
     }
 }

@@ -13,7 +13,7 @@ class MovieListPresenter: MovieListPresenterProtocol {
     var wireFrame: MovieListWireFrameProtocol?
     var interactor: MovieListInteractorInputProtocol?
     
-    func showMovieDetail(forMovieItem movieItem: Movie) {
+    func showMovieDetail(forMovieItem movieItem: MovieEntity) {
         wireFrame?.presentMovieDetailScreen(from: view!, forMovieItem: movieItem)
     }
     
@@ -24,7 +24,7 @@ class MovieListPresenter: MovieListPresenterProtocol {
 }
 
 extension MovieListPresenter: MovieListInteractorOutputProtocol {
-    func didRetrieveUpcomingMovie(_ movies: [Movie]) {
+    func didRetrieveUpcomingMovie(_ movies: [MovieEntity]) {
         view?.hideLoading()
         view?.showUpcomingMovies(with: movies)
     }

@@ -20,7 +20,7 @@ protocol MovieListViewProtocol: class {
     
     func hideLoading()
     
-    func showUpcomingMovies(with movies: [Movie])
+    func showUpcomingMovies(with movies: [MovieEntity])
 }
 
 // MARK: - WireFrame Protocol
@@ -28,7 +28,7 @@ protocol MovieListViewProtocol: class {
 protocol MovieListWireFrameProtocol: class {
     static func createMovieListModule() -> UIViewController
     
-    func presentMovieDetailScreen(from view: MovieListViewProtocol, forMovieItem movieItem: Movie)
+    func presentMovieDetailScreen(from view: MovieListViewProtocol, forMovieItem movieItem: MovieEntity)
 }
 
 // MARK: - Presenter Protocol
@@ -40,7 +40,7 @@ protocol MovieListPresenterProtocol: class {
     
     func viewDidLoad()
     
-    func showMovieDetail(forMovieItem movieItem: Movie)
+    func showMovieDetail(forMovieItem movieItem: MovieEntity)
 }
 
 // MARK: - Interactors Protocol
@@ -48,7 +48,7 @@ protocol MovieListPresenterProtocol: class {
 protocol MovieListInteractorOutputProtocol: class {
     func onError()
     
-    func didRetrieveUpcomingMovie(_ movies: [Movie])
+    func didRetrieveUpcomingMovie(_ movies: [MovieEntity])
 }
 
 protocol MovieListInteractorInputProtocol: class { // Presenter -> Interector

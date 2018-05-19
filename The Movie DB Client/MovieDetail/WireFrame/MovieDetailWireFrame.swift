@@ -10,7 +10,7 @@ import UIKit
 
 class MovieDetailWireFrame: MovieDetailWireFrameProtocol {
     
-    class func createMovieDetailModule(forMovieItem movieItem: Movie) -> UIViewController {
+    class func createMovieDetailModule(forMovieItem movieItem: MovieEntity) -> UIViewController {
         let viewController = mainStoryboard.instantiateViewController(withIdentifier: "MovieDetailController")
         if let view = viewController as? MovieDetailView {
             let presenter: MovieDetailPresenterProtocol = MovieDetailPresenter()

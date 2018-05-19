@@ -19,13 +19,13 @@ protocol MovieDetailViewProtocol: class {
     
     func hideLoading()
     
-    func showMovieDetail(forMovieItem movieItem: Movie)
+    func showMovieDetail(forMovieItem movieItem: MovieEntity)
 }
 
 // MARK: - WireFrame Protocol
 
 protocol MovieDetailWireFrameProtocol: class {
-    static func createMovieDetailModule(forMovieItem movieItem: Movie) -> UIViewController
+    static func createMovieDetailModule(forMovieItem movieItem: MovieEntity) -> UIViewController
 }
 
 // MARK: - Presenter Protocol

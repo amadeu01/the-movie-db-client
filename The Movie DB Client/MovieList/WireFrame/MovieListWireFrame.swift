@@ -9,7 +9,6 @@
 import UIKit
 
 class MovieListWireFrame: MovieListWireFrameProtocol {
-
     class func createMovieListModule() -> UIViewController {
         let navController = mainStoryboard.instantiateViewController(withIdentifier: "MovieNavigationController")
         if let view = navController.childViewControllers.first as? MovieListView {
@@ -39,7 +38,7 @@ class MovieListWireFrame: MovieListWireFrameProtocol {
     }
     
     
-    func presentMovieDetailScreen(from view: MovieListViewProtocol, forMovieItem movieItem: Movie) {
+    func presentMovieDetailScreen(from view: MovieListViewProtocol, forMovieItem movieItem: MovieEntity) {
         let movieDetailViewController = MovieDetailWireFrame.createMovieDetailModule(forMovieItem: movieItem)
         
         if let sourceView = view as? UIViewController {

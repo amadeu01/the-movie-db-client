@@ -27,7 +27,7 @@ class MovieDetailView: UIViewController {
 }
 
 extension MovieDetailView: MovieDetailViewProtocol {
-    func showMovieDetail(forMovieItem movieItem: Movie) {
+    func showMovieDetail(forMovieItem movieItem: MovieEntity) {
         
     }
     
