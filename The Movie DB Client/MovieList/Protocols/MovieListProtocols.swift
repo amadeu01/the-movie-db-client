@@ -57,8 +57,14 @@ protocol MovieListInteractorInputProtocol: class { // Presenter -> Interector
     var remoteDatamanager: MovieListRemoteDataManagerInputProtocol? { get set }
     
     func getNextMoviesReleases()
-    
-    func searchMovie(forName name: String)
+}
+
+protocol MovieListSearchMovieInteractorInputProtocol: class { // Presenter -> Interector
+	var presenter: MovieListInteractorOutputProtocol? { get set }
+	var localDatamanager: MovieListLocalDataManagerInputProtocol? { get set }
+	var remoteDatamanager: MovieListRemoteDataManagerInputProtocol? { get set }
+	
+	func searchMovie(forName name: String)
 }
 
 // MARK: - Data Manager Protocol
@@ -69,23 +75,27 @@ protocol MovieListDataManagerInputProtocol: class { // Interactor -> Data Manage
 protocol MovieListRemoteDataManagerInputProtocol: class { // Interactor -> Remote Data Manager
     var remoteRequestHandler: MovieListRemoteDataManagerOutputProtocol? { get set }
     
-    func getNextMoviesReleases()
+	func getUpcomingReleases(forPageAt page: Int)
     
     func searchMovie(forName name: String)
 }
 
 protocol MovieListRemoteDataManagerOutputProtocol: class { // Remote Data Manager -> Interactor
-    func onUpcomingMovieRetrieved(_ movies: MovieUpcomingResponse)
-    
-    func onTMDbApiConfigurationRetrieved(_ configuration: TMDbApiConfigurationResponse)
+	func onUpcomingMovieRetrieved(_ movies: MovieUpcomingResponse, _ configuration: TMDbApiConfigurationResponse?)
+	
+	func onTMDbApiConfigurationRetrieved(_ config: TMDbApiConfigurationResponse)
     
     func onError()
 }
 
 protocol MovieListLocalDataManagerInputProtocol: class { // Interactor -> Local Data Manager
     func getNextMoviesReleases() throws -> [Movie]
-    
+	
     func searchMovie(forTitle title: String) throws -> [Movie]
+	
+	func getTMDbApiConfiguration() throws -> ConfigurationEntity
     
     func saveMovie(forMovieUpcomingResponse movieUpcomingResponse: MovieUpcomingResponse) throws
+	
+	func saveTMDbApiConfiguration(forConfiguration configuration: TMDbApiConfigurationResponse) throws
 }

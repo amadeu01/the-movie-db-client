@@ -8,6 +8,7 @@
 
 import UIKit
 import PKHUD
+import AlamofireImage
 
 class MovieDetailView: UIViewController {
     var presenter: MovieDetailPresenterProtocol?
@@ -23,12 +24,20 @@ class MovieDetailView: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+		
     }
 }
 
 extension MovieDetailView: MovieDetailViewProtocol {
     func showMovieDetail(forMovieItem movieItem: MovieEntity) {
-        
+//		movieItem.backdropUrl
+		
+		let data = try! Data(contentsOf: URL(string: movieItem.backdropUrl!)!)
+		let backdropImage = UIImage(data: data, scale: UIScreen.main.scale)!
+		backdropImage.af_inflate()
+		navigationController?.navigationBar.setBackgroundImage(backdropImage, for: .default)
+		
+//        moviePosterImageView.af_setImage(withURL: URL(string: url)!)
     }
     
     func showError() {

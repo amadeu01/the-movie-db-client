@@ -9,7 +9,7 @@
 import UIKit
 
 class MovieDetailPresenter: MovieDetailPresenterProtocol {
-    var movieItem: Movie?
+	var movieItem: MovieEntity?
     
     var view: MovieDetailViewProtocol?
     
@@ -18,6 +18,11 @@ class MovieDetailPresenter: MovieDetailPresenterProtocol {
     var wireFrame: MovieDetailWireFrameProtocol?
     
     func viewDidLoad() {
-        
+		interactor?.getDetail(forMovie: movieItem!)
+		view?.showMovieDetail(forMovieItem: movieItem!)
     }
+	
+	func viewWillDisappear() {
+		
+	}
 }

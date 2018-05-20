@@ -19,6 +19,7 @@ class MovieDetailWireFrame: MovieDetailWireFrameProtocol {
             view.presenter = presenter
             presenter.view = view
             presenter.wireFrame = wireFrame
+			presenter.movieItem = movieItem
             
             return viewController
         }

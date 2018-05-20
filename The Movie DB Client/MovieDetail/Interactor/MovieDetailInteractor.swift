@@ -8,6 +8,14 @@
 
 import UIKit
 
-class MovieDetailInteractor: NSObject {
-
+class MovieDetailInteractor: MovieDetailInteractorInputProtocol {
+	var presenter: MovieDetailInteractorOutputProtocol?
+	
+	var localDatamanager: MovieDetailLocalDataManagerInputProtocol?
+	
+	var remoteDatamanager: MovieDetailRemoteDataManagerInputProtocol?
+	
+	func getDetail(forMovie movieItem: MovieEntity) {
+		
+	}
 }

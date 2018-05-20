@@ -34,9 +34,11 @@ protocol MovieDetailPresenterProtocol: class {
     var view: MovieDetailViewProtocol? { get set }
     var interactor: MovieDetailInteractorInputProtocol? { get set }
     var wireFrame: MovieDetailWireFrameProtocol? { get set }
-    var movieItem: Movie? { get set }
+    var movieItem: MovieEntity? { get set }
     
     func viewDidLoad()
+	
+	func viewWillDisappear()
 }
 
 // MARK: - Interactors Protocol
@@ -50,6 +52,7 @@ protocol MovieDetailInteractorInputProtocol: class {
     var localDatamanager: MovieDetailLocalDataManagerInputProtocol? { get set }
     var remoteDatamanager: MovieDetailRemoteDataManagerInputProtocol? { get set }
 
+	func getDetail(forMovie movieItem: MovieEntity)
 }
 
 // MARK: - Data Manager Protocol
@@ -60,14 +63,15 @@ protocol MovieDetailDataManagerInputProtocol: class {
 protocol MovieDetailRemoteDataManagerInputProtocol: class {
     var remoteRequestHandler: MovieDetailRemoteDataManagerOutputProtocol? { get set }
     
-    func retrieveMovie()
+	func getDetail(forMovie movie: MovieEntity)
 }
 
 protocol MovieDetailRemoteDataManagerOutputProtocol: class {
-
+	func onMovieDetailRetrieved()
+	
     func onError()
 }
 
 protocol MovieDetailLocalDataManagerInputProtocol: class {
-    
+	func getDetail(forMovie movie: MovieEntity)
 }

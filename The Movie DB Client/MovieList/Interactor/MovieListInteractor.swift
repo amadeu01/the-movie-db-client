@@ -14,22 +14,27 @@ class MovieListInteractor: MovieListInteractorInputProtocol {
     var remoteDatamanager: MovieListRemoteDataManagerInputProtocol?
     
     func getNextMoviesReleases() {
-        remoteDatamanager?.getNextMoviesReleases()
-    }
-    
-    func searchMovie(forName name: String) {
+        remoteDatamanager?.getUpcomingReleases(forPageAt: 1)
     }
 
 }
 
 extension MovieListInteractor: MovieListRemoteDataManagerOutputProtocol {
-    func onTMDbApiConfigurationRetrieved(_ configuration: TMDbApiConfigurationResponse) {
-        
-    }
+	func onTMDbApiConfigurationRetrieved(_ config: TMDbApiConfigurationResponse) {
+		try! localDatamanager?.saveTMDbApiConfiguration(forConfiguration: config)
+	}
     
-    func onUpcomingMovieRetrieved(_ movies: MovieUpcomingResponse) {
+    func onUpcomingMovieRetrieved(_ movies: MovieUpcomingResponse, _ configuration: TMDbApiConfigurationResponse?) {
+		let configurationEntity: ConfigurationEntity
+		
+		if let configurationResponse = configuration {
+			configurationEntity = ConfigurationEntity(from: configurationResponse)
+		} else {
+			configurationEntity = (try! localDatamanager?.getTMDbApiConfiguration())!
+		}
+			
         let movieList = movies.results.map { (movieResponse: MovieUpcomingResponse.ResultsElement) -> MovieEntity in
-            let movie = MovieEntity(movieResponse)
+            let movie = MovieEntity(movieResponse, configurationEntity)
             return movie
         }
         

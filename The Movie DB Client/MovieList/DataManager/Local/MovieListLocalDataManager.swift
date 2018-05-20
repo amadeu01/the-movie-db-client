@@ -9,6 +9,18 @@
 import CoreData
 
 class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
+	func getTMDbApiConfiguration() throws -> ConfigurationEntity {
+		guard let managedOC = CoreDataStore.managedObjectContext else {
+			throw PersistenceError.managedObjectContextNotFound
+		}
+		
+		let request: NSFetchRequest<TMDbApiConfiguration> = NSFetchRequest(entityName: String(describing: TMDbApiConfiguration.self))
+		
+		let localConfig = try managedOC.fetch(request).first
+		
+		return ConfigurationEntity(from: localConfig!)
+	}
+	
     
     func searchMovie(forTitle title: String) throws -> [Movie] {
         guard let managedOC = CoreDataStore.managedObjectContext else {
@@ -98,6 +110,23 @@ class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
             tempConfig.secureBaseUrl = configuration.images?.secureBaseUrl
             tempConfig.stillSizes = (configuration.images?.stillSizes)!
             tempConfig.profileSizes = (configuration.images?.profileSizes)!
-        }
+			
+			try managedOC.save()
+		} else {
+			if let newConfig = NSEntityDescription.entity(forEntityName: "TMDbApiConfiguration",
+														 in: managedOC) {
+				let config = TMDbApiConfiguration(entity: newConfig, insertInto: managedOC)
+				config.backdropSizes = (configuration.images?.backdropSizes)!
+				config.baseUrl = configuration.images?.baseUrl
+				config.logoSizes = (configuration.images?.logoSizes)!
+				config.backdropSizes = (configuration.images?.backdropSizes)!
+				config.posterSizes = (configuration.images?.posterSizes)!
+				config.secureBaseUrl = configuration.images?.secureBaseUrl
+				config.stillSizes = (configuration.images?.stillSizes)!
+				config.profileSizes = (configuration.images?.profileSizes)!
+				
+				try managedOC.save()
+			}
+		}
     }
 }
