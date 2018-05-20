@@ -28,7 +28,7 @@ struct MovieListEntity {
 		self.dates = Dates(maximum: movieUpcomingResponse.dates?.maximum, minimum: movieUpcomingResponse.dates?.minimum)
 		self.totalPages = movieUpcomingResponse.totalPages
 		self.movies = movieUpcomingResponse.results.map { movieUpcomingResponseResult in
-			return MovieEntity(movieUpcomingResponseResult, configuration)
+			return MovieEntity(withRemoteMovie: movieUpcomingResponseResult, withConfigurationEntity: configuration)
 		}
 		self.configuration = configuration
 	}

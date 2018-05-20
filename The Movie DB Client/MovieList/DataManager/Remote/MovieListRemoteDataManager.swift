@@ -10,7 +10,8 @@ import Foundation
 import Alamofire
 
 class MovieListRemoteDataManager: MovieListRemoteDataManagerInputProtocol {
-    var remoteRequestHandler: MovieListRemoteDataManagerOutputProtocol?
+	var remoteUpcomingRequestHandler: UpcomingMovieOutputProtocol?
+	var remoteTMDbConfigurationRequestHandler: TMDbApiConfigurationOutputProtocol?
     
     func searchMovie(forName name: String) {
     
@@ -23,20 +24,20 @@ class MovieListRemoteDataManager: MovieListRemoteDataManagerInputProtocol {
 				.validate()
 				.responseJSON { response in
 					switch response.result {
-					case .failure(_ ):
-						self.remoteRequestHandler?.onError()
+					case .failure(let error):
+						self.remoteUpcomingRequestHandler?.onError()
 					case .success(_):
 						if let json = response.result.value {
 							if let data = try? JSONSerialization.data(withJSONObject: json) {
 								let configuration = try? JSONDecoder().decode(TMDbApiConfigurationResponse.self, from: data)
-								self.remoteRequestHandler?.onTMDbApiConfigurationRetrieved(configuration!)
 								self.getUpcomingReleases(forPageAt: page, withConfiguration: configuration)
 							}
 						}
 					}
 			}
+		} else {
+			getUpcomingReleases(forPageAt: page, withConfiguration: nil)
 		}
-		getUpcomingReleases(forPageAt: page, withConfiguration: nil)
 	}
 	
 	func getUpcomingReleases(forPageAt page: Int, withConfiguration configuration: TMDbApiConfigurationResponse?) {
@@ -47,13 +48,13 @@ class MovieListRemoteDataManager: MovieListRemoteDataManagerInputProtocol {
 			.validate()
 			.responseJSON { response in
 				switch response.result {
-				case .failure(_ ):
-					self.remoteRequestHandler?.onError()
+				case .failure(let error):
+					self.remoteUpcomingRequestHandler?.onError()
 				case .success(_):
 					if let json = response.result.value {
 						if let data = try? JSONSerialization.data(withJSONObject: json) {
 							let movieUpcomingResponse = try? JSONDecoder().decode(MovieUpcomingResponse.self, from: data)
-							self.remoteRequestHandler?.onUpcomingMovieRetrieved(movieUpcomingResponse!, configuration)
+							self.remoteUpcomingRequestHandler?.onUpcomingMovieRetrieved(movieUpcomingResponse!, configuration)
 						}
 					}
 				}
@@ -66,13 +67,13 @@ class MovieListRemoteDataManager: MovieListRemoteDataManagerInputProtocol {
 			.validate()
 			.responseJSON { response in
 				switch response.result {
-				case .failure(_ ):
-					self.remoteRequestHandler?.onError()
+				case .failure(let error):
+					self.remoteTMDbConfigurationRequestHandler?.onError()
 				case .success(_):
 					if let json = response.result.value {
 						if let data = try? JSONSerialization.data(withJSONObject: json) {
 							let configuration = try? JSONDecoder().decode(TMDbApiConfigurationResponse.self, from: data)
-							self.remoteRequestHandler?.onTMDbApiConfigurationRetrieved(configuration!)
+							self.remoteTMDbConfigurationRequestHandler?.onTMDbApiConfigurationRetrieved(configuration!)
 						}
 					}
 				}

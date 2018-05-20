@@ -21,6 +21,8 @@ class MovieListView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter?.viewDidLoad()
+		
+		navigationItem.searchController = UISearchController(searchResultsController: nil)
     }
 
     override func didReceiveMemoryWarning() {

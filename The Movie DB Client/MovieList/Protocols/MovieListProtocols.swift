@@ -59,7 +59,7 @@ protocol MovieListInteractorInputProtocol: class { // Presenter -> Interector
     func getNextMoviesReleases()
 }
 
-protocol MovieListSearchMovieInteractorInputProtocol: class { // Presenter -> Interector
+protocol SearchMovieInteractorInputProtocol: class { // Presenter -> Interector
 	var presenter: MovieListInteractorOutputProtocol? { get set }
 	var localDatamanager: MovieListLocalDataManagerInputProtocol? { get set }
 	var remoteDatamanager: MovieListRemoteDataManagerInputProtocol? { get set }
@@ -73,7 +73,8 @@ protocol MovieListDataManagerInputProtocol: class { // Interactor -> Data Manage
 }
 
 protocol MovieListRemoteDataManagerInputProtocol: class { // Interactor -> Remote Data Manager
-    var remoteRequestHandler: MovieListRemoteDataManagerOutputProtocol? { get set }
+	var remoteUpcomingRequestHandler: UpcomingMovieOutputProtocol? { get set }
+	var remoteTMDbConfigurationRequestHandler: TMDbApiConfigurationOutputProtocol? { get set }
     
 	func getUpcomingReleases(forPageAt page: Int)
     
@@ -81,11 +82,20 @@ protocol MovieListRemoteDataManagerInputProtocol: class { // Interactor -> Remot
 }
 
 protocol MovieListRemoteDataManagerOutputProtocol: class { // Remote Data Manager -> Interactor
-	func onUpcomingMovieRetrieved(_ movies: MovieUpcomingResponse, _ configuration: TMDbApiConfigurationResponse?)
-	
-	func onTMDbApiConfigurationRetrieved(_ config: TMDbApiConfigurationResponse)
     
     func onError()
+}
+
+protocol UpcomingMovieOutputProtocol: MovieListRemoteDataManagerOutputProtocol {
+	func onUpcomingMovieRetrieved(_ movies: MovieUpcomingResponse, _ configuration: TMDbApiConfigurationResponse?)
+}
+
+protocol SearchMovieOutputProtocol: MovieListRemoteDataManagerOutputProtocol {
+	func onSearchRetrieved(_ moviesSearchResponse: SearchMovieResponse, _ configuration: TMDbApiConfigurationResponse?)
+}
+
+protocol TMDbApiConfigurationOutputProtocol: MovieListRemoteDataManagerOutputProtocol {
+	func onTMDbApiConfigurationRetrieved(_ config: TMDbApiConfigurationResponse)
 }
 
 protocol MovieListLocalDataManagerInputProtocol: class { // Interactor -> Local Data Manager

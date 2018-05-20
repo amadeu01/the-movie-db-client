@@ -16,6 +16,7 @@ class MovieDetailView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter?.viewDidLoad()
+		navigationItem.largeTitleDisplayMode = .always
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,14 +31,8 @@ class MovieDetailView: UIViewController {
 
 extension MovieDetailView: MovieDetailViewProtocol {
     func showMovieDetail(forMovieItem movieItem: MovieEntity) {
-//		movieItem.backdropUrl
+		navigationItem.title = movieItem.title
 		
-		let data = try! Data(contentsOf: URL(string: movieItem.backdropUrl!)!)
-		let backdropImage = UIImage(data: data, scale: UIScreen.main.scale)!
-		backdropImage.af_inflate()
-		navigationController?.navigationBar.setBackgroundImage(backdropImage, for: .default)
-		
-//        moviePosterImageView.af_setImage(withURL: URL(string: url)!)
     }
     
     func showError() {

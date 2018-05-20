@@ -44,7 +44,7 @@ struct MovieEntity {
 		}
 	}
     
-	init(_ movieElement: MovieUpcomingResponse.ResultsElement, _ configuration: ConfigurationEntity?) {
+	init(withRemoteMovie movieElement: MovieUpcomingResponse.ResultsElement, withConfigurationEntity configuration: ConfigurationEntity?) {
         self.remoteId = movieElement.id
         self.adult = movieElement.adult
         self.genreIds = movieElement.genreIds
@@ -63,4 +63,24 @@ struct MovieEntity {
 		self.backdropSize = configuration?.backdropSizes.first
 		self.posterSize = configuration?.posterSizes.first
     }
+	
+	init(withLocalMovie movieElement: Movie, withLocalConfiguration configuration: ConfigurationEntity?) {
+		self.remoteId = Int(movieElement.remoteId!)
+		self.adult = movieElement.adult?.boolValue
+		self.genreIds = movieElement.genreIds as! [Int]
+		self.releaseDate = movieElement.releaseDate
+		self.title = movieElement.title
+		self.overview = movieElement.overview
+		self.originalTitle = movieElement.originalTitle
+		self.voteCount = Int(movieElement.voteCount!)
+		self.popularity = movieElement.popularity
+		self.voteAverage = movieElement.voteAverage
+		self.video = movieElement.video?.boolValue
+		self.posterPath = movieElement.posterPath
+		self.backdropPath = movieElement.backdropPath
+		self.originalLanguage = movieElement.originalLanguage
+		self.baseUrl = configuration?.baseUrl
+		self.backdropSize = configuration?.backdropSizes.first
+		self.posterSize = configuration?.posterSizes.first
+	}
 }

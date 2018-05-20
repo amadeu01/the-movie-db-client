@@ -13,19 +13,28 @@ class MovieListWireFrame: MovieListWireFrameProtocol {
         let navController = mainStoryboard.instantiateViewController(withIdentifier: "MovieNavigationController")
         if let view = navController.childViewControllers.first as? MovieListView {
             let presenter: MovieListPresenterProtocol & MovieListInteractorOutputProtocol = MovieListPresenter()
-            let interactor: MovieListInteractorInputProtocol & MovieListRemoteDataManagerOutputProtocol = MovieListInteractor()
-            let localDataManager: MovieListLocalDataManagerInputProtocol = MovieListLocalDataManager()
+			
+            let interactorUpcomingMovie: MovieListInteractorInputProtocol & UpcomingMovieOutputProtocol = MovieListInteractor()
+			let interactorSearch: SearchMovieInteractorInputProtocol & SearchMovieOutputProtocol = SearchMovieInteractor()
+			
+			let localDataManager: MovieListLocalDataManagerInputProtocol = MovieListLocalDataManager()
             let remoteDataManager: MovieListRemoteDataManagerInputProtocol = MovieListRemoteDataManager()
             let wireFrame: MovieListWireFrameProtocol = MovieListWireFrame()
             
             view.presenter = presenter
             presenter.view = view
             presenter.wireFrame = wireFrame
-            presenter.interactor = interactor
-            interactor.presenter = presenter
-            interactor.localDatamanager = localDataManager
-            interactor.remoteDatamanager = remoteDataManager
-            remoteDataManager.remoteRequestHandler = interactor
+            presenter.interactor = interactorUpcomingMovie
+			
+            interactorUpcomingMovie.presenter = presenter
+            interactorUpcomingMovie.localDatamanager = localDataManager
+            interactorUpcomingMovie.remoteDatamanager = remoteDataManager
+			
+			interactorSearch.presenter = presenter
+			interactorSearch.localDatamanager = localDataManager
+			interactorSearch.remoteDatamanager = remoteDataManager
+			
+			remoteDataManager.remoteUpcomingRequestHandler = interactorUpcomingMovie
             
             return navController
         }
