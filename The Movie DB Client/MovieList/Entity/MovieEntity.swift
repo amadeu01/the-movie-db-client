@@ -29,6 +29,9 @@ struct MovieEntity {
 	public let backdropSize: String?
 	public let posterSize: String?
 	
+	public let backdropBestQualitySize: String?
+	public let posterBestQualitySize: String?
+	
 	public var posterUrl: String? {
 		if let baseUrl = baseUrl, let posterSize = posterSize, let posterPath = posterPath {
 			return baseUrl + posterSize + posterPath
@@ -36,9 +39,26 @@ struct MovieEntity {
 			return nil
 		}
 	}
+	
 	public var backdropUrl: String? {
 		if let baseUrl = baseUrl, let backdropSize = backdropSize, let backdropPath = backdropPath {
 			return baseUrl + backdropSize + backdropPath
+		} else {
+			return nil
+		}
+	}
+	
+	public var posterBestQualityUrl: String? {
+		if let baseUrl = baseUrl, let posterBestQualitySize = posterBestQualitySize, let posterPath = posterPath {
+			return baseUrl + posterBestQualitySize + posterPath
+		} else {
+			return nil
+		}
+	}
+	
+	public var backdropBestQualityUrl: String? {
+		if let baseUrl = baseUrl, let backdropBestQualitySize = backdropBestQualitySize, let backdropPath = backdropPath {
+			return baseUrl + backdropBestQualitySize + backdropPath
 		} else {
 			return nil
 		}
@@ -62,6 +82,8 @@ struct MovieEntity {
 		self.baseUrl = configuration?.baseUrl
 		self.backdropSize = configuration?.backdropSizes.first
 		self.posterSize = configuration?.posterSizes.first
+		self.backdropBestQualitySize = configuration?.backdropSizes.last
+		self.posterBestQualitySize = configuration?.posterSizes.last
     }
 	
 	init(withLocalMovie movieElement: Movie, withLocalConfiguration configuration: ConfigurationEntity?) {
@@ -82,5 +104,7 @@ struct MovieEntity {
 		self.baseUrl = configuration?.baseUrl
 		self.backdropSize = configuration?.backdropSizes.first
 		self.posterSize = configuration?.posterSizes.first
+		self.backdropBestQualitySize = configuration?.backdropSizes.last
+		self.posterBestQualitySize = configuration?.posterSizes.last
 	}
 }

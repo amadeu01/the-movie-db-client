@@ -17,6 +17,7 @@ class MovieDetailWireFrame: MovieDetailWireFrameProtocol {
             let wireFrame: MovieDetailWireFrameProtocol = MovieDetailWireFrame()
             
             view.presenter = presenter
+			view.movieEntity = movieItem
             presenter.view = view
             presenter.wireFrame = wireFrame
 			presenter.movieItem = movieItem

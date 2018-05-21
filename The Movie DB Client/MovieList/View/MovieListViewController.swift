@@ -39,7 +39,8 @@ extension MovieListView: MovieListViewProtocol {
     }
 
     func showError() {
-        HUD.flash(.label("Internet not connected"), delay: 2.0)
+		HUD.hide()
+        HUD.flash(.label("Something terrible happen"), delay: 2.0)
     }
     
     func showLoading() {
@@ -47,7 +48,7 @@ extension MovieListView: MovieListViewProtocol {
     }
     
     func hideLoading() {
-        HUD.hide()
+        HUD.hide(afterDelay: 2.0)
     }
     
 }

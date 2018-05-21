@@ -25,4 +25,19 @@ class MovieDetailPresenter: MovieDetailPresenterProtocol {
 	func viewWillDisappear() {
 		
 	}
+	
+	func viewWillAppear() {
+		
+	}
+}
+
+extension MovieDetailPresenter: MovieDetailInteractorOutputProtocol {
+	func onMovieDetailRetrieved(_ movie: MovieEntity) {
+		
+	}
+	
+	func onError() {
+		view?.showError();
+	}
+	
 }

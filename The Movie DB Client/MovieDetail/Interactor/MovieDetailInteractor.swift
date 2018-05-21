@@ -16,6 +16,6 @@ class MovieDetailInteractor: MovieDetailInteractorInputProtocol {
 	var remoteDatamanager: MovieDetailRemoteDataManagerInputProtocol?
 	
 	func getDetail(forMovie movieItem: MovieEntity) {
-		
+		remoteDatamanager?.getDetail(forMovie: movieItem)
 	}
 }

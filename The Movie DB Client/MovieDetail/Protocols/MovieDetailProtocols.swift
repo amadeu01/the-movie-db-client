@@ -12,6 +12,8 @@ import UIKit
 
 protocol MovieDetailViewProtocol: class {
     var presenter: MovieDetailPresenterProtocol? { get set }
+	
+	var movieEntity: MovieEntity? { get set }
     
     func showError()
     
@@ -39,12 +41,16 @@ protocol MovieDetailPresenterProtocol: class {
     func viewDidLoad()
 	
 	func viewWillDisappear()
+	
+	func viewWillAppear()
 }
 
 // MARK: - Interactors Protocol
 
 protocol MovieDetailInteractorOutputProtocol: class {
     func onError()
+	
+	func onMovieDetailRetrieved(_ movie: MovieEntity)
 }
 
 protocol MovieDetailInteractorInputProtocol: class {
@@ -73,5 +79,5 @@ protocol MovieDetailRemoteDataManagerOutputProtocol: class {
 }
 
 protocol MovieDetailLocalDataManagerInputProtocol: class {
-	func getDetail(forMovie movie: MovieEntity)
+	func getDetail(forMovie movie: MovieEntity) throws -> MovieEntity?
 }

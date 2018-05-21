@@ -67,8 +67,13 @@ extension MovieListInteractor: TMDbApiConfigurationOutputProtocol {
 	func onTMDbApiConfigurationRetrieved(_ config: TMDbApiConfigurationResponse) {
 		try! localDatamanager?.saveTMDbApiConfiguration(forConfiguration: config)
 	}
-	
 }
+
+
+
+
+
+
 
 
 
