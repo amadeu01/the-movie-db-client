@@ -34,36 +34,44 @@ final class MovieListMocks {
 		var saveMovieInvoked = false
 		var saveTMDbApiConfigurationInvoked = false
 		
-		var saveMovieParameters: MovieUpcomingResponse?
-		var saveTMDbApiConfigurationParameters: TMDbApiConfigurationResponse?
-		
 		var remoteUpcomingRequestHandler: UpcomingMovieOutputProtocol?
 		
 		var remoteTMDbConfigurationRequestHandler: TMDbApiConfigurationOutputProtocol?
 		
+		var remoteSearchMovieRequestHandler: SearchMovieOutputProtocol?
+		
 		private var movieResponse: MovieUpcomingResponse?
 		private var tmdbApiConfigurationResponse: TMDbApiConfigurationResponse?
+		private var searchMovieResponse: SearchMovieResponse?
 		private let error: Error?
 		
-		init(movieResponse: MovieUpcomingResponse, tmdbApiConfigurationResponse: TMDbApiConfigurationResponse, error: Error? = nil) {
+		init(movieResponse: MovieUpcomingResponse,
+			 tmdbApiConfigurationResponse: TMDbApiConfigurationResponse,
+			 searchMovieResponse: SearchMovieResponse? = nil,
+			 error: Error? = nil) {
 			self.movieResponse = movieResponse
 			self.tmdbApiConfigurationResponse = tmdbApiConfigurationResponse
 			self.error = error
+			self.searchMovieResponse = searchMovieResponse
 		}
 		
 		func getUpcomingReleases(forPageAt page: Int) {
 			fetchUpcomingMovieInvoked = true
-			remoteUpcomingRequestHandler?.onUpcomingMovieRetrieved(movieResponse!, tmdbApiConfigurationResponse)
+			
+			remoteUpcomingRequestHandler?
+				.onUpcomingMovieRetrieved(movieResponse!, tmdbApiConfigurationResponse)
 		}
 		
 		func searchMovie(forName name: String) {
 			fetchSearchInvoked = true
+			remoteSearchMovieRequestHandler?
+				.onSearchRetrieved(searchMovieResponse!, tmdbApiConfigurationResponse)
 		}
 		
 		
 	}
 	
-	final class LocalDataManagerInputProtocol: MovieListLocalDataManagerInputProtocol {
+	final class LocalDataManagerInput: MovieListLocalDataManagerInputProtocol {
 		var fetchMovieInvoked = false
 		var fetchSearchInvoked = false
 		var fetchTMDbApiConfigurationInvoked = false

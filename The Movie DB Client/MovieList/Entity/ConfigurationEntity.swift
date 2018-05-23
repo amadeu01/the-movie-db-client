@@ -18,6 +18,8 @@ struct ConfigurationEntity {
 	let stillSizes: [String]
 	let changeKeys: [String]
 	
+	
+	
 	init(from localModel: TMDbApiConfiguration) {
 		self.baseUrl = localModel.baseUrl
 		self.secureBaseUrl = localModel.secureBaseUrl

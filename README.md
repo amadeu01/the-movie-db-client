@@ -17,7 +17,8 @@ The main features of this application are:
 
 
 ## How to run
-Clone the project
+
+1. Clone the project
 
 ```bash
 git clone https://github.com/amadeu01/the-movie-db-client.git the-movie-db-client
@@ -26,6 +27,12 @@ carthage update --platform iOS
 open The\ Movie\ DB\ Client.xcodeproj/
 ```
 
+2. Run command to generate *Secrets.swift* example
+
+```swift
+cd the-movie-db-client
+make secrets
+```
 
 ### Carthage
 
