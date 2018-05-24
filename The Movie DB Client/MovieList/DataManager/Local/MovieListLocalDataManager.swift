@@ -9,7 +9,7 @@
 import CoreData
 
 class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
-	func getTMDbApiConfiguration() throws -> ConfigurationEntity {
+	func getTMDbApiConfiguration() throws -> ConfigurationEntity? {
 		guard let managedOC = CoreDataStore.managedObjectContext else {
 			throw PersistenceError.managedObjectContextNotFound
 		}
@@ -18,7 +18,11 @@ class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
 		
 		let localConfig = try managedOC.fetch(request).first
 		
-		return ConfigurationEntity(from: localConfig!)
+		if let localConfig = localConfig {
+			return ConfigurationEntity(from: localConfig)
+		} else {
+			return nil
+		}
 	}
 	
     
