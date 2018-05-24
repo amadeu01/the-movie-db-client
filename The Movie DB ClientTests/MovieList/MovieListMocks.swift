@@ -43,6 +43,7 @@ final class MovieListMocks {
 		private var movieResponse: MovieUpcomingResponse?
 		private var tmdbApiConfigurationResponse: TMDbApiConfigurationResponse?
 		private var searchMovieResponse: SearchMovieResponse?
+		private var movieDetail: MovieDetailsResponse?
 		private let error: Error?
 		
 		init(error: Error? = nil) {
@@ -56,6 +57,7 @@ final class MovieListMocks {
 				
 				let movieDetail = try! JSONDecoder().decode(MovieDetailsResponse.self, from: jsonData)
 
+				self.movieDetail = movieDetail
 			}
 			
 			if let path = bundle.path(forResource: "get_upcoming", ofType: "json") {
@@ -125,10 +127,10 @@ final class MovieListMocks {
 		var saveTMDbApiConfigurationParameters: TMDbApiConfigurationResponse?
 		
 		private var movies: [Movie] = []
-		private var configurationEntity: ConfigurationEntity
+		private var configurationEntity: ConfigurationEntity?
 		private let error: Error?
 		
-		init(movies: [Movie], configuration: ConfigurationEntity, error: Error? = nil) {
+		init(movies: [Movie], configuration: ConfigurationEntity? = nil, error: Error? = nil) {
 			self.movies = movies
 			self.configurationEntity = configuration
 			self.error = error
