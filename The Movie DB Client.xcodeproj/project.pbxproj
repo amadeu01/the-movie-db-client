@@ -15,7 +15,6 @@
 		2E14CFC220B0BDE4000E1724 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 2E14CFC120B0BDE4000E1724 /* Makefile */; };
 		2EC1335E20B4F4A2004ABAD1 /* Mock+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC1335D20B4F4A2004ABAD1 /* Mock+Extensions.swift */; };
 		2ECCE95820B0CCB400FE338B /* MovieListCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCE95720B0CCB400FE338B /* MovieListCollectionViewFlowLayout.swift */; };
-		2ECCE95A20B0E7EB00FE338B /* MovieListSearchMovieInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCE95920B0E7EB00FE338B /* MovieListSearchMovieInteractor.swift */; };
 		2ECCE95E20B0EC4E00FE338B /* ConfigurationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCE95D20B0EC4E00FE338B /* ConfigurationEntity.swift */; };
 		2ECCE96020B100FC00FE338B /* MovieListEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCE95F20B100FC00FE338B /* MovieListEntity.swift */; };
 		2ECCE96220B10DCA00FE338B /* RequestChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCE96120B10DCA00FE338B /* RequestChain.swift */; };
@@ -112,7 +111,6 @@
 		2E14CFC120B0BDE4000E1724 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		2EC1335D20B4F4A2004ABAD1 /* Mock+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mock+Extensions.swift"; sourceTree = "<group>"; };
 		2ECCE95720B0CCB400FE338B /* MovieListCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
-		2ECCE95920B0E7EB00FE338B /* MovieListSearchMovieInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListSearchMovieInteractor.swift; sourceTree = "<group>"; };
 		2ECCE95D20B0EC4E00FE338B /* ConfigurationEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationEntity.swift; sourceTree = "<group>"; };
 		2ECCE95F20B100FC00FE338B /* MovieListEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListEntity.swift; sourceTree = "<group>"; };
 		2ECCE96120B10DCA00FE338B /* RequestChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestChain.swift; sourceTree = "<group>"; };
@@ -301,6 +299,15 @@
 			path = "JSON's";
 			sourceTree = "<group>";
 		};
+		6556804F20BCE23D002D5727 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				65FAE78620AE534300041C70 /* CoreDataStore.swift */,
+				6557FE3D209B52A4004DEC8D /* AppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
 		6557FE31209B52A4004DEC8D = {
 			isa = PBXGroup;
 			children = (
@@ -328,17 +335,16 @@
 		6557FE3C209B52A4004DEC8D /* The Movie DB Client */ = {
 			isa = PBXGroup;
 			children = (
+				6556804F20BCE23D002D5727 /* App */,
 				65F0099820A921A200F4E363 /* Entities */,
 				6557FE70209B556C004DEC8D /* Common */,
 				6557FE6F209B5559004DEC8D /* MovieDetail */,
 				6557FE6E209B553D004DEC8D /* MovieList */,
-				6557FE3D209B52A4004DEC8D /* AppDelegate.swift */,
 				6557FE41209B52A4004DEC8D /* Main.storyboard */,
 				6557FE47209B52A6004DEC8D /* Assets.xcassets */,
 				6557FE49209B52A6004DEC8D /* LaunchScreen.storyboard */,
 				6557FE4C209B52A6004DEC8D /* Info.plist */,
 				6557FE44209B52A4004DEC8D /* The_Movie_DB_Client.xcdatamodeld */,
-				65FAE78620AE534300041C70 /* CoreDataStore.swift */,
 			);
 			path = "The Movie DB Client";
 			sourceTree = "<group>";
@@ -529,7 +535,6 @@
 			isa = PBXGroup;
 			children = (
 				65F009A120A9266300F4E363 /* MovieListInteractor.swift */,
-				2ECCE95920B0E7EB00FE338B /* MovieListSearchMovieInteractor.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -729,7 +734,6 @@
 				656AF50E20AD9702009B153A /* LanguageResponse.swift in Sources */,
 				656AF51520AD9FF9009B153A /* MovieListLocalDataManager.swift in Sources */,
 				651BF97D20ABCD3300B30FDD /* GenreMovieResponse.swift in Sources */,
-				2ECCE95A20B0E7EB00FE338B /* MovieListSearchMovieInteractor.swift in Sources */,
 				2ECCE96220B10DCA00FE338B /* RequestChain.swift in Sources */,
 				65F0099720A9206200F4E363 /* MovieListPresenter.swift in Sources */,
 				2E14CFC220B0BDE4000E1724 /* Makefile in Sources */,

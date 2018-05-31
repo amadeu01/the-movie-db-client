@@ -13,19 +13,18 @@ class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
 		guard let managedOC = CoreDataStore.managedObjectContext else {
 			throw PersistenceError.managedObjectContextNotFound
 		}
-		
+
 		let request: NSFetchRequest<TMDbApiConfiguration> = NSFetchRequest(entityName: String(describing: TMDbApiConfiguration.self))
-		
+
 		let localConfig = try managedOC.fetch(request).first
-		
+
 		if let localConfig = localConfig {
 			return ConfigurationEntity(from: localConfig)
 		} else {
 			return nil
 		}
 	}
-	
-    
+
     func searchMovie(forTitle title: String) throws -> [Movie] {
         guard let managedOC = CoreDataStore.managedObjectContext else {
             throw PersistenceError.managedObjectContextNotFound
@@ -34,17 +33,17 @@ class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
         request.predicate = NSPredicate(format: "title like[cd] %@", title)
         return try managedOC.fetch(request)
     }
-    
-    func getNextMoviesReleases() throws -> [Movie]  {
+
+    func getNextMoviesReleases() throws -> [Movie] {
         guard let managedOC = CoreDataStore.managedObjectContext else {
             throw PersistenceError.managedObjectContextNotFound
         }
-        
+
         let request: NSFetchRequest<Movie> = NSFetchRequest(entityName: String(describing: Movie.self))
-        
+
         return try managedOC.fetch(request)
     }
-    
+
     func saveMovie(forMovieUpcomingResponseElement movieUpcomingElement: MovieUpcomingResponse.ResultsElement) throws {
         guard let managedOC = CoreDataStore.managedObjectContext else {
             throw PersistenceError.managedObjectContextNotFound
@@ -52,7 +51,7 @@ class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
         let request: NSFetchRequest<Movie> = NSFetchRequest(entityName: String(describing: Movie.self))
         request.predicate = NSPredicate(format: "remoteId == %d", movieUpcomingElement.id!)
         let fetched = try managedOC.fetch(request)
-        
+
         if fetched.count == 1 {
             let tempMovie = fetched.first!
             tempMovie.title = movieUpcomingElement.title
@@ -66,7 +65,7 @@ class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
             tempMovie.genreIds = movieUpcomingElement.genreIds as [NSNumber]
             tempMovie.voteAverage = movieUpcomingElement.voteAverage
             tempMovie.popularity = movieUpcomingElement.popularity
-            
+
             try managedOC.save()
         } else {
             if let newMovie = NSEntityDescription.entity(forEntityName: "Movie",
@@ -83,27 +82,27 @@ class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
                 movie.genreIds = movieUpcomingElement.genreIds as [NSNumber]
                 movie.voteAverage = movieUpcomingElement.voteAverage
                 movie.popularity = movieUpcomingElement.popularity
-                
+
                 try managedOC.save()
             }
         }
     }
-    
+
     func saveMovie(forMovieUpcomingResponse movieUpcomingResponse: MovieUpcomingResponse) throws {
         movieUpcomingResponse.results.map { resultsElement in
             try? saveMovie(forMovieUpcomingResponseElement: resultsElement)
         }
     }
-    
+
     func saveTMDbApiConfiguration(forConfiguration configuration: TMDbApiConfigurationResponse) throws {
         guard let managedOC = CoreDataStore.managedObjectContext else {
             throw PersistenceError.managedObjectContextNotFound
         }
-        
+
         let request: NSFetchRequest<TMDbApiConfiguration> = NSFetchRequest(entityName: String(describing: TMDbApiConfiguration.self))
-        
+
         let fetched = try managedOC.fetch(request)
-        
+
         if fetched.count == 1 {
             let tempConfig = fetched.first!
             tempConfig.backdropSizes = (configuration.images?.backdropSizes)!
@@ -114,7 +113,7 @@ class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
             tempConfig.secureBaseUrl = configuration.images?.secureBaseUrl
             tempConfig.stillSizes = (configuration.images?.stillSizes)!
             tempConfig.profileSizes = (configuration.images?.profileSizes)!
-			
+
 			try managedOC.save()
 		} else {
 			if let newConfig = NSEntityDescription.entity(forEntityName: "TMDbApiConfiguration",
@@ -128,7 +127,7 @@ class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
 				config.secureBaseUrl = configuration.images?.secureBaseUrl
 				config.stillSizes = (configuration.images?.stillSizes)!
 				config.profileSizes = (configuration.images?.profileSizes)!
-				
+
 				try managedOC.save()
 			}
 		}

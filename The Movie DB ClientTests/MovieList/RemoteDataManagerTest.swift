@@ -10,5 +10,5 @@ import XCTest
 @testable import The_Movie_DB_Client
 
 final class RemoteDataManagerTest: XCTestCase {
-	
+
 }

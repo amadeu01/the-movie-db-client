@@ -10,7 +10,7 @@ import XCTest
 @testable import The_Movie_DB_Client
 
 final class MovieListInteractorTest: XCTestCase {
-	
+
 	func testMovieListInteractor_when_there_is_no_data_on_local_storage() {
 		//Given
 		let localDataSource = MovieListMocks.LocalDataManagerInput(movies: [Movie]())
@@ -24,15 +24,10 @@ final class MovieListInteractorTest: XCTestCase {
 
 		//When
 		interactorUpcomingMovie.getNextMoviesReleases()
-		
-		
+
 		//Then
 		XCTAssertTrue(remoteDataSource.fetchUpcomingMovieInvoked)
 //		XCTAssertFalse(network.fetchInvoked)
 //		XCTAssertFalse(dataSource.saveInvoked)
 	}
 }
-
-
-
-

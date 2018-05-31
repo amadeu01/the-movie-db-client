@@ -9,7 +9,7 @@
 import Foundation
 
 public struct MovieListResponse {
-    
+
     public struct ResultsElement {
         public let description: String?
         public let favoriteCount: Int?
@@ -20,7 +20,7 @@ public struct MovieListResponse {
         public let name: String?
         public let posterPath: String?
     }
-    
+
     public let id: Int?
     public let page: Int?
     public let results: [ResultsElement]
@@ -33,7 +33,7 @@ public struct MovieListResponse {
 // ---------------------------------------------------------------------------
 
 extension MovieListResponse: Codable {
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case page
@@ -41,7 +41,7 @@ extension MovieListResponse: Codable {
         case totalPages = "total_pages"
         case totalResults = "total_results"
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decodeIfPresent(Int.self, forKey: .id)
@@ -50,7 +50,7 @@ extension MovieListResponse: Codable {
         totalPages = try container.decodeIfPresent(Int.self, forKey: .totalPages)
         totalResults = try container.decodeIfPresent(Int.self, forKey: .totalResults)
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(id, forKey: .id)
@@ -62,7 +62,7 @@ extension MovieListResponse: Codable {
 }
 
 extension MovieListResponse.ResultsElement: Codable {
-    
+
     enum CodingKeys: String, CodingKey {
         case description
         case favoriteCount = "favorite_count"
@@ -73,7 +73,7 @@ extension MovieListResponse.ResultsElement: Codable {
         case name
         case posterPath = "poster_path"
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         description = try container.decodeIfPresent(String.self, forKey: .description)
@@ -85,7 +85,7 @@ extension MovieListResponse.ResultsElement: Codable {
         name = try container.decodeIfPresent(String.self, forKey: .name)
         posterPath = try container.decodeIfPresent(String.self, forKey: .posterPath)
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(description, forKey: .description)

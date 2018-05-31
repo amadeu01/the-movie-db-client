@@ -9,7 +9,7 @@
 import Foundation
 
 public struct SearchMovieResponse {
-    
+
     public struct ResultsElement {
         public let posterPath: String?
         public let adult: Bool?
@@ -26,7 +26,7 @@ public struct SearchMovieResponse {
         public let video: Bool?
         public let voteAverage: Double?
     }
-    
+
     public let page: Int?
     public let results: [ResultsElement]
     public let totalResults: Int?
@@ -38,14 +38,14 @@ public struct SearchMovieResponse {
 // ---------------------------------------------------------------------------
 
 extension SearchMovieResponse: Codable {
-    
+
     enum CodingKeys: String, CodingKey {
         case page
         case results
         case totalResults = "total_results"
         case totalPages = "total_pages"
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         page = try container.decodeIfPresent(Int.self, forKey: .page)
@@ -53,7 +53,7 @@ extension SearchMovieResponse: Codable {
         totalResults = try container.decodeIfPresent(Int.self, forKey: .totalResults)
         totalPages = try container.decodeIfPresent(Int.self, forKey: .totalPages)
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(page, forKey: .page)
@@ -64,7 +64,7 @@ extension SearchMovieResponse: Codable {
 }
 
 extension SearchMovieResponse.ResultsElement: Codable {
-    
+
     enum CodingKeys: String, CodingKey {
         case posterPath = "poster_path"
         case adult
@@ -81,7 +81,7 @@ extension SearchMovieResponse.ResultsElement: Codable {
         case video
         case voteAverage = "vote_average"
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         posterPath = try container.decodeIfPresent(String.self, forKey: .posterPath)
@@ -99,7 +99,7 @@ extension SearchMovieResponse.ResultsElement: Codable {
         video = try container.decodeIfPresent(Bool.self, forKey: .video)
         voteAverage = try container.decodeIfPresent(Double.self, forKey: .voteAverage)
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(posterPath, forKey: .posterPath)

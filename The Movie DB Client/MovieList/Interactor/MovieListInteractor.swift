@@ -12,7 +12,7 @@ class MovieListInteractor: MovieListInteractorInputProtocol {
     var presenter: MovieListInteractorOutputProtocol?
     var localDatamanager: MovieListLocalDataManagerInputProtocol?
     var remoteDatamanager: MovieListRemoteDataManagerInputProtocol?
-    
+
     func getNextMoviesReleases() {
         remoteDatamanager?.getUpcomingReleases(forPageAt: 1)
     }
@@ -22,43 +22,43 @@ class MovieListInteractor: MovieListInteractorInputProtocol {
 extension MovieListInteractor: UpcomingMovieOutputProtocol {
     func onUpcomingMovieRetrieved(_ movies: MovieUpcomingResponse, _ configuration: TMDbApiConfigurationResponse?) {
 		let configurationEntity: ConfigurationEntity
-		
+
 		if let configurationResponse = configuration {
 			configurationEntity = ConfigurationEntity(from: configurationResponse)
 		} else {
 			configurationEntity = (try! localDatamanager?.getTMDbApiConfiguration())!
 		}
-			
+
         let movieList = movies.results.map { (movieResponse: MovieUpcomingResponse.ResultsElement) -> MovieEntity in
             let movie = MovieEntity(withRemoteMovie: movieResponse, withConfigurationEntity: configurationEntity)
             return movie
         }
-        
+
         do {
             try localDatamanager?.saveMovie(forMovieUpcomingResponse: movies)
-            
+
         } catch {
             presenter?.onError()
         }
-        
+
         presenter?.didRetrieveUpcomingMovie(movieList)
     }
-    
+
     func onError() {
 		do {
 			let movies: [Movie]? = try localDatamanager?.getNextMoviesReleases()
 			let configuration = try localDatamanager?.getTMDbApiConfiguration()
-			
+
 			let movieEntityList = movies?.map { (movie: Movie) -> MovieEntity in
 				return MovieEntity(withLocalMovie: movie, withLocalConfiguration: configuration)
 			}
-			
+
 			presenter?.didRetrieveUpcomingMovie(movieEntityList!)
 		} catch {
 			presenter?.onError()
 			return
 		}
-		
+
 		presenter?.onError()
     }
 }
@@ -68,19 +68,3 @@ extension MovieListInteractor: TMDbApiConfigurationOutputProtocol {
 		try! localDatamanager?.saveTMDbApiConfiguration(forConfiguration: config)
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -9,7 +9,7 @@
 import Foundation
 
 public struct TMDbApiConfigurationResponse {
-    
+
     public struct Images {
         public let baseUrl: String?
         public let secureBaseUrl: String?
@@ -19,7 +19,7 @@ public struct TMDbApiConfigurationResponse {
         public let profileSizes: [String]
         public let stillSizes: [String]
     }
-    
+
     public let images: Images?
     public let changeKeys: [String]
 }
@@ -29,18 +29,18 @@ public struct TMDbApiConfigurationResponse {
 // ---------------------------------------------------------------------------
 
 extension TMDbApiConfigurationResponse: Codable {
-    
+
     enum CodingKeys: String, CodingKey {
         case images
         case changeKeys = "change_keys"
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         images = try container.decodeIfPresent(Images.self, forKey: .images)
         changeKeys = try container.decodeIfPresent([String].self, forKey: .changeKeys) ?? []
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(images, forKey: .images)
@@ -49,7 +49,7 @@ extension TMDbApiConfigurationResponse: Codable {
 }
 
 extension TMDbApiConfigurationResponse.Images: Codable {
-    
+
     enum CodingKeys: String, CodingKey {
         case baseUrl = "base_url"
         case secureBaseUrl = "secure_base_url"
@@ -59,7 +59,7 @@ extension TMDbApiConfigurationResponse.Images: Codable {
         case profileSizes = "profile_sizes"
         case stillSizes = "still_sizes"
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         baseUrl = try container.decodeIfPresent(String.self, forKey: .baseUrl)
@@ -70,7 +70,7 @@ extension TMDbApiConfigurationResponse.Images: Codable {
         profileSizes = try container.decodeIfPresent([String].self, forKey: .profileSizes) ?? []
         stillSizes = try container.decodeIfPresent([String].self, forKey: .stillSizes) ?? []
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(baseUrl, forKey: .baseUrl)

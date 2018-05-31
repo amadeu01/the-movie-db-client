@@ -8,38 +8,37 @@
 
 import Foundation
 
-
 public struct MovieDetailsResponse {
-    
+
     public struct BelongsToCollection {
         public let id: Int?
         public let name: String?
         public let posterPath: String?
         public let backdropPath: String?
     }
-    
+
     public struct GenresElement {
         public let id: Int?
         public let name: String?
     }
-    
+
     public struct ProductionCompaniesElement {
         public let id: Int?
         public let logoPath: String?
         public let name: String?
         public let originCountry: String?
     }
-    
+
     public struct ProductionCountriesElement {
         public let iso31661: String?
         public let name: String?
     }
-    
+
     public struct SpokenLanguagesElement {
         public let iso6391: String?
         public let name: String?
     }
-    
+
     public let adult: Bool?
     public let backdropPath: String?
     public let belongsToCollection: BelongsToCollection?
@@ -72,7 +71,7 @@ public struct MovieDetailsResponse {
 // ---------------------------------------------------------------------------
 
 extension MovieDetailsResponse: Codable {
-    
+
     enum CodingKeys: String, CodingKey {
         case adult
         case backdropPath = "backdrop_path"
@@ -100,7 +99,7 @@ extension MovieDetailsResponse: Codable {
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         adult = try container.decodeIfPresent(Bool.self, forKey: .adult)
@@ -129,7 +128,7 @@ extension MovieDetailsResponse: Codable {
         voteAverage = try container.decodeIfPresent(Double.self, forKey: .voteAverage)
         voteCount = try container.decodeIfPresent(Int.self, forKey: .voteCount)
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(adult, forKey: .adult)
@@ -161,14 +160,14 @@ extension MovieDetailsResponse: Codable {
 }
 
 extension MovieDetailsResponse.BelongsToCollection: Codable {
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case name
         case posterPath = "poster_path"
         case backdropPath = "backdrop_path"
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decodeIfPresent(Int.self, forKey: .id)
@@ -176,7 +175,7 @@ extension MovieDetailsResponse.BelongsToCollection: Codable {
         posterPath = try container.decodeIfPresent(String.self, forKey: .posterPath)
         backdropPath = try container.decodeIfPresent(String.self, forKey: .backdropPath)
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(id, forKey: .id)
@@ -187,18 +186,18 @@ extension MovieDetailsResponse.BelongsToCollection: Codable {
 }
 
 extension MovieDetailsResponse.GenresElement: Codable {
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case name
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decodeIfPresent(Int.self, forKey: .id)
         name = try container.decodeIfPresent(String.self, forKey: .name)
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(id, forKey: .id)
@@ -207,14 +206,14 @@ extension MovieDetailsResponse.GenresElement: Codable {
 }
 
 extension MovieDetailsResponse.ProductionCompaniesElement: Codable {
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case logoPath = "logo_path"
         case name
         case originCountry = "origin_country"
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decodeIfPresent(Int.self, forKey: .id)
@@ -222,7 +221,7 @@ extension MovieDetailsResponse.ProductionCompaniesElement: Codable {
         name = try container.decodeIfPresent(String.self, forKey: .name)
         originCountry = try container.decodeIfPresent(String.self, forKey: .originCountry)
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(id, forKey: .id)
@@ -233,18 +232,18 @@ extension MovieDetailsResponse.ProductionCompaniesElement: Codable {
 }
 
 extension MovieDetailsResponse.ProductionCountriesElement: Codable {
-    
+
     enum CodingKeys: String, CodingKey {
         case iso31661 = "iso_3166_1"
         case name
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         iso31661 = try container.decodeIfPresent(String.self, forKey: .iso31661)
         name = try container.decodeIfPresent(String.self, forKey: .name)
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(iso31661, forKey: .iso31661)
@@ -253,22 +252,21 @@ extension MovieDetailsResponse.ProductionCountriesElement: Codable {
 }
 
 extension MovieDetailsResponse.SpokenLanguagesElement: Codable {
-    
+
     enum CodingKeys: String, CodingKey {
         case iso6391 = "iso_639_1"
         case name
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         iso6391 = try container.decodeIfPresent(String.self, forKey: .iso6391)
         name = try container.decodeIfPresent(String.self, forKey: .name)
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(iso6391, forKey: .iso6391)
         try container.encodeIfPresent(name, forKey: .name)
     }
 }
-

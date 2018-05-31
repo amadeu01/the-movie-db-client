@@ -10,7 +10,7 @@ import Foundation
 
 class MovieDetailLocalDataManager: MovieDetailLocalDataManagerInputProtocol {
 	func getDetail(forMovie movie: MovieEntity) throws -> MovieEntity? {
-		
+
 		return nil
 	}
 }

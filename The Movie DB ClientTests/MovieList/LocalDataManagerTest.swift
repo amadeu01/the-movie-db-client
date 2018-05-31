@@ -12,4 +12,3 @@ import XCTest
 final class LocalDataManagerTest: XCTestCase {
 
 }
-

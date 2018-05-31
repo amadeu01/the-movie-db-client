@@ -10,8 +10,8 @@ import Foundation
 
 class MovieDetailRemoteDataManager: MovieDetailRemoteDataManagerInputProtocol {
 	var remoteRequestHandler: MovieDetailRemoteDataManagerOutputProtocol?
-	
+
 	func getDetail(forMovie movie: MovieEntity) {
-		
+
 	}
 }

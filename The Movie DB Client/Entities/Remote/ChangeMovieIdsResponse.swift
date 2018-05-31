@@ -8,12 +8,12 @@
 import Foundation
 
 public struct ChangeMovieIdsResponse {
-    
+
     public struct ResultsElement {
         public let id: Int?
         public let adult: Bool?
     }
-    
+
     public let results: [ResultsElement]
     public let page: Int?
     public let totalPages: Int?
@@ -25,14 +25,14 @@ public struct ChangeMovieIdsResponse {
 // ---------------------------------------------------------------------------
 
 extension ChangeMovieIdsResponse: Codable {
-    
+
     enum CodingKeys: String, CodingKey {
         case results
         case page
         case totalPages = "total_pages"
         case totalResults = "total_results"
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         results = try container.decodeIfPresent([ResultsElement].self, forKey: .results) ?? []
@@ -40,7 +40,7 @@ extension ChangeMovieIdsResponse: Codable {
         totalPages = try container.decodeIfPresent(Int.self, forKey: .totalPages)
         totalResults = try container.decodeIfPresent(Int.self, forKey: .totalResults)
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(results, forKey: .results)
@@ -51,18 +51,18 @@ extension ChangeMovieIdsResponse: Codable {
 }
 
 extension ChangeMovieIdsResponse.ResultsElement: Codable {
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case adult
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decodeIfPresent(Int.self, forKey: .id)
         adult = try container.decodeIfPresent(Bool.self, forKey: .adult)
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(id, forKey: .id)

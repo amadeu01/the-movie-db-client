@@ -17,9 +17,7 @@ struct ConfigurationEntity {
 	let profileSizes: [String]
 	let stillSizes: [String]
 	let changeKeys: [String]
-	
-	
-	
+
 	init(from localModel: TMDbApiConfiguration) {
 		self.baseUrl = localModel.baseUrl
 		self.secureBaseUrl = localModel.secureBaseUrl
@@ -30,7 +28,7 @@ struct ConfigurationEntity {
 		self.stillSizes = localModel.stillSizes
 		self.changeKeys = localModel.changeKeys
 	}
-	
+
 	init(from remoteModel: TMDbApiConfigurationResponse) {
 		self.baseUrl = remoteModel.images?.baseUrl
 		self.secureBaseUrl = remoteModel.images?.secureBaseUrl

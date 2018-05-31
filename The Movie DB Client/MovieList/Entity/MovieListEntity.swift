@@ -9,19 +9,19 @@
 import Foundation
 
 struct MovieListEntity {
-	
+
 	public let page: Int?
 	public let totalResults: Int?
 	public let dates: Dates?
 	public let totalPages: Int?
 	public let movies: [MovieEntity]?
 	public let configuration: ConfigurationEntity?
-	
+
 	public struct Dates {
 		public let maximum: String?
 		public let minimum: String?
 	}
-	
+
 	init(fromUpcomingResponse movieUpcomingResponse: MovieUpcomingResponse, fromConfiguration configuration: ConfigurationEntity?) {
 		self.page = movieUpcomingResponse.page
 		self.totalResults = movieUpcomingResponse.totalResults

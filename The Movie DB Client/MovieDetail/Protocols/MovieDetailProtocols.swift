@@ -12,15 +12,15 @@ import UIKit
 
 protocol MovieDetailViewProtocol: class {
     var presenter: MovieDetailPresenterProtocol? { get set }
-	
+
 	var movieEntity: MovieEntity? { get set }
-    
+
     func showError()
-    
+
     func showLoading()
-    
+
     func hideLoading()
-    
+
     func showMovieDetail(forMovieItem movieItem: MovieEntity)
 }
 
@@ -37,19 +37,15 @@ protocol MovieDetailPresenterProtocol: class {
     var interactor: MovieDetailInteractorInputProtocol? { get set }
     var wireFrame: MovieDetailWireFrameProtocol? { get set }
     var movieItem: MovieEntity? { get set }
-    
+
     func viewDidLoad()
-	
-	func viewWillDisappear()
-	
-	func viewWillAppear()
 }
 
 // MARK: - Interactors Protocol
 
 protocol MovieDetailInteractorOutputProtocol: class {
     func onError()
-	
+
 	func onMovieDetailRetrieved(_ movie: MovieEntity)
 }
 
@@ -68,13 +64,13 @@ protocol MovieDetailDataManagerInputProtocol: class {
 
 protocol MovieDetailRemoteDataManagerInputProtocol: class {
     var remoteRequestHandler: MovieDetailRemoteDataManagerOutputProtocol? { get set }
-    
+
 	func getDetail(forMovie movie: MovieEntity)
 }
 
 protocol MovieDetailRemoteDataManagerOutputProtocol: class {
 	func onMovieDetailRetrieved()
-	
+
     func onError()
 }
 

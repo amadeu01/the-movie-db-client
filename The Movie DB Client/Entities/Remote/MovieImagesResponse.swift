@@ -9,7 +9,7 @@
 import Foundation
 
 public struct MovieImagesResponse {
-    
+
     public struct BackdropsElement {
         public let aspectRatio: Double?
         public let filePath: String?
@@ -19,7 +19,7 @@ public struct MovieImagesResponse {
         public let voteCount: Int?
         public let width: Int?
     }
-    
+
     public struct PostersElement {
         public let aspectRatio: Double?
         public let filePath: String?
@@ -29,7 +29,7 @@ public struct MovieImagesResponse {
         public let voteCount: Int?
         public let width: Int?
     }
-    
+
     public let id: Int?
     public let backdrops: [BackdropsElement]
     public let posters: [PostersElement]
@@ -40,20 +40,20 @@ public struct MovieImagesResponse {
 // ---------------------------------------------------------------------------
 
 extension MovieImagesResponse: Codable {
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case backdrops
         case posters
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decodeIfPresent(Int.self, forKey: .id)
         backdrops = try container.decodeIfPresent([BackdropsElement].self, forKey: .backdrops) ?? []
         posters = try container.decodeIfPresent([PostersElement].self, forKey: .posters) ?? []
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(id, forKey: .id)
@@ -63,7 +63,7 @@ extension MovieImagesResponse: Codable {
 }
 
 extension MovieImagesResponse.BackdropsElement: Codable {
-    
+
     enum CodingKeys: String, CodingKey {
         case aspectRatio = "aspect_ratio"
         case filePath = "file_path"
@@ -73,7 +73,7 @@ extension MovieImagesResponse.BackdropsElement: Codable {
         case voteCount = "vote_count"
         case width
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         aspectRatio = try container.decodeIfPresent(Double.self, forKey: .aspectRatio)
@@ -84,7 +84,7 @@ extension MovieImagesResponse.BackdropsElement: Codable {
         voteCount = try container.decodeIfPresent(Int.self, forKey: .voteCount)
         width = try container.decodeIfPresent(Int.self, forKey: .width)
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(aspectRatio, forKey: .aspectRatio)
@@ -98,7 +98,7 @@ extension MovieImagesResponse.BackdropsElement: Codable {
 }
 
 extension MovieImagesResponse.PostersElement: Codable {
-    
+
     enum CodingKeys: String, CodingKey {
         case aspectRatio = "aspect_ratio"
         case filePath = "file_path"
@@ -108,7 +108,7 @@ extension MovieImagesResponse.PostersElement: Codable {
         case voteCount = "vote_count"
         case width
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         aspectRatio = try container.decodeIfPresent(Double.self, forKey: .aspectRatio)
@@ -119,7 +119,7 @@ extension MovieImagesResponse.PostersElement: Codable {
         voteCount = try container.decodeIfPresent(Int.self, forKey: .voteCount)
         width = try container.decodeIfPresent(Int.self, forKey: .width)
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(aspectRatio, forKey: .aspectRatio)

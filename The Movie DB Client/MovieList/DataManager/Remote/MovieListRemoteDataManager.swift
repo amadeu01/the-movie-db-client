@@ -12,11 +12,11 @@ import Alamofire
 class MovieListRemoteDataManager: MovieListRemoteDataManagerInputProtocol {
 	var remoteUpcomingRequestHandler: UpcomingMovieOutputProtocol?
 	var remoteTMDbConfigurationRequestHandler: TMDbApiConfigurationOutputProtocol?
-    
+
     func searchMovie(forName name: String) {
-    
+
     }
-	
+
 	func getUpcomingReleases(forPageAt page: Int = 1) {
 		if page == 1 {
 			Alamofire
@@ -26,7 +26,7 @@ class MovieListRemoteDataManager: MovieListRemoteDataManagerInputProtocol {
 					switch response.result {
 					case .failure(let error):
 						self.remoteUpcomingRequestHandler?.onError()
-					case .success(_):
+					case .success:
 						if let json = response.result.value {
 							if let data = try? JSONSerialization.data(withJSONObject: json) {
 								let configuration = try? JSONDecoder().decode(TMDbApiConfigurationResponse.self, from: data)
@@ -39,10 +39,10 @@ class MovieListRemoteDataManager: MovieListRemoteDataManagerInputProtocol {
 			getUpcomingReleases(forPageAt: page, withConfiguration: nil)
 		}
 	}
-	
+
 	func getUpcomingReleases(forPageAt page: Int, withConfiguration configuration: TMDbApiConfigurationResponse?) {
 		let parameters = ["page": page]
-		
+
 		Alamofire
 			.request(Endpoints.UpcomingMovie.fetch.url, method: .get, parameters: parameters)
 			.validate()
@@ -50,7 +50,7 @@ class MovieListRemoteDataManager: MovieListRemoteDataManagerInputProtocol {
 				switch response.result {
 				case .failure(let error):
 					self.remoteUpcomingRequestHandler?.onError()
-				case .success(_):
+				case .success:
 					if let json = response.result.value {
 						if let data = try? JSONSerialization.data(withJSONObject: json) {
 							let movieUpcomingResponse = try? JSONDecoder().decode(MovieUpcomingResponse.self, from: data)
@@ -60,7 +60,7 @@ class MovieListRemoteDataManager: MovieListRemoteDataManagerInputProtocol {
 				}
 		}
 	}
-	
+
 	func getTMDbApiConfiguration() {
 		Alamofire
 			.request(Endpoints.ApiConfiguration.fetch.url, method: .get)
@@ -69,7 +69,7 @@ class MovieListRemoteDataManager: MovieListRemoteDataManagerInputProtocol {
 				switch response.result {
 				case .failure(let error):
 					self.remoteTMDbConfigurationRequestHandler?.onError()
-				case .success(_):
+				case .success:
 					if let json = response.result.value {
 						if let data = try? JSONSerialization.data(withJSONObject: json) {
 							let configuration = try? JSONDecoder().decode(TMDbApiConfigurationResponse.self, from: data)

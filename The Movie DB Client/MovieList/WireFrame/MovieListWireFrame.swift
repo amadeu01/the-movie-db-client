@@ -13,43 +13,37 @@ class MovieListWireFrame: MovieListWireFrameProtocol {
         let navController = mainStoryboard.instantiateViewController(withIdentifier: "MovieNavigationController")
         if let view = navController.childViewControllers.first as? MovieListView {
             let presenter: MovieListPresenterProtocol & MovieListInteractorOutputProtocol = MovieListPresenter()
-			
+
             let interactorUpcomingMovie: MovieListInteractorInputProtocol & UpcomingMovieOutputProtocol = MovieListInteractor()
-			let interactorSearch: SearchMovieInteractorInputProtocol & SearchMovieOutputProtocol = SearchMovieInteractor()
-			
+
 			let localDataManager: MovieListLocalDataManagerInputProtocol = MovieListLocalDataManager()
             let remoteDataManager: MovieListRemoteDataManagerInputProtocol = MovieListRemoteDataManager()
             let wireFrame: MovieListWireFrameProtocol = MovieListWireFrame()
-            
+
             view.presenter = presenter
             presenter.view = view
             presenter.wireFrame = wireFrame
             presenter.interactor = interactorUpcomingMovie
-			
+
             interactorUpcomingMovie.presenter = presenter
             interactorUpcomingMovie.localDatamanager = localDataManager
             interactorUpcomingMovie.remoteDatamanager = remoteDataManager
-			
-			interactorSearch.presenter = presenter
-			interactorSearch.localDatamanager = localDataManager
-			interactorSearch.remoteDatamanager = remoteDataManager
-			
+
 			remoteDataManager.remoteUpcomingRequestHandler = interactorUpcomingMovie
-            
+
             return navController
         }
         return UIViewController()
     }
-    
+
     static var mainStoryboard: UIStoryboard {
         let bundle = Bundle(for: MovieListView.self)
         return UIStoryboard(name: "Main", bundle: bundle)
     }
-    
-    
+
     func presentMovieDetailScreen(from view: MovieListViewProtocol, forMovieItem movieItem: MovieEntity) {
         let movieDetailViewController = MovieDetailWireFrame.createMovieDetailModule(forMovieItem: movieItem)
-        
+
         if let sourceView = view as? UIViewController {
             sourceView.navigationController?.pushViewController(movieDetailViewController, animated: true)
         }

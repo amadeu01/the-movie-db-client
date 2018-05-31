@@ -10,11 +10,11 @@ import Foundation
 import CoreData
 
 extension TMDbApiConfiguration {
-    
+
     @nonobjc public class func fetchRequest() -> NSFetchRequest<TMDbApiConfiguration> {
-        return NSFetchRequest<TMDbApiConfiguration>(entityName: "TMDbApiConfiguration");
+        return NSFetchRequest<TMDbApiConfiguration>(entityName: "TMDbApiConfiguration")
     }
-    
+
     @NSManaged public var baseUrl: String?
     @NSManaged public var secureBaseUrl: String?
     @NSManaged public var backdropSizes: [String]

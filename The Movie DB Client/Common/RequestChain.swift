@@ -10,19 +10,19 @@ import Foundation
 import Alamofire
 
 class RequestChain {
-	typealias CompletionHandler = (_ success:Bool, _ errorResult:ErrorResult?) -> Void
-	
+	typealias CompletionHandler = (_ success: Bool, _ errorResult: ErrorResult?) -> Void
+
 	struct ErrorResult {
-		let request:DataRequest?
-		let error:Error?
+		let request: DataRequest?
+		let error: Error?
 	}
-	
-	fileprivate var requests:[DataRequest] = []
-	
-	init(requests:[DataRequest]) {
+
+	fileprivate var requests: [DataRequest] = []
+
+	init(requests: [DataRequest]) {
 		self.requests = requests
 	}
-	
+
 	func start(_ completionHandler: @escaping CompletionHandler) {
 		if let request = requests.first {
 			request.response(completionHandler: { (response: DefaultDataResponse) in
@@ -30,7 +30,7 @@ class RequestChain {
 					completionHandler(false, ErrorResult(request: request, error: error))
 					return
 				}
-				
+
 				self.requests.removeFirst()
 				self.start(completionHandler)
 			})
@@ -39,6 +39,6 @@ class RequestChain {
 			completionHandler(true, nil)
 			return
 		}
-		
+
 	}
 }

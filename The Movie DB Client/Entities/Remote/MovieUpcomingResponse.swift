@@ -9,7 +9,7 @@
 import Foundation
 
 public struct MovieUpcomingResponse {
-    
+
     public struct ResultsElement {
         public let voteCount: Int?
         public let id: Int?
@@ -26,12 +26,12 @@ public struct MovieUpcomingResponse {
         public let overview: String?
         public let releaseDate: String?
     }
-    
+
     public struct Dates {
         public let maximum: String?
         public let minimum: String?
     }
-    
+
     public let results: [ResultsElement]
     public let page: Int?
     public let totalResults: Int?
@@ -44,7 +44,7 @@ public struct MovieUpcomingResponse {
 // ---------------------------------------------------------------------------
 
 extension MovieUpcomingResponse: Codable {
-    
+
     enum CodingKeys: String, CodingKey {
         case results
         case page
@@ -52,7 +52,7 @@ extension MovieUpcomingResponse: Codable {
         case dates
         case totalPages = "total_pages"
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         results = try container.decodeIfPresent([ResultsElement].self, forKey: .results) ?? []
@@ -61,7 +61,7 @@ extension MovieUpcomingResponse: Codable {
         dates = try container.decodeIfPresent(Dates.self, forKey: .dates)
         totalPages = try container.decodeIfPresent(Int.self, forKey: .totalPages)
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(results, forKey: .results)
@@ -73,7 +73,7 @@ extension MovieUpcomingResponse: Codable {
 }
 
 extension MovieUpcomingResponse.ResultsElement: Codable {
-    
+
     enum CodingKeys: String, CodingKey {
         case voteCount = "vote_count"
         case id
@@ -90,7 +90,7 @@ extension MovieUpcomingResponse.ResultsElement: Codable {
         case overview
         case releaseDate = "release_date"
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         voteCount = try container.decodeIfPresent(Int.self, forKey: .voteCount)
@@ -108,7 +108,7 @@ extension MovieUpcomingResponse.ResultsElement: Codable {
         overview = try container.decodeIfPresent(String.self, forKey: .overview)
         releaseDate = try container.decodeIfPresent(String.self, forKey: .releaseDate)
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(voteCount, forKey: .voteCount)
@@ -129,18 +129,18 @@ extension MovieUpcomingResponse.ResultsElement: Codable {
 }
 
 extension MovieUpcomingResponse.Dates: Codable {
-    
+
     enum CodingKeys: String, CodingKey {
         case maximum
         case minimum
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         maximum = try container.decodeIfPresent(String.self, forKey: .maximum)
         minimum = try container.decodeIfPresent(String.self, forKey: .minimum)
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(maximum, forKey: .maximum)

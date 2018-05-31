@@ -9,7 +9,5 @@
 import Foundation
 @testable import The_Movie_DB_Client
 
-
 extension MovieUpcomingResponse {
 }
-

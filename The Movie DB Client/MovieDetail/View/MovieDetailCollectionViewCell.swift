@@ -9,22 +9,18 @@
 import UIKit
 
 class MovieDetailCollectionViewCell: UICollectionViewCell {
-	
+
 	@IBOutlet weak var titleLabel: UILabel!
-	
+
 	@IBOutlet weak var genrerLabel: UILabel!
-	
+
 	@IBOutlet weak var overviewLabel: UILabel!
-	
-	override func awakeFromNib() {
-		
-	}
-	
+
 	func set(forMovie movie: MovieEntity) {
 		titleLabel.text = "\(movie.title ?? "No Title")(\(movie.releaseDate ?? "No release date"))"
-		
+
 		overviewLabel.text = movie.overview
 		overviewLabel.sizeToFit()
 	}
-	
+
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 struct MovieEntity {
-    
+
     public let remoteId: Int?
     public let video: Bool?
     public let voteAverage: Double?
@@ -28,10 +28,10 @@ struct MovieEntity {
 
 	public let backdropSize: String?
 	public let posterSize: String?
-	
+
 	public let backdropBestQualitySize: String?
 	public let posterBestQualitySize: String?
-	
+
 	public var posterUrl: String? {
 		if let baseUrl = baseUrl, let posterSize = posterSize, let posterPath = posterPath {
 			return baseUrl + posterSize + posterPath
@@ -39,7 +39,7 @@ struct MovieEntity {
 			return nil
 		}
 	}
-	
+
 	public var backdropUrl: String? {
 		if let baseUrl = baseUrl, let backdropSize = backdropSize, let backdropPath = backdropPath {
 			return baseUrl + backdropSize + backdropPath
@@ -47,7 +47,7 @@ struct MovieEntity {
 			return nil
 		}
 	}
-	
+
 	public var posterBestQualityUrl: String? {
 		if let baseUrl = baseUrl, let posterBestQualitySize = posterBestQualitySize, let posterPath = posterPath {
 			return baseUrl + posterBestQualitySize + posterPath
@@ -55,7 +55,7 @@ struct MovieEntity {
 			return nil
 		}
 	}
-	
+
 	public var backdropBestQualityUrl: String? {
 		if let baseUrl = baseUrl, let backdropBestQualitySize = backdropBestQualitySize, let backdropPath = backdropPath {
 			return baseUrl + backdropBestQualitySize + backdropPath
@@ -63,7 +63,7 @@ struct MovieEntity {
 			return nil
 		}
 	}
-    
+
 	init(withRemoteMovie movieElement: MovieUpcomingResponse.ResultsElement, withConfigurationEntity configuration: ConfigurationEntity?) {
         self.remoteId = movieElement.id
         self.adult = movieElement.adult
@@ -85,7 +85,7 @@ struct MovieEntity {
 		self.backdropBestQualitySize = configuration?.backdropSizes.last
 		self.posterBestQualitySize = configuration?.posterSizes.last
     }
-	
+
 	init(withLocalMovie movieElement: Movie, withLocalConfiguration configuration: ConfigurationEntity?) {
 		self.remoteId = Int(movieElement.remoteId!)
 		self.adult = movieElement.adult?.boolValue
