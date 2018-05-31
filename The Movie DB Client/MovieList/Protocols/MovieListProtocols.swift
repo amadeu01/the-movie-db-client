@@ -50,7 +50,7 @@ protocol MovieListInteractorOutputProtocol: class {
     func didRetrieveUpcomingMovie(_ movies: [MovieEntity])
 }
 
-protocol MovieListInteractorInputProtocol: class { // Presenter -> Interector
+protocol MovieListInteractorInputProtocol: class {
     var presenter: MovieListInteractorOutputProtocol? { get set }
     var localDatamanager: MovieListLocalDataManagerInputProtocol? { get set }
     var remoteDatamanager: MovieListRemoteDataManagerInputProtocol? { get set }
@@ -58,7 +58,7 @@ protocol MovieListInteractorInputProtocol: class { // Presenter -> Interector
     func getNextMoviesReleases()
 }
 
-protocol SearchMovieInteractorInputProtocol: class { // Presenter -> Interector
+protocol SearchMovieInteractorInputProtocol: class {
 	var presenter: MovieListInteractorOutputProtocol? { get set }
 	var localDatamanager: MovieListLocalDataManagerInputProtocol? { get set }
 	var remoteDatamanager: MovieListRemoteDataManagerInputProtocol? { get set }
@@ -68,10 +68,10 @@ protocol SearchMovieInteractorInputProtocol: class { // Presenter -> Interector
 
 // MARK: - Data Manager Protocol
 
-protocol MovieListDataManagerInputProtocol: class { // Interactor -> Data Manager
+protocol MovieListDataManagerInputProtocol: class {
 }
 
-protocol MovieListRemoteDataManagerInputProtocol: class { // Interactor -> Remote Data Manager
+protocol MovieListRemoteDataManagerInputProtocol: class {
 	var remoteUpcomingRequestHandler: UpcomingMovieOutputProtocol? { get set }
 	var remoteTMDbConfigurationRequestHandler: TMDbApiConfigurationOutputProtocol? { get set }
 
@@ -80,7 +80,7 @@ protocol MovieListRemoteDataManagerInputProtocol: class { // Interactor -> Remot
     func searchMovie(forName name: String)
 }
 
-protocol MovieListRemoteDataManagerOutputProtocol: class { // Remote Data Manager -> Interactor
+protocol MovieListRemoteDataManagerOutputProtocol: class {
 
     func onError()
 }
@@ -97,7 +97,7 @@ protocol TMDbApiConfigurationOutputProtocol: MovieListRemoteDataManagerOutputPro
 	func onTMDbApiConfigurationRetrieved(_ config: TMDbApiConfigurationResponse)
 }
 
-protocol MovieListLocalDataManagerInputProtocol: class { // Interactor -> Local Data Manager
+protocol MovieListLocalDataManagerInputProtocol: class {
     func getNextMoviesReleases() throws -> [Movie]
 
     func searchMovie(forTitle title: String) throws -> [Movie]
