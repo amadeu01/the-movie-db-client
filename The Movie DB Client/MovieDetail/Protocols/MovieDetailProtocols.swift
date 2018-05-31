@@ -45,8 +45,6 @@ protocol MovieDetailPresenterProtocol: class {
 
 protocol MovieDetailInteractorOutputProtocol: class {
     func onError()
-
-	func onMovieDetailRetrieved(_ movie: MovieEntity)
 }
 
 protocol MovieDetailInteractorInputProtocol: class {

@@ -18,8 +18,6 @@
 		2ECCE95E20B0EC4E00FE338B /* ConfigurationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCE95D20B0EC4E00FE338B /* ConfigurationEntity.swift */; };
 		2ECCE96020B100FC00FE338B /* MovieListEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCE95F20B100FC00FE338B /* MovieListEntity.swift */; };
 		2ECCE96220B10DCA00FE338B /* RequestChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCE96120B10DCA00FE338B /* RequestChain.swift */; };
-		2EE3AAB920B1E52900C4CD6A /* MovieDetailRemoteDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE3AAB820B1E52900C4CD6A /* MovieDetailRemoteDataManager.swift */; };
-		2EE3AABB20B1E54500C4CD6A /* MovieDetailLocalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE3AABA20B1E54500C4CD6A /* MovieDetailLocalDataManager.swift */; };
 		2EE3AABD20B2483900C4CD6A /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE3AABC20B2483900C4CD6A /* ImageCollectionViewCell.swift */; };
 		2EE3AABF20B25C7100C4CD6A /* MovieDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE3AABE20B25C7100C4CD6A /* MovieDetailCollectionViewCell.swift */; };
 		2EE3AAC320B27C0500C4CD6A /* RemoteDataManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE3AAC220B27C0500C4CD6A /* RemoteDataManagerTest.swift */; };
@@ -114,8 +112,6 @@
 		2ECCE95D20B0EC4E00FE338B /* ConfigurationEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationEntity.swift; sourceTree = "<group>"; };
 		2ECCE95F20B100FC00FE338B /* MovieListEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListEntity.swift; sourceTree = "<group>"; };
 		2ECCE96120B10DCA00FE338B /* RequestChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestChain.swift; sourceTree = "<group>"; };
-		2EE3AAB820B1E52900C4CD6A /* MovieDetailRemoteDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailRemoteDataManager.swift; sourceTree = "<group>"; };
-		2EE3AABA20B1E54500C4CD6A /* MovieDetailLocalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailLocalDataManager.swift; sourceTree = "<group>"; };
 		2EE3AABC20B2483900C4CD6A /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		2EE3AABE20B25C7100C4CD6A /* MovieDetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailCollectionViewCell.swift; sourceTree = "<group>"; };
 		2EE3AAC220B27C0500C4CD6A /* RemoteDataManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataManagerTest.swift; sourceTree = "<group>"; };
@@ -238,7 +234,6 @@
 		2EE3AAB620B1E4E100C4CD6A /* Remote */ = {
 			isa = PBXGroup;
 			children = (
-				2EE3AAB820B1E52900C4CD6A /* MovieDetailRemoteDataManager.swift */,
 			);
 			path = Remote;
 			sourceTree = "<group>";
@@ -246,7 +241,6 @@
 		2EE3AAB720B1E4E700C4CD6A /* Local */ = {
 			isa = PBXGroup;
 			children = (
-				2EE3AABA20B1E54500C4CD6A /* MovieDetailLocalDataManager.swift */,
 			);
 			path = Local;
 			sourceTree = "<group>";
@@ -757,7 +751,6 @@
 				6557FE3E209B52A4004DEC8D /* AppDelegate.swift in Sources */,
 				65F0099420A9191C00F4E363 /* Secrets.swift.example in Sources */,
 				65F009A220A9266300F4E363 /* MovieListInteractor.swift in Sources */,
-				2EE3AABB20B1E54500C4CD6A /* MovieDetailLocalDataManager.swift in Sources */,
 				651BF98F20ABD58200B30FDD /* Genre.swift in Sources */,
 				65F0099D20A9247D00F4E363 /* MovieListViewController.swift in Sources */,
 				65F009B220A9323C00F4E363 /* MovieDetailWireFrame.swift in Sources */,
@@ -767,7 +760,6 @@
 				2EE3AABF20B25C7100C4CD6A /* MovieDetailCollectionViewCell.swift in Sources */,
 				651BF99F20ABD76D00B30FDD /* MovieImagesResponse.swift in Sources */,
 				6557FE46209B52A4004DEC8D /* The_Movie_DB_Client.xcdatamodeld in Sources */,
-				2EE3AAB920B1E52900C4CD6A /* MovieDetailRemoteDataManager.swift in Sources */,
 				656AF50C20AD9702009B153A /* DiscoverMovieResponse.swift in Sources */,
 				65FAE78920AE539600041C70 /* PersistenceError.swift in Sources */,
 				6557FE7F209B5817004DEC8D /* Endpoint.swift in Sources */,
