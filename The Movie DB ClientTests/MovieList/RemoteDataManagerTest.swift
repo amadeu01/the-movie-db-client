@@ -7,8 +7,41 @@
 //
 
 import XCTest
+import Hippolyte
 @testable import The_Movie_DB_Client
 
 final class RemoteDataManagerTest: XCTestCase {
 
+    func testRemoteDataManager_getUpcomingReleases() throws {
+        //Given
+        let regexUrl = try NSRegularExpression(pattern: "https://api.themoviedb.org/3/movie/upcoming/+", options: [])
+        var stubUpcomingMovie = StubRequest(method: .GET, urlMatcher: RegexMatcher(regex: regexUrl))
+        var responseUpcomingMovie = StubResponse(statusCode: 200)
+        responseUpcomingMovie.body = JsonHelper().loadGetUpcomingResponseJsonData()
+        stubUpcomingMovie.response = responseUpcomingMovie
+        Hippolyte.shared.add(stubbedRequest: stubUpcomingMovie)
+
+        let urlConfiguration = URL(string: Endpoints.ApiConfiguration.fetch.url)!
+        var stubConfiguration = StubRequest(method: .GET, url: urlConfiguration)
+        var responseConfiguration = StubResponse(statusCode: 200)
+        responseConfiguration.body = JsonHelper().loadGetApiConfigurationResponseJsonData()
+        stubConfiguration.response = responseConfiguration
+        Hippolyte.shared.add(stubbedRequest: stubConfiguration)
+
+        Hippolyte.shared.start()
+
+        let expectation = self.expectation(description: "Stubs network call")
+        expectation.isInverted = true
+        let remoteDataSource = MovieListRemoteDataManager()
+        let upcomingMovieOutput = MovieListMocks.UpcomingMovieOutput()
+
+        remoteDataSource.remoteUpcomingRequestHandler = upcomingMovieOutput
+
+        //When
+        remoteDataSource.getUpcomingReleases(forPageAt: 1)
+        wait(for: [expectation], timeout: 1)
+
+        //Then
+        XCTAssertTrue(upcomingMovieOutput.onUpcomingMovieRetrievedInvoked)
+    }
 }

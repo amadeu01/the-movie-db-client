@@ -13,11 +13,17 @@ final class MovieListMocks {
 	private init() {}
 
 	final class UpcomingMovieOutput: UpcomingMovieOutputProtocol {
-		var fetchInvoked = false
+		var onUpcomingMovieRetrievedInvoked = false
 		var onErrorInvoked = false
 
+        var upcomingMovies: MovieUpcomingResponse?
+        var configuration: TMDbApiConfigurationResponse?
+
 		func onUpcomingMovieRetrieved(_ movies: MovieUpcomingResponse, _ configuration: TMDbApiConfigurationResponse?) {
-			fetchInvoked = true
+			onUpcomingMovieRetrievedInvoked = true
+
+            self.upcomingMovies = movies
+            self.configuration = configuration
 		}
 
 		func onError() {
@@ -42,7 +48,6 @@ final class MovieListMocks {
 
 		private var movieResponse: MovieUpcomingResponse?
 		private var tmdbApiConfigurationResponse: TMDbApiConfigurationResponse?
-		private var searchMovieResponse: SearchMovieResponse?
 		private var movieDetail: MovieDetailsResponse?
 		private let error: Error?
 
@@ -60,42 +65,6 @@ final class MovieListMocks {
 				self.movieDetail = movieDetail
 			}
 
-			if let path = bundle.path(forResource: "get_upcoming", ofType: "json") {
-				let data = try! Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-
-				let jsonResult = try! JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
-
-				let jsonData = try! JSONSerialization.data(withJSONObject: jsonResult)
-
-				let movieUpcomingResponse = try! JSONDecoder().decode(MovieUpcomingResponse.self, from: jsonData)
-
-				self.movieResponse = movieUpcomingResponse
-			}
-
-			if let path = bundle.path(forResource: "get_api_configuration", ofType: "json") {
-				let data = try! Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-
-				let jsonResult = try! JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
-
-				let jsonData = try! JSONSerialization.data(withJSONObject: jsonResult)
-
-				let tmdbApiConfigurationResponse = try! JSONDecoder().decode(TMDbApiConfigurationResponse.self, from: jsonData)
-
-				self.tmdbApiConfigurationResponse = tmdbApiConfigurationResponse
-			}
-
-			if let path = bundle.path(forResource: "search_search_movie", ofType: "json") {
-				let data = try! Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-
-				let jsonResult = try! JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
-
-				let jsonData = try! JSONSerialization.data(withJSONObject: jsonResult)
-
-				let searchMovieResponse = try! JSONDecoder().decode(SearchMovieResponse.self, from: jsonData)
-
-				self.searchMovieResponse = searchMovieResponse
-			}
-
 			self.error = error
 		}
 
@@ -105,13 +74,6 @@ final class MovieListMocks {
 			remoteUpcomingRequestHandler?
 				.onUpcomingMovieRetrieved(movieResponse!, tmdbApiConfigurationResponse)
 		}
-
-		func searchMovie(forName name: String) {
-			fetchSearchInvoked = true
-			remoteSearchMovieRequestHandler?
-				.onSearchRetrieved(searchMovieResponse!, tmdbApiConfigurationResponse)
-		}
-
 	}
 
 	final class LocalDataManagerInput: MovieListLocalDataManagerInputProtocol {
