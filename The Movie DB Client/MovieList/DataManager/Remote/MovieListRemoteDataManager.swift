@@ -13,10 +13,6 @@ class MovieListRemoteDataManager: MovieListRemoteDataManagerInputProtocol {
 	var remoteUpcomingRequestHandler: UpcomingMovieOutputProtocol?
 	var remoteTMDbConfigurationRequestHandler: TMDbApiConfigurationOutputProtocol?
 
-    func searchMovie(forName name: String) {
-
-    }
-
 	func getUpcomingReleases(forPageAt page: Int = 1) {
 		if page == 1 {
 			Alamofire
