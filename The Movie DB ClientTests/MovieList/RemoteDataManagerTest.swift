@@ -12,9 +12,9 @@ import Hippolyte
 
 final class RemoteDataManagerTest: XCTestCase {
 
-    var stubUpcomingMovieRequest: StubRequest?
-    var stubConfigurationRequest: StubRequest?
-    var networkExpectation: XCTestExpectation?
+    private var stubUpcomingMovieRequest: StubRequest?
+    private var stubConfigurationRequest: StubRequest?
+    private var networkExpectation: XCTestExpectation?
 
     override func setUp() {
         super.setUp()
