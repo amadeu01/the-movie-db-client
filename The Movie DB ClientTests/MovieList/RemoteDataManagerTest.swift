@@ -12,9 +12,10 @@ import Hippolyte
 
 final class RemoteDataManagerTest: XCTestCase {
 
-    func testRemoteDataManager_getUpcomingReleases() throws {
-        //Given
-        let regexUrl = try NSRegularExpression(pattern: "https://api.themoviedb.org/3/movie/upcoming/+", options: [])
+    override func setUp() {
+        super.setUp()
+
+        let regexUrl = try! NSRegularExpression(pattern: "https://api.themoviedb.org/3/movie/upcoming/+", options: [])
         var stubUpcomingMovie = StubRequest(method: .GET, urlMatcher: RegexMatcher(regex: regexUrl))
         var responseUpcomingMovie = StubResponse(statusCode: 200)
         responseUpcomingMovie.body = JsonHelper().loadGetUpcomingResponseJsonData()
@@ -27,11 +28,15 @@ final class RemoteDataManagerTest: XCTestCase {
         responseConfiguration.body = JsonHelper().loadGetApiConfigurationResponseJsonData()
         stubConfiguration.response = responseConfiguration
         Hippolyte.shared.add(stubbedRequest: stubConfiguration)
-
         Hippolyte.shared.start()
 
+    }
+
+    func testRemoteDataManager_getUpcomingReleases() throws {
+        //Given
         let expectation = self.expectation(description: "Stubs network call")
         expectation.isInverted = true
+        
         let remoteDataSource = MovieListRemoteDataManager()
         let upcomingMovieOutput = MovieListMocks.UpcomingMovieOutput()
 
