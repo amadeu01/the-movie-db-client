@@ -10,26 +10,26 @@ import Foundation
 @testable import The_Movie_DB_Client
 
 final class MovieListMocks {
-	private init() {}
+    private init() {}
 
-	final class UpcomingMovieOutput: UpcomingMovieOutputProtocol {
-		var onUpcomingMovieRetrievedInvoked = false
-		var onErrorInvoked = false
+    final class UpcomingMovieOutput: UpcomingMovieOutputProtocol {
+        var onUpcomingMovieRetrievedInvoked = false
+        var onErrorInvoked = false
 
         var upcomingMovies: MovieUpcomingResponse?
         var configuration: TMDbApiConfigurationResponse?
 
-		func onUpcomingMovieRetrieved(_ movies: MovieUpcomingResponse, _ configuration: TMDbApiConfigurationResponse?) {
-			onUpcomingMovieRetrievedInvoked = true
+        func onUpcomingMovieRetrieved(_ movies: MovieUpcomingResponse, _ configuration: TMDbApiConfigurationResponse?) {
+            onUpcomingMovieRetrievedInvoked = true
 
             self.upcomingMovies = movies
             self.configuration = configuration
-		}
+        }
 
-		func onError() {
-			onErrorInvoked = true
-		}
-	}
+        func onError() {
+            onErrorInvoked = true
+        }
+    }
 
     final class TMDbApiConfigurationOutput: TMDbApiConfigurationOutputProtocol {
         var onTMDbApiConfigurationRetrievedInvoked = false
@@ -48,94 +48,94 @@ final class MovieListMocks {
         }
     }
 
-	final class RemoteDataManagerInput: MovieListRemoteDataManagerInputProtocol {
-		var fetchUpcomingMovieInvoked = false
-		var fetchSearchInvoked = false
-		var fetchTMDbApiConfigurationInvoked = false
+    final class RemoteDataManagerInput: MovieListRemoteDataManagerInputProtocol {
+        var fetchUpcomingMovieInvoked = false
+        var fetchSearchInvoked = false
+        var fetchTMDbApiConfigurationInvoked = false
 
-		var saveMovieInvoked = false
-		var saveTMDbApiConfigurationInvoked = false
+        var saveMovieInvoked = false
+        var saveTMDbApiConfigurationInvoked = false
 
-		var remoteUpcomingRequestHandler: UpcomingMovieOutputProtocol?
+        var remoteUpcomingRequestHandler: UpcomingMovieOutputProtocol?
 
-		var remoteTMDbConfigurationRequestHandler: TMDbApiConfigurationOutputProtocol?
+        var remoteTMDbConfigurationRequestHandler: TMDbApiConfigurationOutputProtocol?
 
-		var remoteSearchMovieRequestHandler: SearchMovieOutputProtocol?
+        var remoteSearchMovieRequestHandler: SearchMovieOutputProtocol?
 
-		private var movieResponse: MovieUpcomingResponse?
-		private var tmdbApiConfigurationResponse: TMDbApiConfigurationResponse?
-		private var movieDetail: MovieDetailsResponse?
-		private let error: Error?
+        private var movieResponse: MovieUpcomingResponse?
+        private var tmdbApiConfigurationResponse: TMDbApiConfigurationResponse?
+        private var movieDetail: MovieDetailsResponse?
+        private let error: Error?
 
-		init(error: Error? = nil) {
-			let bundle = Bundle(for: type(of: self))
-			if let path = bundle.path(forResource: "get_movie_detail_response", ofType: "json") {
-				let data = try! Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+        init(error: Error? = nil) {
+            let bundle = Bundle(for: type(of: self))
+            if let path = bundle.path(forResource: "get_movie_detail_response", ofType: "json") {
+                let data = try! Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
 
-				let jsonResult = try! JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
+                let jsonResult = try! JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
 
-				let jsonData = try! JSONSerialization.data(withJSONObject: jsonResult)
+                let jsonData = try! JSONSerialization.data(withJSONObject: jsonResult)
 
-				let movieDetail = try! JSONDecoder().decode(MovieDetailsResponse.self, from: jsonData)
+                let movieDetail = try! JSONDecoder().decode(MovieDetailsResponse.self, from: jsonData)
 
-				self.movieDetail = movieDetail
-			}
+                self.movieDetail = movieDetail
+            }
 
-			self.error = error
-		}
+            self.error = error
+        }
 
-		func getUpcomingReleases(forPageAt page: Int) {
-			fetchUpcomingMovieInvoked = true
+        func getUpcomingReleases(forPageAt page: Int) {
+            fetchUpcomingMovieInvoked = true
 
-			remoteUpcomingRequestHandler?
-				.onUpcomingMovieRetrieved(movieResponse!, tmdbApiConfigurationResponse)
-		}
-	}
+            remoteUpcomingRequestHandler?
+                .onUpcomingMovieRetrieved(movieResponse!, tmdbApiConfigurationResponse)
+        }
+    }
 
-	final class LocalDataManagerInput: MovieListLocalDataManagerInputProtocol {
-		var fetchMovieInvoked = false
-		var fetchSearchInvoked = false
-		var fetchTMDbApiConfigurationInvoked = false
+    final class LocalDataManagerInput: MovieListLocalDataManagerInputProtocol {
+        var fetchMovieInvoked = false
+        var fetchSearchInvoked = false
+        var fetchTMDbApiConfigurationInvoked = false
 
-		var saveMovieInvoked = false
-		var saveTMDbApiConfigurationInvoked = false
+        var saveMovieInvoked = false
+        var saveTMDbApiConfigurationInvoked = false
 
-		var saveMovieParameters: MovieUpcomingResponse?
-		var saveTMDbApiConfigurationParameters: TMDbApiConfigurationResponse?
+        var saveMovieParameters: MovieUpcomingResponse?
+        var saveTMDbApiConfigurationParameters: TMDbApiConfigurationResponse?
 
-		private var movies: [Movie] = []
-		private var configurationEntity: ConfigurationEntity?
-		private let error: Error?
+        private var movies: [Movie] = []
+        private var configurationEntity: ConfigurationEntity?
+        private let error: Error?
 
-		init(movies: [Movie], configuration: ConfigurationEntity? = nil, error: Error? = nil) {
-			self.movies = movies
-			self.configurationEntity = configuration
-			self.error = error
-		}
+        init(movies: [Movie], configuration: ConfigurationEntity? = nil, error: Error? = nil) {
+            self.movies = movies
+            self.configurationEntity = configuration
+            self.error = error
+        }
+        
+        func getNextMoviesReleases() throws -> [Movie] {
+            fetchMovieInvoked = true
+            return movies
+        }
 
-		func getNextMoviesReleases() throws -> [Movie] {
-			fetchMovieInvoked = true
-			return movies
-		}
+        func searchMovie(forTitle title: String) throws -> [Movie] {
+            fetchSearchInvoked = true
+            return movies
+        }
 
-		func searchMovie(forTitle title: String) throws -> [Movie] {
-			fetchSearchInvoked = true
-			return movies
-		}
+        func getTMDbApiConfiguration() throws -> ConfigurationEntity? {
+            fetchTMDbApiConfigurationInvoked = true
+            return configurationEntity
+        }
 
-		func getTMDbApiConfiguration() throws -> ConfigurationEntity? {
-			fetchTMDbApiConfigurationInvoked = true
-			return configurationEntity
-		}
+        func saveMovie(forMovieUpcomingResponse movieUpcomingResponse: MovieUpcomingResponse) throws {
+            saveMovieInvoked = true
+            saveMovieParameters = movieUpcomingResponse
+        }
 
-		func saveMovie(forMovieUpcomingResponse movieUpcomingResponse: MovieUpcomingResponse) throws {
-			saveMovieInvoked = true
-			saveMovieParameters = movieUpcomingResponse
-		}
-
-		func saveTMDbApiConfiguration(forConfiguration configuration: TMDbApiConfigurationResponse) throws {
-			saveTMDbApiConfigurationInvoked = true
-			saveTMDbApiConfigurationParameters = configuration
-		}
-	}
+        func saveTMDbApiConfiguration(forConfiguration configuration: TMDbApiConfigurationResponse) throws {
+            saveTMDbApiConfigurationInvoked = true
+            saveTMDbApiConfigurationParameters = configuration
+        }
+    }
 }
