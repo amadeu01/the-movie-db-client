@@ -44,33 +44,27 @@ final class RemoteDataManagerTest: XCTestCase {
         Hippolyte.shared.stop()
     }
 
-    func testRemoteDataManager_getUpcomingReleases() throws {
-        //Given
+    func testGetUpcomingReleases() throws {
         let remoteDataSource = MovieListRemoteDataManager()
         let mockUpcomingMovieOutput = MovieListMocks.UpcomingMovieOutput()
         remoteDataSource.remoteUpcomingRequestHandler = mockUpcomingMovieOutput
 
-        //When
         remoteDataSource.getUpcomingReleases(forPageAt: 1)
         wait(for: [networkExpectation!], timeout: 1)
 
-        //Then
         XCTAssertTrue(mockUpcomingMovieOutput.onUpcomingMovieRetrievedInvoked)
         XCTAssertNotNil(mockUpcomingMovieOutput.configuration)
         XCTAssertNotNil(mockUpcomingMovieOutput.upcomingMovies)
     }
 
-    func testRemoteDataManager_getTMDbApiConfiguration() throws {
-        //Given
+    func testGetTMDbApiConfiguration() throws {
         let remoteDataSource = MovieListRemoteDataManager()
         let mockTMDbApiConfigurationOutput = MovieListMocks.TMDbApiConfigurationOutput()
         remoteDataSource.remoteTMDbConfigurationRequestHandler = mockTMDbApiConfigurationOutput
 
-        //When
         remoteDataSource.getTMDbApiConfiguration()
         wait(for: [networkExpectation!], timeout: 1)
 
-        //Then
         XCTAssertTrue(mockTMDbApiConfigurationOutput.onTMDbApiConfigurationRetrievedInvoked)
         XCTAssertNotNil(mockTMDbApiConfigurationOutput.configuration)
     }
