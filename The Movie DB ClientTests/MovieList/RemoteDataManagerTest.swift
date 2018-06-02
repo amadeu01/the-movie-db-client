@@ -12,42 +12,66 @@ import Hippolyte
 
 final class RemoteDataManagerTest: XCTestCase {
 
+    var stubUpcomingMovieRequest: StubRequest?
+    var stubConfigurationRequest: StubRequest?
+    var networkExpectation: XCTestExpectation?
+
     override func setUp() {
         super.setUp()
+        networkExpectation = self.expectation(description: "Stubs network call")
+        networkExpectation!.isInverted = true
 
         let regexUrl =
             try! NSRegularExpression(pattern: "\\Q" + Endpoints.UpcomingMovie.fetch.url + "\\E" + "+", options: [])
-        var stubUpcomingMovie = StubRequest(method: .GET, urlMatcher: RegexMatcher(regex: regexUrl))
+        stubUpcomingMovieRequest = StubRequest(method: .GET, urlMatcher: RegexMatcher(regex: regexUrl))
         var responseUpcomingMovie = StubResponse(statusCode: 200)
         responseUpcomingMovie.body = JsonHelper().loadGetUpcomingResponseJsonData()
-        stubUpcomingMovie.response = responseUpcomingMovie
-        Hippolyte.shared.add(stubbedRequest: stubUpcomingMovie)
+        stubUpcomingMovieRequest!.response = responseUpcomingMovie
+        Hippolyte.shared.add(stubbedRequest: stubUpcomingMovieRequest!)
 
         let urlConfiguration = URL(string: Endpoints.ApiConfiguration.fetch.url)!
-        var stubConfiguration = StubRequest(method: .GET, url: urlConfiguration)
+        stubConfigurationRequest = StubRequest(method: .GET, url: urlConfiguration)
         var responseConfiguration = StubResponse(statusCode: 200)
         responseConfiguration.body = JsonHelper().loadGetApiConfigurationResponseJsonData()
-        stubConfiguration.response = responseConfiguration
-        Hippolyte.shared.add(stubbedRequest: stubConfiguration)
+        stubConfigurationRequest!.response = responseConfiguration
+        Hippolyte.shared.add(stubbedRequest: stubConfigurationRequest!)
 
         Hippolyte.shared.start()
     }
 
+    override func tearDown() {
+        super.tearDown()
+        Hippolyte.shared.stop()
+    }
+
     func testRemoteDataManager_getUpcomingReleases() throws {
         //Given
-        let expectation = self.expectation(description: "Stubs network call")
-        expectation.isInverted = true
-        
         let remoteDataSource = MovieListRemoteDataManager()
-        let upcomingMovieOutput = MovieListMocks.UpcomingMovieOutput()
-
-        remoteDataSource.remoteUpcomingRequestHandler = upcomingMovieOutput
+        let mockUpcomingMovieOutput = MovieListMocks.UpcomingMovieOutput()
+        remoteDataSource.remoteUpcomingRequestHandler = mockUpcomingMovieOutput
 
         //When
         remoteDataSource.getUpcomingReleases(forPageAt: 1)
-        wait(for: [expectation], timeout: 1)
+        wait(for: [networkExpectation!], timeout: 1)
 
         //Then
-        XCTAssertTrue(upcomingMovieOutput.onUpcomingMovieRetrievedInvoked)
+        XCTAssertTrue(mockUpcomingMovieOutput.onUpcomingMovieRetrievedInvoked)
+        XCTAssertNotNil(mockUpcomingMovieOutput.configuration)
+        XCTAssertNotNil(mockUpcomingMovieOutput.upcomingMovies)
+    }
+
+    func testRemoteDataManager_getTMDbApiConfiguration() throws {
+        //Given
+        let remoteDataSource = MovieListRemoteDataManager()
+        let mockTMDbApiConfigurationOutput = MovieListMocks.TMDbApiConfigurationOutput()
+        remoteDataSource.remoteTMDbConfigurationRequestHandler = mockTMDbApiConfigurationOutput
+
+        //When
+        remoteDataSource.getTMDbApiConfiguration()
+        wait(for: [networkExpectation!], timeout: 1)
+
+        //Then
+        XCTAssertTrue(mockTMDbApiConfigurationOutput.onTMDbApiConfigurationRetrievedInvoked)
+        XCTAssertNotNil(mockTMDbApiConfigurationOutput.configuration)
     }
 }

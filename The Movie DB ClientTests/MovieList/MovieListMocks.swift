@@ -29,8 +29,24 @@ final class MovieListMocks {
 		func onError() {
 			onErrorInvoked = true
 		}
-
 	}
+
+    final class TMDbApiConfigurationOutput: TMDbApiConfigurationOutputProtocol {
+        var onTMDbApiConfigurationRetrievedInvoked = false
+        var onErrorInvoked = false
+
+        var configuration: TMDbApiConfigurationResponse?
+
+        func onTMDbApiConfigurationRetrieved(_ config: TMDbApiConfigurationResponse) {
+            onTMDbApiConfigurationRetrievedInvoked = true
+
+            configuration = config
+        }
+
+        func onError() {
+            onErrorInvoked = true
+        }
+    }
 
 	final class RemoteDataManagerInput: MovieListRemoteDataManagerInputProtocol {
 		var fetchUpcomingMovieInvoked = false
