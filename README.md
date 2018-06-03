@@ -1,3 +1,5 @@
+[![Build status](https://build.appcenter.ms/v0.1/apps/bc4775f1-1a4d-4676-ad6f-7e038cd690e8/branches/production/badge)](https://appcenter.ms)
+
 # The Movie DB iOS Client
 
 This is a client for [The Movie DB](www.themoviedb.org). It will show the Movies.
