@@ -76,8 +76,6 @@ protocol MovieListRemoteDataManagerInputProtocol: class {
 	var remoteTMDbConfigurationRequestHandler: TMDbApiConfigurationOutputProtocol? { get set }
 
 	func getUpcomingReleases(forPageAt page: Int)
-
-    func searchMovie(forName name: String)
 }
 
 protocol MovieListRemoteDataManagerOutputProtocol: class {

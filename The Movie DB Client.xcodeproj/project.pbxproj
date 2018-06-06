@@ -24,6 +24,7 @@
 		2EE3AAC520B27C2400C4CD6A /* MovieListMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE3AAC420B27C2400C4CD6A /* MovieListMocks.swift */; };
 		2EE3AAC720B28B7F00C4CD6A /* LocalDataManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE3AAC620B28B7F00C4CD6A /* LocalDataManagerTest.swift */; };
 		2EE3AAC920B28B9900C4CD6A /* MovieListInteractorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE3AAC820B28B9900C4CD6A /* MovieListInteractorTest.swift */; };
+		651B2B5820C0FC99008DF785 /* Hippolyte.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 651B2B5720C0FC99008DF785 /* Hippolyte.framework */; };
 		651BF97220ABCBCD00B30FDD /* MovieDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651BF97120ABCBCD00B30FDD /* MovieDetailsResponse.swift */; };
 		651BF97520ABCC6100B30FDD /* get_movie_detail_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 651BF97420ABCC6100B30FDD /* get_movie_detail_response.json */; };
 		651BF97720ABCC8B00B30FDD /* get_upcoming.json in Resources */ = {isa = PBXBuildFile; fileRef = 651BF97620ABCC8B00B30FDD /* get_upcoming.json */; };
@@ -61,11 +62,13 @@
 		656AF51520AD9FF9009B153A /* MovieListLocalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656AF51420AD9FF9009B153A /* MovieListLocalDataManager.swift */; };
 		656AF51720ADA1F1009B153A /* MovieListRemoteDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656AF51620ADA1F1009B153A /* MovieListRemoteDataManager.swift */; };
 		65875EA220AF890E0076FC87 /* MovieEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65875EA120AF890E0076FC87 /* MovieEntity.swift */; };
+		6588D79120BF978C0090BB6F /* JsonHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6588D79020BF978C0090BB6F /* JsonHelper.swift */; };
 		65B32D5E20AE6544007F55B4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 65B32D5D20AE6543007F55B4 /* README.md */; };
 		65B32D6220AE6FF3007F55B4 /* get_api_configuration.json in Resources */ = {isa = PBXBuildFile; fileRef = 65B32D6120AE6FF3007F55B4 /* get_api_configuration.json */; };
 		65B32D6420AE703B007F55B4 /* TMDbApiConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B32D6320AE703B007F55B4 /* TMDbApiConfiguration.swift */; };
 		65B32D6620AE7055007F55B4 /* TMDbApiConfiguration+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B32D6520AE7055007F55B4 /* TMDbApiConfiguration+CoreDataProperties.swift */; };
 		65B32D6820AE70D9007F55B4 /* TMDbApiConfigurationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B32D6720AE70D9007F55B4 /* TMDbApiConfigurationResponse.swift */; };
+		65D0F5EF20C102F500B45F2D /* Hippolyte.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 651B2B5720C0FC99008DF785 /* Hippolyte.framework */; };
 		65F0099220A9161600F4E363 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F0099120A9161600F4E363 /* Secrets.swift */; };
 		65F0099420A9191C00F4E363 /* Secrets.swift.example in Sources */ = {isa = PBXBuildFile; fileRef = 65F0099320A9191C00F4E363 /* Secrets.swift.example */; };
 		65F0099720A9206200F4E363 /* MovieListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F0099620A9206200F4E363 /* MovieListPresenter.swift */; };
@@ -118,6 +121,7 @@
 		2EE3AAC420B27C2400C4CD6A /* MovieListMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListMocks.swift; sourceTree = "<group>"; };
 		2EE3AAC620B28B7F00C4CD6A /* LocalDataManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataManagerTest.swift; sourceTree = "<group>"; };
 		2EE3AAC820B28B9900C4CD6A /* MovieListInteractorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListInteractorTest.swift; sourceTree = "<group>"; };
+		651B2B5720C0FC99008DF785 /* Hippolyte.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Hippolyte.framework; path = Carthage/Build/iOS/Hippolyte.framework; sourceTree = "<group>"; };
 		651BF97120ABCBCD00B30FDD /* MovieDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsResponse.swift; sourceTree = "<group>"; };
 		651BF97420ABCC6100B30FDD /* get_movie_detail_response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = get_movie_detail_response.json; sourceTree = "<group>"; };
 		651BF97620ABCC8B00B30FDD /* get_upcoming.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = get_upcoming.json; sourceTree = "<group>"; };
@@ -161,6 +165,7 @@
 		656AF51420AD9FF9009B153A /* MovieListLocalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListLocalDataManager.swift; sourceTree = "<group>"; };
 		656AF51620ADA1F1009B153A /* MovieListRemoteDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListRemoteDataManager.swift; sourceTree = "<group>"; };
 		65875EA120AF890E0076FC87 /* MovieEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieEntity.swift; sourceTree = "<group>"; };
+		6588D79020BF978C0090BB6F /* JsonHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonHelper.swift; sourceTree = "<group>"; };
 		65B32D5D20AE6543007F55B4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		65B32D5F20AE6A8B007F55B4 /* PKHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PKHUD.framework; path = Carthage/Build/iOS/PKHUD.framework; sourceTree = "<group>"; };
 		65B32D6120AE6FF3007F55B4 /* get_api_configuration.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = get_api_configuration.json; sourceTree = "<group>"; };
@@ -194,6 +199,7 @@
 				2E02A23720B4DF9B008B93F5 /* PKHUD.framework in Frameworks */,
 				2E02A23820B4DF9B008B93F5 /* SwiftMessages.framework in Frameworks */,
 				2E02A23620B4DF83008B93F5 /* AlamofireImage.framework in Frameworks */,
+				651B2B5820C0FC99008DF785 /* Hippolyte.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,6 +207,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65D0F5EF20C102F500B45F2D /* Hippolyte.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +296,7 @@
 				651BF98820ABD32F00B30FDD /* search_search_movie.json */,
 				651BF98A20ABD35F00B30FDD /* search_search_collections.json */,
 				65B32D6120AE6FF3007F55B4 /* get_api_configuration.json */,
+				6588D79020BF978C0090BB6F /* JsonHelper.swift */,
 			);
 			path = "JSON's";
 			sourceTree = "<group>";
@@ -421,6 +429,7 @@
 		656AF50220AD962D009B153A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				651B2B5720C0FC99008DF785 /* Hippolyte.framework */,
 				2E02A23320B4DF82008B93F5 /* Alamofire.framework */,
 				2E02A23420B4DF83008B93F5 /* AlamofireImage.framework */,
 				2E14CFBF20B0BDA2000E1724 /* SwiftMessages.framework */,
@@ -707,6 +716,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/AlamofireImage.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/PKHUD.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftMessages.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Hippolyte.framework",
 			);
 			name = "Run Script";
 			outputPaths = (
@@ -782,6 +792,7 @@
 				2EC1335E20B4F4A2004ABAD1 /* Mock+Extensions.swift in Sources */,
 				2EE3AAC720B28B7F00C4CD6A /* LocalDataManagerTest.swift in Sources */,
 				2EE3AAC320B27C0500C4CD6A /* RemoteDataManagerTest.swift in Sources */,
+				6588D79120BF978C0090BB6F /* JsonHelper.swift in Sources */,
 				2EE3AAC520B27C2400C4CD6A /* MovieListMocks.swift in Sources */,
 				2E02A23120B4DD1F008B93F5 /* MovieDetailMocks.swift in Sources */,
 			);
@@ -999,7 +1010,12 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = YMWQA4CLV6;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "The Movie DB ClientTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1008,6 +1024,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.amadeu01.The-Movie-DB-ClientTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/The Movie DB Client.app/The Movie DB Client";
@@ -1019,7 +1036,12 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = YMWQA4CLV6;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "The Movie DB ClientTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1028,6 +1050,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.amadeu01.The-Movie-DB-ClientTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/The Movie DB Client.app/The Movie DB Client";
@@ -1038,7 +1061,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = YMWQA4CLV6;
 				INFOPLIST_FILE = "The Movie DB ClientUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1047,6 +1071,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.amadeu01.The-Movie-DB-ClientUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "837f6c58-1045-4899-9567-fab4556c98d2";
+				PROVISIONING_PROFILE_SPECIFIER = "Amadeu Wildcard";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "The Movie DB Client";
@@ -1057,7 +1083,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = YMWQA4CLV6;
 				INFOPLIST_FILE = "The Movie DB ClientUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1066,6 +1093,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.amadeu01.The-Movie-DB-ClientUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "837f6c58-1045-4899-9567-fab4556c98d2";
+				PROVISIONING_PROFILE_SPECIFIER = "Amadeu Wildcard";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = "The Movie DB Client";
