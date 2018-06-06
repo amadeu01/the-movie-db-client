@@ -57,6 +57,24 @@ final class RemoteDataManagerTest: XCTestCase {
         XCTAssertNotNil(mockUpcomingMovieOutput.upcomingMovies)
     }
 
+    func testGetUpcomingReleasesWhenFirstPageIsNotFoundThenOutputErrorIsInvoked() throws {
+        Hippolyte.shared.clearStubs()
+        stubUpcomingMovieRequest?.response = StubResponse(statusCode: 404)
+        Hippolyte.shared.add(stubbedRequest: stubUpcomingMovieRequest!)
+        Hippolyte.shared.add(stubbedRequest: stubConfigurationRequest!)
+
+        let remoteDataSource = MovieListRemoteDataManager()
+        let mockUpcomingMovieOutput = MovieListMocks.UpcomingMovieOutput()
+        remoteDataSource.remoteUpcomingRequestHandler = mockUpcomingMovieOutput
+
+        remoteDataSource.getUpcomingReleases(forPageAt: 1)
+        wait(for: [networkExpectation!], timeout: 1)
+
+        XCTAssertTrue(mockUpcomingMovieOutput.onErrorInvoked)
+        XCTAssertNil(mockUpcomingMovieOutput.configuration)
+        XCTAssertNil(mockUpcomingMovieOutput.upcomingMovies)
+    }
+
     func testGetTMDbApiConfigurationThenRetrieveConfiguration() throws {
         let remoteDataSource = MovieListRemoteDataManager()
         let mockTMDbApiConfigurationOutput = MovieListMocks.TMDbApiConfigurationOutput()
