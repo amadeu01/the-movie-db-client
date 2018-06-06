@@ -44,7 +44,7 @@ final class RemoteDataManagerTest: XCTestCase {
         Hippolyte.shared.stop()
     }
 
-    func testGetUpcomingReleases() throws {
+    func testGetUpcomingReleasesWhenFirstPageThenRetriveUpcomingMovie() throws {
         let remoteDataSource = MovieListRemoteDataManager()
         let mockUpcomingMovieOutput = MovieListMocks.UpcomingMovieOutput()
         remoteDataSource.remoteUpcomingRequestHandler = mockUpcomingMovieOutput
@@ -57,7 +57,7 @@ final class RemoteDataManagerTest: XCTestCase {
         XCTAssertNotNil(mockUpcomingMovieOutput.upcomingMovies)
     }
 
-    func testGetTMDbApiConfiguration() throws {
+    func testGetTMDbApiConfigurationThenRetrieveConfiguration() throws {
         let remoteDataSource = MovieListRemoteDataManager()
         let mockTMDbApiConfigurationOutput = MovieListMocks.TMDbApiConfigurationOutput()
         remoteDataSource.remoteTMDbConfigurationRequestHandler = mockTMDbApiConfigurationOutput
