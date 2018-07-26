@@ -24,7 +24,7 @@ class MovieDetailPresenter: MovieDetailPresenterProtocol {
 }
 
 extension MovieDetailPresenter: MovieDetailInteractorOutputProtocol {
-    
+
 	func onError() {
 		view?.showError()
 	}

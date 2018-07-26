@@ -112,7 +112,7 @@ final class MovieListMocks {
             self.configurationEntity = configuration
             self.error = error
         }
-        
+
         func getNextMoviesReleases() throws -> [Movie] {
             fetchMovieInvoked = true
             return movies
