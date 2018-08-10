@@ -47,6 +47,7 @@
 		651BF99320ABD5B300B30FDD /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651BF99220ABD5B300B30FDD /* Collection.swift */; };
 		651BF99520ABD5C000B30FDD /* Collection+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651BF99420ABD5C000B30FDD /* Collection+CoreDataProperties.swift */; };
 		651BF99F20ABD76D00B30FDD /* MovieImagesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651BF99E20ABD76D00B30FDD /* MovieImagesResponse.swift */; };
+		651CDD59211E46B600EB4B07 /* PersistentContainerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651CDD58211E46B600EB4B07 /* PersistentContainerFactory.swift */; };
 		6557FE3E209B52A4004DEC8D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6557FE3D209B52A4004DEC8D /* AppDelegate.swift */; };
 		6557FE43209B52A4004DEC8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6557FE41209B52A4004DEC8D /* Main.storyboard */; };
 		6557FE46209B52A4004DEC8D /* The_Movie_DB_Client.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6557FE44209B52A4004DEC8D /* The_Movie_DB_Client.xcdatamodeld */; };
@@ -148,6 +149,7 @@
 		651BF99420ABD5C000B30FDD /* Collection+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		651BF99E20ABD76D00B30FDD /* MovieImagesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieImagesResponse.swift; sourceTree = "<group>"; };
 		651CDD57211E446D00EB4B07 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
+		651CDD58211E46B600EB4B07 /* PersistentContainerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentContainerFactory.swift; sourceTree = "<group>"; };
 		6557FE3A209B52A4004DEC8D /* The Movie DB Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Movie DB Client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6557FE3D209B52A4004DEC8D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6557FE42209B52A4004DEC8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 				6557FE3D209B52A4004DEC8D /* AppDelegate.swift */,
 				650947102108A2650021304F /* ManagedObjectContextFactory.swift */,
 				650947122108A4420021304F /* ManagedObjectModelFactory.swift */,
+				651CDD58211E46B600EB4B07 /* PersistentContainerFactory.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -753,6 +756,7 @@
 				65F0099720A9206200F4E363 /* MovieListPresenter.swift in Sources */,
 				2E14CFC220B0BDE4000E1724 /* Makefile in Sources */,
 				651BF98720ABD1A700B30FDD /* MovieListResponse.swift in Sources */,
+				651CDD59211E46B600EB4B07 /* PersistentContainerFactory.swift in Sources */,
 				651BF99120ABD58F00B30FDD /* Genre+CoreDataProperties.swift in Sources */,
 				6557FE7B209B5660004DEC8D /* MovieDetailProtocols.swift in Sources */,
 				65F0099220A9161600F4E363 /* Secrets.swift in Sources */,

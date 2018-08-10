@@ -7,13 +7,9 @@
 //
 
 import CoreData
-import UIKit
 
 final class PersistenceStoreCoordinatorFactory {
     static func make() -> NSPersistentStoreCoordinator? {
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            return appDelegate.persistentContainer.persistentStoreCoordinator
-        }
-        return nil
+        return PersistentContainerFactory.make().persistentStoreCoordinator
     }
 }
