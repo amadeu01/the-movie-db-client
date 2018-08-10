@@ -16,7 +16,7 @@ class MovieListWireFrame: MovieListWireFrameProtocol {
 
             let interactorUpcomingMovie: MovieListInteractorInputProtocol & UpcomingMovieOutputProtocol = MovieListInteractor()
 
-			let localDataManager: MovieListLocalDataManagerInputProtocol = MovieListLocalDataManager()
+            let localDataManager: MovieListLocalDataManagerInputProtocol = MovieListLocalDataManager()
             let remoteDataManager: MovieListRemoteDataManagerInputProtocol = MovieListRemoteDataManager()
             let wireFrame: MovieListWireFrameProtocol = MovieListWireFrame()
 
@@ -29,7 +29,7 @@ class MovieListWireFrame: MovieListWireFrameProtocol {
             interactorUpcomingMovie.localDatamanager = localDataManager
             interactorUpcomingMovie.remoteDatamanager = remoteDataManager
 
-			remoteDataManager.remoteUpcomingRequestHandler = interactorUpcomingMovie
+            remoteDataManager.remoteUpcomingRequestHandler = interactorUpcomingMovie
 
             return navController
         }

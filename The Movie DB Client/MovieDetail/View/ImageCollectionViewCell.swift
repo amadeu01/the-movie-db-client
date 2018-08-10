@@ -10,14 +10,14 @@ import UIKit
 
 class ImageCollectionViewCell: UICollectionViewCell {
 
-	@IBOutlet weak var moviePoster: UIImageView!
+    @IBOutlet weak var moviePoster: UIImageView!
 
-	func set(forMovie movie: MovieEntity) {
-		moviePoster.contentMode = .scaleAspectFit
+    func set(forMovie movie: MovieEntity) {
+        moviePoster.contentMode = .scaleAspectFit
 
-		if let url = movie.posterBestQualityUrl {
-			moviePoster.af_setImage(withURL: URL(string: url)!)
-		}
-	}
+        if let url = movie.posterBestQualityUrl {
+            moviePoster.af_setImage(withURL: URL(string: url)!)
+        }
+    }
 
 }

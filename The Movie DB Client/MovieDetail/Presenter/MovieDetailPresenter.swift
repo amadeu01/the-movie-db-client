@@ -9,7 +9,7 @@
 import UIKit
 
 class MovieDetailPresenter: MovieDetailPresenterProtocol {
-	var movieItem: MovieEntity?
+    var movieItem: MovieEntity?
 
     var view: MovieDetailViewProtocol?
 
@@ -18,15 +18,15 @@ class MovieDetailPresenter: MovieDetailPresenterProtocol {
     var wireFrame: MovieDetailWireFrameProtocol?
 
     func viewDidLoad() {
-		interactor?.getDetail(forMovie: movieItem!)
-		view?.showMovieDetail(forMovieItem: movieItem!)
+        interactor?.getDetail(forMovie: movieItem!)
+        view?.showMovieDetail(forMovieItem: movieItem!)
     }
 }
 
 extension MovieDetailPresenter: MovieDetailInteractorOutputProtocol {
-    
-	func onError() {
-		view?.showError()
-	}
+
+    func onError() {
+        view?.showError()
+    }
 
 }

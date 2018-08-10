@@ -11,23 +11,23 @@ import XCTest
 
 final class MovieListInteractorTest: XCTestCase {
 
-	func testMovieListInteractor_when_there_is_no_data_on_local_storage() {
-		//Given
-		let localDataSource = MovieListMocks.LocalDataManagerInput(movies: [Movie]())
+    func testMovieListInteractor_when_there_is_no_data_on_local_storage() {
+        //Given
+        let localDataSource = MovieListMocks.LocalDataManagerInput(movies: [Movie]())
 
-		let remoteDataSource = MovieListMocks.RemoteDataManagerInput()
+        let remoteDataSource = MovieListMocks.RemoteDataManagerInput()
 
-		let interactorUpcomingMovie = MovieListInteractor()
+        let interactorUpcomingMovie = MovieListInteractor()
 
-		interactorUpcomingMovie.localDatamanager = localDataSource
-		interactorUpcomingMovie.remoteDatamanager = remoteDataSource
+        interactorUpcomingMovie.localDatamanager = localDataSource
+        interactorUpcomingMovie.remoteDatamanager = remoteDataSource
 
-		//When
-		interactorUpcomingMovie.getNextMoviesReleases()
+        //When
+        interactorUpcomingMovie.getNextMoviesReleases()
 
-		//Then
-		XCTAssertTrue(remoteDataSource.fetchUpcomingMovieInvoked)
-//		XCTAssertFalse(network.fetchInvoked)
-//		XCTAssertFalse(dataSource.saveInvoked)
-	}
+        //Then
+        XCTAssertTrue(remoteDataSource.fetchUpcomingMovieInvoked)
+        //		XCTAssertFalse(network.fetchInvoked)
+        //		XCTAssertFalse(dataSource.saveInvoked)
+    }
 }

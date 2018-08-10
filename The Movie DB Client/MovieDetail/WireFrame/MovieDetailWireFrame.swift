@@ -17,10 +17,10 @@ class MovieDetailWireFrame: MovieDetailWireFrameProtocol {
             let wireFrame: MovieDetailWireFrameProtocol = MovieDetailWireFrame()
 
             view.presenter = presenter
-			view.movieEntity = movieItem
+            view.movieEntity = movieItem
             presenter.view = view
             presenter.wireFrame = wireFrame
-			presenter.movieItem = movieItem
+            presenter.movieItem = movieItem
 
             return viewController
         }

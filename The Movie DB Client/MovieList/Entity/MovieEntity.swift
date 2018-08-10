@@ -24,47 +24,47 @@ struct MovieEntity {
     public let overview: String?
     public let releaseDate: String?
     public let voteCount: Int?
-	public let baseUrl: String?
+    public let baseUrl: String?
 
-	public let backdropSize: String?
-	public let posterSize: String?
+    public let backdropSize: String?
+    public let posterSize: String?
 
-	public let backdropBestQualitySize: String?
-	public let posterBestQualitySize: String?
+    public let backdropBestQualitySize: String?
+    public let posterBestQualitySize: String?
 
-	public var posterUrl: String? {
-		if let baseUrl = baseUrl, let posterSize = posterSize, let posterPath = posterPath {
-			return baseUrl + posterSize + posterPath
-		} else {
-			return nil
-		}
-	}
+    public var posterUrl: String? {
+        if let baseUrl = baseUrl, let posterSize = posterSize, let posterPath = posterPath {
+            return baseUrl + posterSize + posterPath
+        } else {
+            return nil
+        }
+    }
 
-	public var backdropUrl: String? {
-		if let baseUrl = baseUrl, let backdropSize = backdropSize, let backdropPath = backdropPath {
-			return baseUrl + backdropSize + backdropPath
-		} else {
-			return nil
-		}
-	}
+    public var backdropUrl: String? {
+        if let baseUrl = baseUrl, let backdropSize = backdropSize, let backdropPath = backdropPath {
+            return baseUrl + backdropSize + backdropPath
+        } else {
+            return nil
+        }
+    }
 
-	public var posterBestQualityUrl: String? {
-		if let baseUrl = baseUrl, let posterBestQualitySize = posterBestQualitySize, let posterPath = posterPath {
-			return baseUrl + posterBestQualitySize + posterPath
-		} else {
-			return nil
-		}
-	}
+    public var posterBestQualityUrl: String? {
+        if let baseUrl = baseUrl, let posterBestQualitySize = posterBestQualitySize, let posterPath = posterPath {
+            return baseUrl + posterBestQualitySize + posterPath
+        } else {
+            return nil
+        }
+    }
 
-	public var backdropBestQualityUrl: String? {
-		if let baseUrl = baseUrl, let backdropBestQualitySize = backdropBestQualitySize, let backdropPath = backdropPath {
-			return baseUrl + backdropBestQualitySize + backdropPath
-		} else {
-			return nil
-		}
-	}
+    public var backdropBestQualityUrl: String? {
+        if let baseUrl = baseUrl, let backdropBestQualitySize = backdropBestQualitySize, let backdropPath = backdropPath {
+            return baseUrl + backdropBestQualitySize + backdropPath
+        } else {
+            return nil
+        }
+    }
 
-	init(withRemoteMovie movieElement: MovieUpcomingResponse.ResultsElement, withConfigurationEntity configuration: ConfigurationEntity?) {
+    init(withRemoteMovie movieElement: MovieUpcomingResponse.ResultsElement, withConfigurationEntity configuration: ConfigurationEntity?) {
         self.remoteId = movieElement.id
         self.adult = movieElement.adult
         self.genreIds = movieElement.genreIds
@@ -79,32 +79,32 @@ struct MovieEntity {
         self.posterPath = movieElement.posterPath
         self.backdropPath = movieElement.backdropPath
         self.originalLanguage = movieElement.originalLanguage
-		self.baseUrl = configuration?.baseUrl
-		self.backdropSize = configuration?.backdropSizes.first
-		self.posterSize = configuration?.posterSizes.first
-		self.backdropBestQualitySize = configuration?.backdropSizes.last
-		self.posterBestQualitySize = configuration?.posterSizes.last
+        self.baseUrl = configuration?.baseUrl
+        self.backdropSize = configuration?.backdropSizes.first
+        self.posterSize = configuration?.posterSizes.first
+        self.backdropBestQualitySize = configuration?.backdropSizes.last
+        self.posterBestQualitySize = configuration?.posterSizes.last
     }
 
-	init(withLocalMovie movieElement: Movie, withLocalConfiguration configuration: ConfigurationEntity?) {
-		self.remoteId = Int(movieElement.remoteId!)
-		self.adult = movieElement.adult?.boolValue
-		self.genreIds = movieElement.genreIds as! [Int]
-		self.releaseDate = movieElement.releaseDate
-		self.title = movieElement.title
-		self.overview = movieElement.overview
-		self.originalTitle = movieElement.originalTitle
-		self.voteCount = Int(movieElement.voteCount!)
-		self.popularity = movieElement.popularity
-		self.voteAverage = movieElement.voteAverage
-		self.video = movieElement.video?.boolValue
-		self.posterPath = movieElement.posterPath
-		self.backdropPath = movieElement.backdropPath
-		self.originalLanguage = movieElement.originalLanguage
-		self.baseUrl = configuration?.baseUrl
-		self.backdropSize = configuration?.backdropSizes.first
-		self.posterSize = configuration?.posterSizes.first
-		self.backdropBestQualitySize = configuration?.backdropSizes.last
-		self.posterBestQualitySize = configuration?.posterSizes.last
-	}
+    init(withLocalMovie movieElement: Movie, withLocalConfiguration configuration: ConfigurationEntity?) {
+        self.remoteId = Int(movieElement.remoteId!)
+        self.adult = movieElement.adult?.boolValue
+        self.genreIds = movieElement.genreIds as! [Int]
+        self.releaseDate = movieElement.releaseDate
+        self.title = movieElement.title
+        self.overview = movieElement.overview
+        self.originalTitle = movieElement.originalTitle
+        self.voteCount = Int(movieElement.voteCount!)
+        self.popularity = movieElement.popularity
+        self.voteAverage = movieElement.voteAverage
+        self.video = movieElement.video?.boolValue
+        self.posterPath = movieElement.posterPath
+        self.backdropPath = movieElement.backdropPath
+        self.originalLanguage = movieElement.originalLanguage
+        self.baseUrl = configuration?.baseUrl
+        self.backdropSize = configuration?.backdropSizes.first
+        self.posterSize = configuration?.posterSizes.first
+        self.backdropBestQualitySize = configuration?.backdropSizes.last
+        self.posterBestQualitySize = configuration?.posterSizes.last
+    }
 }

@@ -10,26 +10,26 @@ import Foundation
 
 struct MovieListEntity {
 
-	public let page: Int?
-	public let totalResults: Int?
-	public let dates: Dates?
-	public let totalPages: Int?
-	public let movies: [MovieEntity]?
-	public let configuration: ConfigurationEntity?
+    public let page: Int?
+    public let totalResults: Int?
+    public let dates: Dates?
+    public let totalPages: Int?
+    public let movies: [MovieEntity]?
+    public let configuration: ConfigurationEntity?
 
-	public struct Dates {
-		public let maximum: String?
-		public let minimum: String?
-	}
+    public struct Dates {
+        public let maximum: String?
+        public let minimum: String?
+    }
 
-	init(fromUpcomingResponse movieUpcomingResponse: MovieUpcomingResponse, fromConfiguration configuration: ConfigurationEntity?) {
-		self.page = movieUpcomingResponse.page
-		self.totalResults = movieUpcomingResponse.totalResults
-		self.dates = Dates(maximum: movieUpcomingResponse.dates?.maximum, minimum: movieUpcomingResponse.dates?.minimum)
-		self.totalPages = movieUpcomingResponse.totalPages
-		self.movies = movieUpcomingResponse.results.map { movieUpcomingResponseResult in
-			return MovieEntity(withRemoteMovie: movieUpcomingResponseResult, withConfigurationEntity: configuration)
-		}
-		self.configuration = configuration
-	}
+    init(fromUpcomingResponse movieUpcomingResponse: MovieUpcomingResponse, fromConfiguration configuration: ConfigurationEntity?) {
+        self.page = movieUpcomingResponse.page
+        self.totalResults = movieUpcomingResponse.totalResults
+        self.dates = Dates(maximum: movieUpcomingResponse.dates?.maximum, minimum: movieUpcomingResponse.dates?.minimum)
+        self.totalPages = movieUpcomingResponse.totalPages
+        self.movies = movieUpcomingResponse.results.map { movieUpcomingResponseResult in
+            return MovieEntity(withRemoteMovie: movieUpcomingResponseResult, withConfigurationEntity: configuration)
+        }
+        self.configuration = configuration
+    }
 }

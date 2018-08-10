@@ -21,7 +21,7 @@ class MovieListView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter?.viewDidLoad()
-		navigationItem.searchController = UISearchController(searchResultsController: nil)
+        navigationItem.searchController = UISearchController(searchResultsController: nil)
     }
 
 }
@@ -33,7 +33,7 @@ extension MovieListView: MovieListViewProtocol {
     }
 
     func showError() {
-		HUD.hide()
+        HUD.hide()
         HUD.flash(.label("Something terrible happen"), delay: 2.0)
     }
 

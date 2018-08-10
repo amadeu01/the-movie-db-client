@@ -147,6 +147,7 @@
 		651BF99220ABD5B300B30FDD /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		651BF99420ABD5C000B30FDD /* Collection+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		651BF99E20ABD76D00B30FDD /* MovieImagesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieImagesResponse.swift; sourceTree = "<group>"; };
+		651CDD57211E446D00EB4B07 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		6557FE3A209B52A4004DEC8D /* The Movie DB Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Movie DB Client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6557FE3D209B52A4004DEC8D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6557FE42209B52A4004DEC8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -322,6 +323,7 @@
 		6557FE31209B52A4004DEC8D = {
 			isa = PBXGroup;
 			children = (
+				651CDD57211E446D00EB4B07 /* .swiftlint.yml */,
 				2E14CFC120B0BDE4000E1724 /* Makefile */,
 				65B32D5D20AE6543007F55B4 /* README.md */,
 				65F0099020A915D100F4E363 /* Config */,

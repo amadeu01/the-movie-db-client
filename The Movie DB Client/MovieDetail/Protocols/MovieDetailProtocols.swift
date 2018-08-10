@@ -13,7 +13,7 @@ import UIKit
 protocol MovieDetailViewProtocol: class {
     var presenter: MovieDetailPresenterProtocol? { get set }
 
-	var movieEntity: MovieEntity? { get set }
+    var movieEntity: MovieEntity? { get set }
 
     func showError()
 
@@ -52,7 +52,7 @@ protocol MovieDetailInteractorInputProtocol: class {
     var localDatamanager: MovieDetailLocalDataManagerInputProtocol? { get set }
     var remoteDatamanager: MovieDetailRemoteDataManagerInputProtocol? { get set }
 
-	func getDetail(forMovie movieItem: MovieEntity)
+    func getDetail(forMovie movieItem: MovieEntity)
 }
 
 // MARK: - Data Manager Protocol
@@ -63,15 +63,15 @@ protocol MovieDetailDataManagerInputProtocol: class {
 protocol MovieDetailRemoteDataManagerInputProtocol: class {
     var remoteRequestHandler: MovieDetailRemoteDataManagerOutputProtocol? { get set }
 
-	func getDetail(forMovie movie: MovieEntity)
+    func getDetail(forMovie movie: MovieEntity)
 }
 
 protocol MovieDetailRemoteDataManagerOutputProtocol: class {
-	func onMovieDetailRetrieved()
+    func onMovieDetailRetrieved()
 
     func onError()
 }
 
 protocol MovieDetailLocalDataManagerInputProtocol: class {
-	func getDetail(forMovie movie: MovieEntity) throws -> MovieEntity?
+    func getDetail(forMovie movie: MovieEntity) throws -> MovieEntity?
 }

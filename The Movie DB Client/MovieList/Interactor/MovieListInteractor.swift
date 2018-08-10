@@ -21,13 +21,13 @@ class MovieListInteractor: MovieListInteractorInputProtocol {
 
 extension MovieListInteractor: UpcomingMovieOutputProtocol {
     func onUpcomingMovieRetrieved(_ movies: MovieUpcomingResponse, _ configuration: TMDbApiConfigurationResponse?) {
-		let configurationEntity: ConfigurationEntity
+        let configurationEntity: ConfigurationEntity
 
-		if let configurationResponse = configuration {
-			configurationEntity = ConfigurationEntity(from: configurationResponse)
-		} else {
-			configurationEntity = (try! localDatamanager?.getTMDbApiConfiguration())!
-		}
+        if let configurationResponse = configuration {
+            configurationEntity = ConfigurationEntity(from: configurationResponse)
+        } else {
+            configurationEntity = (try! localDatamanager?.getTMDbApiConfiguration())!
+        }
 
         let movieList = movies.results.map { (movieResponse: MovieUpcomingResponse.ResultsElement) -> MovieEntity in
             let movie = MovieEntity(withRemoteMovie: movieResponse, withConfigurationEntity: configurationEntity)
@@ -45,26 +45,26 @@ extension MovieListInteractor: UpcomingMovieOutputProtocol {
     }
 
     func onError() {
-		do {
-			let movies: [Movie]? = try localDatamanager?.getNextMoviesReleases()
-			let configuration = try localDatamanager?.getTMDbApiConfiguration()
+        do {
+            let movies: [Movie]? = try localDatamanager?.getNextMoviesReleases()
+            let configuration = try localDatamanager?.getTMDbApiConfiguration()
 
-			let movieEntityList = movies?.map { (movie: Movie) -> MovieEntity in
-				return MovieEntity(withLocalMovie: movie, withLocalConfiguration: configuration)
-			}
+            let movieEntityList = movies?.map { (movie: Movie) -> MovieEntity in
+                return MovieEntity(withLocalMovie: movie, withLocalConfiguration: configuration)
+            }
 
-			presenter?.didRetrieveUpcomingMovie(movieEntityList!)
-		} catch {
-			presenter?.onError()
-			return
-		}
+            presenter?.didRetrieveUpcomingMovie(movieEntityList!)
+        } catch {
+            presenter?.onError()
+            return
+        }
 
-		presenter?.onError()
+        presenter?.onError()
     }
 }
 
 extension MovieListInteractor: TMDbApiConfigurationOutputProtocol {
-	func onTMDbApiConfigurationRetrieved(_ config: TMDbApiConfigurationResponse) {
-		try! localDatamanager?.saveTMDbApiConfiguration(forConfiguration: config)
-	}
+    func onTMDbApiConfigurationRetrieved(_ config: TMDbApiConfigurationResponse) {
+        try! localDatamanager?.saveTMDbApiConfiguration(forConfiguration: config)
+    }
 }
