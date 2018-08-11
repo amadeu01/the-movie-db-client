@@ -10,7 +10,7 @@ import CoreData
 
 class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
 
-	let managedObjectContext:NSManagedObjectContext
+    fileprivate let managedObjectContext: NSManagedObjectContext
 
     init(managedObjectContext: NSManagedObjectContext) {
         self.managedObjectContext = managedObjectContext
