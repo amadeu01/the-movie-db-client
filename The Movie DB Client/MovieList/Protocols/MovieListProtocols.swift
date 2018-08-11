@@ -59,11 +59,11 @@ protocol MovieListInteractorInputProtocol: class {
 }
 
 protocol SearchMovieInteractorInputProtocol: class {
-	var presenter: MovieListInteractorOutputProtocol? { get set }
-	var localDatamanager: MovieListLocalDataManagerInputProtocol? { get set }
-	var remoteDatamanager: MovieListRemoteDataManagerInputProtocol? { get set }
+    var presenter: MovieListInteractorOutputProtocol? { get set }
+    var localDatamanager: MovieListLocalDataManagerInputProtocol? { get set }
+    var remoteDatamanager: MovieListRemoteDataManagerInputProtocol? { get set }
 
-	func searchMovie(forName name: String)
+    func searchMovie(forName name: String)
 }
 
 // MARK: - Data Manager Protocol
@@ -72,10 +72,10 @@ protocol MovieListDataManagerInputProtocol: class {
 }
 
 protocol MovieListRemoteDataManagerInputProtocol: class {
-	var remoteUpcomingRequestHandler: UpcomingMovieOutputProtocol? { get set }
-	var remoteTMDbConfigurationRequestHandler: TMDbApiConfigurationOutputProtocol? { get set }
+    var remoteUpcomingRequestHandler: UpcomingMovieOutputProtocol? { get set }
+    var remoteTMDbConfigurationRequestHandler: TMDbApiConfigurationOutputProtocol? { get set }
 
-	func getUpcomingReleases(forPageAt page: Int)
+    func getUpcomingReleases(forPageAt page: Int)
 }
 
 protocol MovieListRemoteDataManagerOutputProtocol: class {
@@ -84,15 +84,15 @@ protocol MovieListRemoteDataManagerOutputProtocol: class {
 }
 
 protocol UpcomingMovieOutputProtocol: MovieListRemoteDataManagerOutputProtocol {
-	func onUpcomingMovieRetrieved(_ movies: MovieUpcomingResponse, _ configuration: TMDbApiConfigurationResponse?)
+    func onUpcomingMovieRetrieved(_ movies: MovieUpcomingResponse, _ configuration: TMDbApiConfigurationResponse?)
 }
 
 protocol SearchMovieOutputProtocol: MovieListRemoteDataManagerOutputProtocol {
-	func onSearchRetrieved(_ moviesSearchResponse: SearchMovieResponse, _ configuration: TMDbApiConfigurationResponse?)
+    func onSearchRetrieved(_ moviesSearchResponse: SearchMovieResponse, _ configuration: TMDbApiConfigurationResponse?)
 }
 
 protocol TMDbApiConfigurationOutputProtocol: MovieListRemoteDataManagerOutputProtocol {
-	func onTMDbApiConfigurationRetrieved(_ config: TMDbApiConfigurationResponse)
+    func onTMDbApiConfigurationRetrieved(_ config: TMDbApiConfigurationResponse)
 }
 
 protocol MovieListLocalDataManagerInputProtocol: class {
@@ -100,9 +100,9 @@ protocol MovieListLocalDataManagerInputProtocol: class {
 
     func searchMovie(forTitle title: String) throws -> [Movie]
 
-	func getTMDbApiConfiguration() throws -> ConfigurationEntity?
+    func getTMDbApiConfiguration() throws -> ConfigurationEntity?
 
     func saveMovie(forMovieUpcomingResponse movieUpcomingResponse: MovieUpcomingResponse) throws
 
-	func saveTMDbApiConfiguration(forConfiguration configuration: TMDbApiConfigurationResponse) throws
+    func saveTMDbApiConfiguration(forConfiguration configuration: TMDbApiConfigurationResponse) throws
 }

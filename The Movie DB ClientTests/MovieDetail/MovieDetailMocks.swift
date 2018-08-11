@@ -10,6 +10,6 @@ import Foundation
 @testable import The_Movie_DB_Client
 
 final class MovieDetailMocks {
-	private init() {}
+    private init() {}
 
 }

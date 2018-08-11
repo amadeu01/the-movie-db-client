@@ -9,21 +9,21 @@
 import CoreData
 
 class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
-	func getTMDbApiConfiguration() throws -> ConfigurationEntity? {
-		guard let managedOC = CoreDataStore.managedObjectContext else {
-			throw PersistenceError.managedObjectContextNotFound
-		}
+    func getTMDbApiConfiguration() throws -> ConfigurationEntity? {
+        guard let managedOC = CoreDataStore.managedObjectContext else {
+            throw PersistenceError.managedObjectContextNotFound
+        }
 
-		let request: NSFetchRequest<TMDbApiConfiguration> = NSFetchRequest(entityName: String(describing: TMDbApiConfiguration.self))
+        let request: NSFetchRequest<TMDbApiConfiguration> = NSFetchRequest(entityName: String(describing: TMDbApiConfiguration.self))
 
-		let localConfig = try managedOC.fetch(request).first
+        let localConfig = try managedOC.fetch(request).first
 
-		if let localConfig = localConfig {
-			return ConfigurationEntity(from: localConfig)
-		} else {
-			return nil
-		}
-	}
+        if let localConfig = localConfig {
+            return ConfigurationEntity(from: localConfig)
+        } else {
+            return nil
+        }
+    }
 
     func searchMovie(forTitle title: String) throws -> [Movie] {
         guard let managedOC = CoreDataStore.managedObjectContext else {
@@ -114,22 +114,22 @@ class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
             tempConfig.stillSizes = (configuration.images?.stillSizes)!
             tempConfig.profileSizes = (configuration.images?.profileSizes)!
 
-			try managedOC.save()
-		} else {
-			if let newConfig = NSEntityDescription.entity(forEntityName: "TMDbApiConfiguration",
-														 in: managedOC) {
-				let config = TMDbApiConfiguration(entity: newConfig, insertInto: managedOC)
-				config.backdropSizes = (configuration.images?.backdropSizes)!
-				config.baseUrl = configuration.images?.baseUrl
-				config.logoSizes = (configuration.images?.logoSizes)!
-				config.backdropSizes = (configuration.images?.backdropSizes)!
-				config.posterSizes = (configuration.images?.posterSizes)!
-				config.secureBaseUrl = configuration.images?.secureBaseUrl
-				config.stillSizes = (configuration.images?.stillSizes)!
-				config.profileSizes = (configuration.images?.profileSizes)!
+            try managedOC.save()
+        } else {
+            if let newConfig = NSEntityDescription.entity(forEntityName: "TMDbApiConfiguration",
+                                                          in: managedOC) {
+                let config = TMDbApiConfiguration(entity: newConfig, insertInto: managedOC)
+                config.backdropSizes = (configuration.images?.backdropSizes)!
+                config.baseUrl = configuration.images?.baseUrl
+                config.logoSizes = (configuration.images?.logoSizes)!
+                config.backdropSizes = (configuration.images?.backdropSizes)!
+                config.posterSizes = (configuration.images?.posterSizes)!
+                config.secureBaseUrl = configuration.images?.secureBaseUrl
+                config.stillSizes = (configuration.images?.stillSizes)!
+                config.profileSizes = (configuration.images?.profileSizes)!
 
-				try managedOC.save()
-			}
-		}
+                try managedOC.save()
+            }
+        }
     }
 }

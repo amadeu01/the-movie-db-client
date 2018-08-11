@@ -9,13 +9,13 @@
 import UIKit
 
 class MovieDetailInteractor: MovieDetailInteractorInputProtocol {
-	var presenter: MovieDetailInteractorOutputProtocol?
+    var presenter: MovieDetailInteractorOutputProtocol?
 
-	var localDatamanager: MovieDetailLocalDataManagerInputProtocol?
+    var localDatamanager: MovieDetailLocalDataManagerInputProtocol?
 
-	var remoteDatamanager: MovieDetailRemoteDataManagerInputProtocol?
+    var remoteDatamanager: MovieDetailRemoteDataManagerInputProtocol?
 
-	func getDetail(forMovie movieItem: MovieEntity) {
-		remoteDatamanager?.getDetail(forMovie: movieItem)
-	}
+    func getDetail(forMovie movieItem: MovieEntity) {
+        remoteDatamanager?.getDetail(forMovie: movieItem)
+    }
 }

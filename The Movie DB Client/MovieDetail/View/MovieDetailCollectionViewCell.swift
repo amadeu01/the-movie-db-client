@@ -10,17 +10,17 @@ import UIKit
 
 class MovieDetailCollectionViewCell: UICollectionViewCell {
 
-	@IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
 
-	@IBOutlet weak var genrerLabel: UILabel!
+    @IBOutlet weak var genrerLabel: UILabel!
 
-	@IBOutlet weak var overviewLabel: UILabel!
+    @IBOutlet weak var overviewLabel: UILabel!
 
-	func set(forMovie movie: MovieEntity) {
-		titleLabel.text = "\(movie.title ?? "No Title")(\(movie.releaseDate ?? "No release date"))"
+    func set(forMovie movie: MovieEntity) {
+        titleLabel.text = "\(movie.title ?? "No Title")(\(movie.releaseDate ?? "No release date"))"
 
-		overviewLabel.text = movie.overview
-		overviewLabel.sizeToFit()
-	}
+        overviewLabel.text = movie.overview
+        overviewLabel.sizeToFit()
+    }
 
 }
