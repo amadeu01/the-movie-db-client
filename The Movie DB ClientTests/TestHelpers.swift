@@ -37,7 +37,26 @@ extension MovieUpcomingResponse.ResultsElement {
             backdropPath: "my/path/to/poster",
             adult: false,
             overview: "movie mock overview",
-            releaseDate: "10-11-2019"
+            releaseDate: "2018-04-05"
+        )
+    }
+
+    static var mocked2: MovieUpcomingResponse.ResultsElement {
+        return MovieUpcomingResponse.ResultsElement(
+            voteCount: 10,
+            id: 81,
+            video: false,
+            voteAverage: 100.0,
+            title: "The Sweet Life",
+            popularity: 999.0,
+            posterPath: "la/dolce/to/la/vita",
+            originalLanguage: "en",
+            originalTitle: "La Dolce Vita",
+            genreIds: [14, 23, 13, 41],
+            backdropPath: "my/path/to/poster",
+            adult: true,
+            overview: "movie mock overview",
+            releaseDate: "1960-02-05"
         )
     }
 }
@@ -50,6 +69,21 @@ extension MovieUpcomingResponse {
             totalResults: 1,
             dates: nil,
             totalPages: 1)
+    }
+
+    static var mockedWithTwoElements: MovieUpcomingResponse {
+        return MovieUpcomingResponse(
+            results: [MovieUpcomingResponse.ResultsElement.mocked, MovieUpcomingResponse.ResultsElement.mocked2],
+            page: 1,
+            totalResults: 2,
+            dates: MovieUpcomingResponse.Dates.mocked,
+            totalPages: 1)
+    }
+}
+
+extension MovieUpcomingResponse.Dates {
+    static var mocked: MovieUpcomingResponse.Dates {
+        return MovieUpcomingResponse.Dates(maximum: "2018-06-10", minimum: "2018-05-15")
     }
 }
 
