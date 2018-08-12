@@ -1,4 +1,5 @@
 [![Build status](https://build.appcenter.ms/v0.1/apps/bc4775f1-1a4d-4676-ad6f-7e038cd690e8/branches/production/badge)](https://appcenter.ms)
+[![Build Status](https://app.bitrise.io/app/a1f4dc85786b90d9/status.svg?token=Kf56YdP3hqzjSqVvMnhz2g)](https://app.bitrise.io/app/a1f4dc85786b90d9)
 [![Maintainability](https://api.codeclimate.com/v1/badges/0e80a0e7245040297d96/maintainability)](https://codeclimate.com/github/amadeu01/the-movie-db-client/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/0e80a0e7245040297d96/test_coverage)](https://codeclimate.com/github/amadeu01/the-movie-db-client/test_coverage)
 
