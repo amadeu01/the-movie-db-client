@@ -40,7 +40,7 @@ class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
         return try managedObjectContext.fetch(request)
     }
 
-    func saveMovie(forMovieUpcomingResponseElement movieUpcomingElement: MovieUpcomingResponse.ResultsElement) throws {
+    func saveMovie(for movieUpcomingElement: MovieUpcomingResponse.ResultsElement) throws {
         let request: NSFetchRequest<Movie> = NSFetchRequest(entityName: String(describing: Movie.self))
         request.predicate = NSPredicate(format: "remoteId == %d", movieUpcomingElement.id!)
         let fetched = try managedObjectContext.fetch(request)
@@ -53,8 +53,8 @@ class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
             tempMovie.backdropPath = movieUpcomingElement.backdropPath
             tempMovie.releaseDate = movieUpcomingElement.releaseDate
             tempMovie.originalTitle = movieUpcomingElement.originalTitle
-            tempMovie.video = NSNumber(booleanLiteral: movieUpcomingElement.video!)
-            tempMovie.adult = NSNumber(booleanLiteral: movieUpcomingElement.adult!)
+            tempMovie.video = NSNumber(booleanLiteral: movieUpcomingElement.video ?? false)
+            tempMovie.adult = NSNumber(booleanLiteral: movieUpcomingElement.adult ?? false)
             tempMovie.genreIds = movieUpcomingElement.genreIds as [NSNumber]
             tempMovie.voteAverage = movieUpcomingElement.voteAverage
             tempMovie.popularity = movieUpcomingElement.popularity
@@ -64,14 +64,15 @@ class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
             if let newMovie = NSEntityDescription.entity(forEntityName: "Movie",
                                                          in: managedObjectContext) {
                 let movie = Movie(entity: newMovie, insertInto: managedObjectContext)
-                movie.remoteId = Int32(movieUpcomingElement.id!)
+                movie.remoteId = movieUpcomingElement.id ?? -1
+                movie.title = movieUpcomingElement.title
                 movie.overview = movieUpcomingElement.overview
                 movie.posterPath = movieUpcomingElement.posterPath
                 movie.backdropPath = movieUpcomingElement.backdropPath
                 movie.releaseDate = movieUpcomingElement.releaseDate
                 movie.originalTitle = movieUpcomingElement.originalTitle
-                movie.video = NSNumber(booleanLiteral: movieUpcomingElement.video!)
-                movie.adult = NSNumber(booleanLiteral: movieUpcomingElement.adult!)
+                movie.video = NSNumber(booleanLiteral: movieUpcomingElement.video ?? false)
+                movie.adult = NSNumber(booleanLiteral: movieUpcomingElement.adult ?? false)
                 movie.genreIds = movieUpcomingElement.genreIds as [NSNumber]
                 movie.voteAverage = movieUpcomingElement.voteAverage
                 movie.popularity = movieUpcomingElement.popularity
@@ -81,13 +82,13 @@ class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
         }
     }
 
-    func saveMovie(forMovieUpcomingResponse movieUpcomingResponse: MovieUpcomingResponse) throws {
-        movieUpcomingResponse.results.map { resultsElement in
-            try? saveMovie(forMovieUpcomingResponseElement: resultsElement)
+    func saveMovie(for movieUpcomingResponse: MovieUpcomingResponse) throws {
+        movieUpcomingResponse.results.forEach { resultsElement in
+            try? saveMovie(for: resultsElement)
         }
     }
 
-    func saveTMDbApiConfiguration(forConfiguration configuration: TMDbApiConfigurationResponse) throws {
+    func saveTMDbApiConfiguration(for configuration: TMDbApiConfigurationResponse) throws {
         let request: NSFetchRequest<TMDbApiConfiguration> = NSFetchRequest(entityName: String(describing: TMDbApiConfiguration.self))
 
         let fetched = try managedObjectContext.fetch(request)

@@ -102,7 +102,7 @@ protocol MovieListLocalDataManagerInputProtocol: class {
 
     func getTMDbApiConfiguration() throws -> ConfigurationEntity?
 
-    func saveMovie(forMovieUpcomingResponse movieUpcomingResponse: MovieUpcomingResponse) throws
+    func saveMovie(for movieUpcomingResponse: MovieUpcomingResponse) throws
 
-    func saveTMDbApiConfiguration(forConfiguration configuration: TMDbApiConfigurationResponse) throws
+    func saveTMDbApiConfiguration(for configuration: TMDbApiConfigurationResponse) throws
 }

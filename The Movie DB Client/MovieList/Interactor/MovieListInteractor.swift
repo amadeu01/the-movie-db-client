@@ -35,7 +35,7 @@ extension MovieListInteractor: UpcomingMovieOutputProtocol {
         }
 
         do {
-            try localDatamanager?.saveMovie(forMovieUpcomingResponse: movies)
+            try localDatamanager?.saveMovie(for: movies)
 
         } catch {
             presenter?.onError()
@@ -65,6 +65,6 @@ extension MovieListInteractor: UpcomingMovieOutputProtocol {
 
 extension MovieListInteractor: TMDbApiConfigurationOutputProtocol {
     func onTMDbApiConfigurationRetrieved(_ config: TMDbApiConfigurationResponse) {
-        try! localDatamanager?.saveTMDbApiConfiguration(forConfiguration: config)
+        try! localDatamanager?.saveTMDbApiConfiguration(for: config)
     }
 }
