@@ -9,7 +9,7 @@
 import CoreData
 
 final class ManagedObjectModelFactory {
-    static func make() -> NSManagedObjectModel? {
+    static func make() -> NSManagedObjectModel {
         return PersistentContainerFactory.make().managedObjectModel
     }
 }

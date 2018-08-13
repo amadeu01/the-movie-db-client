@@ -45,12 +45,12 @@ extension Movie {
         }
     }
 
-    public var remoteId: Int32? {
+    public var remoteId: Int? {
         get {
             willAccessValue(forKey: "remoteId")
             defer { didAccessValue(forKey: "remoteId") }
 
-            return primitiveValue(forKey: "remoteId") as? Int32
+            return primitiveValue(forKey: "remoteId") as? Int
         }
         set {
             willChangeValue(forKey: "remoteId")

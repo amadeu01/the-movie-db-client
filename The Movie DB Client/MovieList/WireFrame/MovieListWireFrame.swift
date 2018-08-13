@@ -16,7 +16,8 @@ class MovieListWireFrame: MovieListWireFrameProtocol {
 
             let interactorUpcomingMovie: MovieListInteractorInputProtocol & UpcomingMovieOutputProtocol = MovieListInteractor()
 
-            let localDataManager: MovieListLocalDataManagerInputProtocol = MovieListLocalDataManager()
+            let localDataManager: MovieListLocalDataManagerInputProtocol =
+                MovieListLocalDataManager(managedObjectContext: CoreDataStore.managedObjectContext)
             let remoteDataManager: MovieListRemoteDataManagerInputProtocol = MovieListRemoteDataManager()
             let wireFrame: MovieListWireFrameProtocol = MovieListWireFrame()
 
