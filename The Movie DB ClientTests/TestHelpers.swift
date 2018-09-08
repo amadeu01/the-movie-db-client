@@ -21,75 +21,56 @@ extension MovieListLocalDataManager {
     }
 }
 
-extension MovieUpcomingResponse.ResultsElement {
-    static var mocked: MovieUpcomingResponse.ResultsElement {
+final class MovieUpcomingResponseFactory {
+    static public var LaDoceVita: MovieUpcomingResponse.ResultsElement {
         return MovieUpcomingResponse.ResultsElement(
-            voteCount: 1,
-            id: 1,
+            voteCount: 501,
+            id: 439,
             video: false,
-            voteAverage: 10.0,
-            title: "My Title",
+            voteAverage: 8.1,
+            title: "La dolce vita",
             popularity: 10.0,
-            posterPath: "my/path/to/poster",
-            originalLanguage: "en",
-            originalTitle: "My original Title",
-            genreIds: [1, 2, 3, 4],
-            backdropPath: "my/path/to/poster",
+            posterPath: "/aU7WLwPVCOoonAPWOPBmZ8X0c3c.jpg",
+            originalLanguage: "it",
+            originalTitle: "La dolce vita",
+            genreIds: [35, 18],
+            backdropPath: "/b3ofp0vhkbKsrz2V44DimBRKkxf.jpg",
             adult: false,
-            overview: "movie mock overview",
-            releaseDate: "2018-04-05"
-        )
-    }
-
-    static var mocked2: MovieUpcomingResponse.ResultsElement {
-        return MovieUpcomingResponse.ResultsElement(
-            voteCount: 10,
-            id: 81,
-            video: false,
-            voteAverage: 100.0,
-            title: "The Sweet Life",
-            popularity: 999.0,
-            posterPath: "la/dolce/to/la/vita",
-            originalLanguage: "en",
-            originalTitle: "La Dolce Vita",
-            genreIds: [14, 23, 13, 41],
-            backdropPath: "my/path/to/poster",
-            adult: true,
-            overview: "movie mock overview",
+            overview: "Episodic journey of an Italian journalist scouring Rome in search of love.",
             releaseDate: "1960-02-05"
         )
     }
-}
 
-func == (lhs: MovieUpcomingResponse.ResultsElement, rhs: Movie) -> Bool {
-    return
-        lhs.id == rhs.remoteId &&
-            lhs.adult! == rhs.adult!.boolValue &&
-            lhs.video! == rhs.video!.boolValue &&
-            lhs.backdropPath! == rhs.backdropPath! &&
-            lhs.title! == rhs.title! &&
-            lhs.posterPath! == rhs.posterPath! &&
-            lhs.overview! == rhs.overview! &&
-            lhs.originalTitle! == rhs.originalTitle! &&
-            lhs.popularity! == rhs.popularity! &&
-            lhs.originalLanguage! == rhs.originalLanguage! &&
-            lhs.releaseDate! == rhs.releaseDate! &&
-            lhs.genreIds == rhs.genreIds.map { $0.intValue }
-}
-
-extension MovieUpcomingResponse {
-    static var mocked: MovieUpcomingResponse {
-        return MovieUpcomingResponse(
-            results: [MovieUpcomingResponse.ResultsElement.mocked],
-            page: 1,
-            totalResults: 1,
-            dates: nil,
-            totalPages: 1)
+    static public var AvengersInfinityWar: MovieUpcomingResponse.ResultsElement {
+        return MovieUpcomingResponse.ResultsElement(
+            voteCount: 7745,
+            id: 299536,
+            video: false,
+            voteAverage: 8.3,
+            title: "Avengers: Infinity War",
+            popularity: 260.161,
+            posterPath: "/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",
+            originalLanguage: "it",
+            originalTitle: "La dolce vita",
+            genreIds: [35, 18],
+            backdropPath: "/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg",
+            adult: false,
+            overview: """
+            As the Avengers and their allies have continued to protect the world from threats too large
+            for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos.
+            A despot of intergalactic infamy, his goal is to collect all six Infinity Stones,
+            artifacts of unimaginable power, and use them to inflict his twisted will on all of reality.
+            Everything the Avengers have fought for has led up to this moment -
+            the fate of Earth and existence itself has never been more uncertain.
+            """,
+            releaseDate: "1960-02-05"
+        )
     }
 
-    static var mockedWithTwoElements: MovieUpcomingResponse {
+    public static var MoviesUpcoming: MovieUpcomingResponse {
         return MovieUpcomingResponse(
-            results: [MovieUpcomingResponse.ResultsElement.mocked, MovieUpcomingResponse.ResultsElement.mocked2],
+            results: [MovieUpcomingResponseFactory.AvengersInfinityWar,
+                      MovieUpcomingResponseFactory.LaDoceVita],
             page: 1,
             totalResults: 2,
             dates: MovieUpcomingResponse.Dates.mocked,
@@ -138,4 +119,20 @@ extension NSPersistentStoreCoordinator {
         }
         try! addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: nil)
     }
+}
+
+func == (lhs: MovieUpcomingResponse.ResultsElement, rhs: Movie) -> Bool {
+    return
+        lhs.id == rhs.remoteId &&
+            lhs.adult! == rhs.adult!.boolValue &&
+            lhs.video! == rhs.video!.boolValue &&
+            lhs.backdropPath! == rhs.backdropPath! &&
+            lhs.title! == rhs.title! &&
+            lhs.posterPath! == rhs.posterPath! &&
+            lhs.overview! == rhs.overview! &&
+            lhs.originalTitle! == rhs.originalTitle! &&
+            lhs.popularity! == rhs.popularity! &&
+            lhs.originalLanguage! == rhs.originalLanguage! &&
+            lhs.releaseDate! == rhs.releaseDate! &&
+            lhs.genreIds == rhs.genreIds.map { $0.intValue }
 }
