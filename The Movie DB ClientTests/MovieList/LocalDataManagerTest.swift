@@ -28,6 +28,15 @@ final class LocalDataManagerTest: XCTestCase {
         super.tearDown()
     }
 
+    fileprivate func getInsertedMovie(from notification: Notification) -> Movie? {
+        guard let userInfo = notification.userInfo,
+            let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject>,
+            let insertedMovie = inserts.first as? Movie else {
+                return nil
+        }
+        return insertedMovie
+    }
+
     func testSaveMovieResponseUpcoming() throws {
         let mokedMovieResponse = MovieUpcomingResponse.mocked
 
@@ -35,9 +44,7 @@ final class LocalDataManagerTest: XCTestCase {
             forName: .NSManagedObjectContextObjectsDidChange,
             object: inMemoryManagedObjectContext,
             queue: nil) { (notification) in
-                guard let userInfo = notification.userInfo,
-                    let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject>,
-                    let insertedMovie = inserts.first as? Movie else {
+                guard let insertedMovie = self.getInsertedMovie(from: notification) as? Movie else {
                         XCTFail()
                         return
                 }
@@ -57,11 +64,9 @@ final class LocalDataManagerTest: XCTestCase {
             forName: .NSManagedObjectContextObjectsDidChange,
             object: inMemoryManagedObjectContext,
             queue: nil) { (notification) in
-                guard let userInfo = notification.userInfo,
-                    let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject>,
-                    let insertedMovie = inserts.first as? Movie else {
-                        XCTFail()
-                        return
+                guard let insertedMovie = self.getInsertedMovie(from: notification) as? Movie else {
+                    XCTFail()
+                    return
                 }
 
                 self.coreDataExpectation.fulfill()
