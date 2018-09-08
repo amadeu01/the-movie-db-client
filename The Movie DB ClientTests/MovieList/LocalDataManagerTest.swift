@@ -28,6 +28,24 @@ final class LocalDataManagerTest: XCTestCase {
         super.tearDown()
     }
 
+    func testSaveMovieResponseUpcoming() throws {
+        let moviesUpcoming = MovieUpcomingResponseFactory.MoviesUpcoming
+
+        observeInsertedMovie(isEqualto: moviesUpcoming.results[0])
+
+        try localDataManager.saveMovie(for: moviesUpcoming)
+        wait(for: [coreDataExpectation], timeout: 1)
+    }
+
+    func testSaveMovieUpcomingElementLocally() throws {
+        let movieLaDoceVita = MovieUpcomingResponseFactory.LaDoceVita
+
+        observeInsertedMovie(isEqualto: movieLaDoceVita)
+
+        try localDataManager.saveMovie(for: movieLaDoceVita)
+        wait(for: [coreDataExpectation], timeout: 1)
+    }
+
     fileprivate func getInsertedMovie(from notification: Notification) -> Movie? {
         guard let userInfo = notification.userInfo,
             let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject>,
@@ -37,29 +55,7 @@ final class LocalDataManagerTest: XCTestCase {
         return insertedMovie
     }
 
-    func testSaveMovieResponseUpcoming() throws {
-        let moviesUpcoming = MovieUpcomingResponseFactory.MoviesUpcoming
-
-        NotificationCenter.default.addObserver(
-            forName: .NSManagedObjectContextDidSave,
-            object: inMemoryManagedObjectContext,
-            queue: nil) { (notification) in
-                guard let insertedMovie = self.getInsertedMovie(from: notification) else {
-                        XCTFail()
-                        return
-                }
-
-                self.coreDataExpectation.fulfill()
-                XCTAssertTrue(moviesUpcoming.results.first! == insertedMovie)
-        }
-
-        try localDataManager.saveMovie(for: moviesUpcoming)
-        wait(for: [coreDataExpectation], timeout: 1)
-    }
-
-    func testSaveMovieUpcomingElementLocally() throws {
-        let movieLaDoceVita = MovieUpcomingResponseFactory.LaDoceVita
-
+    fileprivate func observeInsertedMovie(isEqualto movieResponse: MovieUpcomingResponse.ResultsElement) {
         NotificationCenter.default.addObserver(
             forName: .NSManagedObjectContextDidSave,
             object: inMemoryManagedObjectContext,
@@ -70,10 +66,7 @@ final class LocalDataManagerTest: XCTestCase {
                 }
 
                 self.coreDataExpectation.fulfill()
-                XCTAssertTrue(movieLaDoceVita == insertedMovie)
+                XCTAssertTrue(movieResponse == insertedMovie)
         }
-
-        try localDataManager.saveMovie(for: movieLaDoceVita)
-        wait(for: [coreDataExpectation], timeout: 1)
     }
 }
