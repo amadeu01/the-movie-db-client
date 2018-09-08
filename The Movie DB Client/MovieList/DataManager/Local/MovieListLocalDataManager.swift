@@ -58,6 +58,7 @@ class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
             tempMovie.genreIds = movieUpcomingElement.genreIds as [NSNumber]
             tempMovie.voteAverage = movieUpcomingElement.voteAverage
             tempMovie.popularity = movieUpcomingElement.popularity
+            tempMovie.originalLanguage = movieUpcomingElement.originalLanguage
 
             try managedObjectContext.save()
         } else {
@@ -76,6 +77,7 @@ class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
                 movie.genreIds = movieUpcomingElement.genreIds as [NSNumber]
                 movie.voteAverage = movieUpcomingElement.voteAverage
                 movie.popularity = movieUpcomingElement.popularity
+                movie.originalLanguage = movieUpcomingElement.originalLanguage
 
                 try managedObjectContext.save()
             }

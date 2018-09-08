@@ -61,6 +61,22 @@ extension MovieUpcomingResponse.ResultsElement {
     }
 }
 
+func == (lhs: MovieUpcomingResponse.ResultsElement, rhs: Movie) -> Bool {
+    return
+        lhs.id == rhs.remoteId &&
+            lhs.adult! == rhs.adult!.boolValue &&
+            lhs.video! == rhs.video!.boolValue &&
+            lhs.backdropPath! == rhs.backdropPath! &&
+            lhs.title! == rhs.title! &&
+            lhs.posterPath! == rhs.posterPath! &&
+            lhs.overview! == rhs.overview! &&
+            lhs.originalTitle! == rhs.originalTitle! &&
+            lhs.popularity! == rhs.popularity! &&
+            lhs.originalLanguage! == rhs.originalLanguage! &&
+            lhs.releaseDate! == rhs.releaseDate! &&
+            lhs.genreIds == rhs.genreIds.map { $0.intValue }
+}
+
 extension MovieUpcomingResponse {
     static var mocked: MovieUpcomingResponse {
         return MovieUpcomingResponse(
