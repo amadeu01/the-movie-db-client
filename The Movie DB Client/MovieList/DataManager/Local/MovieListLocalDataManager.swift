@@ -41,47 +41,51 @@ class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
     }
 
     func saveMovie(for movieUpcomingElement: MovieUpcomingResponse.ResultsElement) throws {
-        let request: NSFetchRequest<Movie> = NSFetchRequest(entityName: String(describing: Movie.self))
-        request.predicate = NSPredicate(format: "remoteId == %d", movieUpcomingElement.id!)
-        let fetched = try managedObjectContext.fetch(request)
+        let movie: Movie
 
-        if fetched.count == 1 {
-            let tempMovie = fetched.first!
-            tempMovie.title = movieUpcomingElement.title
-            tempMovie.overview = movieUpcomingElement.overview
-            tempMovie.posterPath = movieUpcomingElement.posterPath
-            tempMovie.backdropPath = movieUpcomingElement.backdropPath
-            tempMovie.releaseDate = movieUpcomingElement.releaseDate
-            tempMovie.originalTitle = movieUpcomingElement.originalTitle
-            tempMovie.video = NSNumber(booleanLiteral: movieUpcomingElement.video ?? false)
-            tempMovie.adult = NSNumber(booleanLiteral: movieUpcomingElement.adult ?? false)
-            tempMovie.genreIds = movieUpcomingElement.genreIds as [NSNumber]
-            tempMovie.voteAverage = movieUpcomingElement.voteAverage
-            tempMovie.popularity = movieUpcomingElement.popularity
-            tempMovie.originalLanguage = movieUpcomingElement.originalLanguage
-
-            try managedObjectContext.save()
-        } else {
-            if let newMovie = NSEntityDescription.entity(forEntityName: "Movie",
-                                                         in: managedObjectContext) {
-                let movie = Movie(entity: newMovie, insertInto: managedObjectContext)
-                movie.remoteId = movieUpcomingElement.id ?? -1
-                movie.title = movieUpcomingElement.title
-                movie.overview = movieUpcomingElement.overview
-                movie.posterPath = movieUpcomingElement.posterPath
-                movie.backdropPath = movieUpcomingElement.backdropPath
-                movie.releaseDate = movieUpcomingElement.releaseDate
-                movie.originalTitle = movieUpcomingElement.originalTitle
-                movie.video = NSNumber(booleanLiteral: movieUpcomingElement.video ?? false)
-                movie.adult = NSNumber(booleanLiteral: movieUpcomingElement.adult ?? false)
-                movie.genreIds = movieUpcomingElement.genreIds as [NSNumber]
-                movie.voteAverage = movieUpcomingElement.voteAverage
-                movie.popularity = movieUpcomingElement.popularity
-                movie.originalLanguage = movieUpcomingElement.originalLanguage
-
-                try managedObjectContext.save()
+        do {
+            movie = try getMovieEntity(for: movieUpcomingElement.id!)
+        } catch is PersistenceError {
+            guard let newMovie =
+                NSEntityDescription.entity(forEntityName: "Movie", in: managedObjectContext) else {
+                    return
             }
+            movie = Movie(entity: newMovie, insertInto: managedObjectContext)
+            movie.remoteId = movieUpcomingElement.id ?? -1
         }
+
+        populateMovieEntity(movie, with: movieUpcomingElement)
+        try managedObjectContext.save()
+    }
+
+    func getMovieEntity(for id: Int) throws -> Movie {
+        let request: NSFetchRequest<Movie> = Movie.fetchRequest()
+        request.predicate = NSPredicate(format: "remoteId == %d", id)
+        let fetchedObjectContext = try managedObjectContext.fetch(request)
+
+        guard fetchedObjectContext.count == 1,
+            let fetchedMovie = fetchedObjectContext.first else {
+                throw PersistenceError.objectNotFound
+        }
+
+        return fetchedMovie
+    }
+
+    fileprivate func populateMovieEntity(
+        _ movieEntity: Movie, with movieUpcomingElement: MovieUpcomingResponse.ResultsElement) {
+
+        movieEntity.title = movieUpcomingElement.title
+        movieEntity.overview = movieUpcomingElement.overview
+        movieEntity.posterPath = movieUpcomingElement.posterPath
+        movieEntity.backdropPath = movieUpcomingElement.backdropPath
+        movieEntity.releaseDate = movieUpcomingElement.releaseDate
+        movieEntity.originalTitle = movieUpcomingElement.originalTitle
+        movieEntity.video = NSNumber(booleanLiteral: movieUpcomingElement.video ?? false)
+        movieEntity.adult = NSNumber(booleanLiteral: movieUpcomingElement.adult ?? false)
+        movieEntity.genreIds = movieUpcomingElement.genreIds as [NSNumber]
+        movieEntity.voteAverage = movieUpcomingElement.voteAverage
+        movieEntity.popularity = movieUpcomingElement.popularity
+        movieEntity.originalLanguage = movieUpcomingElement.originalLanguage
     }
 
     func saveMovie(for movieUpcomingResponse: MovieUpcomingResponse) throws {
