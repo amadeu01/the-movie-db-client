@@ -46,16 +46,20 @@ class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
         do {
             movie = try getMovieEntity(for: movieUpcomingElement.id!)
         } catch is PersistenceError {
-            guard let newMovie =
-                NSEntityDescription.entity(forEntityName: "Movie", in: managedObjectContext) else {
-                    return
-            }
-            movie = Movie(entity: newMovie, insertInto: managedObjectContext)
+            movie = try createMovieEntity()
             movie.remoteId = movieUpcomingElement.id ?? -1
         }
 
         populateMovieEntity(movie, with: movieUpcomingElement)
         try managedObjectContext.save()
+    }
+
+    func createMovieEntity() throws -> Movie {
+        guard let newMovie = NSEntityDescription
+            .entity(forEntityName: "Movie", in: managedObjectContext) else {
+                throw PersistenceError.couldNotSaveObject
+        }
+        return Movie(entity: newMovie, insertInto: managedObjectContext)
     }
 
     func getMovieEntity(for id: Int) throws -> Movie {
