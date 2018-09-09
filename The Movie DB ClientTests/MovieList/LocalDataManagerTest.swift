@@ -39,7 +39,7 @@ final class LocalDataManagerTest: XCTestCase {
         wait(for: [coreDataExpectation], timeout: 1)
     }
 
-    func testSaveMovieUpcomingElementLocally() throws {
+    func testSaveMovieUpcomingElement() throws {
         let coreDataExpectation = self.expectation(description: "Core data actions")
         let movieLaDoceVita = MovieUpcomingResponseFactory.LaDoceVita
 
