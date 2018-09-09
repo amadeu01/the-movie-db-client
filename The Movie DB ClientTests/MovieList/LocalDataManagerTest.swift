@@ -69,9 +69,16 @@ final class LocalDataManagerTest: XCTestCase {
         let configurationApiResponse = TMDbApiConfigurationFactory.Config
         try localDataManager.saveTMDbApiConfiguration(for: configurationApiResponse)
 
-        let configurationEntity = (try localDataManager.getTMDbApiConfiguration())!
+        let configurationEntity = try localDataManager.getConfigurationEntity()
 
         XCTAssertTrue(configurationEntity == configurationApiResponse)
+    }
+
+    func testGetSavedTMDbApiConfigurationWhenLocalStorageIsEmpty() throws {
+
+        XCTAssertThrowsError(try localDataManager.getConfigurationEntity()) { (error) in
+            XCTAssertEqual(error as! PersistenceError, .objectNotFound)
+        }
     }
 
     fileprivate func getInserted<T>(_ type: T.Type, from notification: Notification) -> T? {

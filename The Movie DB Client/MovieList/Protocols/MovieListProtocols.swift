@@ -100,7 +100,7 @@ protocol MovieListLocalDataManagerInputProtocol: class {
 
     func searchMovie(forTitle title: String) throws -> [Movie]
 
-    func getTMDbApiConfiguration() throws -> ConfigurationEntity?
+    func getConfigurationEntity() throws -> ConfigurationEntity
 
     func saveMovie(for movieUpcomingResponse: MovieUpcomingResponse) throws
 

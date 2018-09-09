@@ -16,15 +16,10 @@ class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
         self.managedObjectContext = managedObjectContext
     }
 
-    func getTMDbApiConfiguration() throws -> ConfigurationEntity? {
-        let request: NSFetchRequest<TMDbApiConfiguration> = TMDbApiConfiguration.fetchRequest()
-        let localConfig = try managedObjectContext.fetch(request).first
+    func getConfigurationEntity() throws -> ConfigurationEntity {
+        let localConfig = try getTMDbApiConfigurationEntity()
 
-        if let localConfig = localConfig {
-            return ConfigurationEntity(from: localConfig)
-        } else {
-            return nil
-        }
+        return ConfigurationEntity(from: localConfig)
     }
 
     func searchMovie(forTitle title: String) throws -> [Movie] {
