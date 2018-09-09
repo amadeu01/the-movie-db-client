@@ -39,6 +39,23 @@ final class LocalDataManagerTest: XCTestCase {
         wait(for: [coreDataExpectation], timeout: 1)
     }
 
+    func testGetNextMoviesReleases() throws {
+        let moviesUpcoming = MovieUpcomingResponseFactory.MoviesUpcoming
+        try localDataManager.saveMovie(for: moviesUpcoming)
+
+        let nextMoviesRleases = try localDataManager.getNextMoviesReleases()
+
+        XCTAssertEqual(2, nextMoviesRleases.count)
+        XCTAssertTrue(moviesUpcoming.results[0] == nextMoviesRleases[0])
+        XCTAssertTrue(moviesUpcoming.results[1] == nextMoviesRleases[1])
+    }
+
+    func testGetNextMoviesReleasesWhenLocalStorageIsEmpty() throws {
+        let nextMoviesRleases = try localDataManager.getNextMoviesReleases()
+
+        XCTAssertEqual(0, nextMoviesRleases.count)
+    }
+
     func testSaveMovieUpcomingElement() throws {
         let coreDataExpectation = self.expectation(description: "Core data actions")
         let movieLaDoceVita = MovieUpcomingResponseFactory.LaDoceVita

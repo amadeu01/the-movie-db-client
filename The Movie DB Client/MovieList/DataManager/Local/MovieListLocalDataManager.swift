@@ -29,9 +29,12 @@ class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
     }
 
     func getNextMoviesReleases() throws -> [Movie] {
-        let request: NSFetchRequest<Movie> = NSFetchRequest(entityName: String(describing: Movie.self))
-
-        return try managedObjectContext.fetch(request)
+        do {
+            let request: NSFetchRequest<Movie> = Movie.fetchRequest()
+            return try managedObjectContext.fetch(request)
+        } catch {
+            throw PersistenceError.objectNotFound
+        }
     }
 
     func saveMovie(for movieUpcomingResponse: MovieUpcomingResponse) throws {
