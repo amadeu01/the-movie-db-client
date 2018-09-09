@@ -14,14 +14,12 @@ import Foundation
 final class LocalDataManagerTest: XCTestCase {
     fileprivate var localDataManager: MovieListLocalDataManager!
     fileprivate var inMemoryManagedObjectContext: NSManagedObjectContext!
-    private var coreDataExpectation: XCTestExpectation!
 
     override func setUp() {
         super.setUp()
         let testResources = MovieListLocalDataManager.testResources
         localDataManager = testResources.localDataManager
         inMemoryManagedObjectContext = testResources.managedObjectContext
-        coreDataExpectation = self.expectation(description: "Core data actions")
     }
 
     override func tearDown() {
@@ -29,44 +27,72 @@ final class LocalDataManagerTest: XCTestCase {
     }
 
     func testSaveMovieResponseUpcoming() throws {
+        let coreDataExpectation = self.expectation(description: "Core data actions")
         let moviesUpcoming = MovieUpcomingResponseFactory.MoviesUpcoming
 
-        observeInsertedMovie(isEqualto: moviesUpcoming.results[0])
+        observeCoreDataInserted(Movie.self) { (insertedMovie: Movie) in
+            coreDataExpectation.fulfill()
+            XCTAssertTrue(moviesUpcoming.results[0] == insertedMovie)
+        }
 
         try localDataManager.saveMovie(for: moviesUpcoming)
         wait(for: [coreDataExpectation], timeout: 1)
     }
 
     func testSaveMovieUpcomingElementLocally() throws {
+        let coreDataExpectation = self.expectation(description: "Core data actions")
         let movieLaDoceVita = MovieUpcomingResponseFactory.LaDoceVita
 
-        observeInsertedMovie(isEqualto: movieLaDoceVita)
+        observeCoreDataInserted(Movie.self) { (insertedMovie: Movie) in
+            coreDataExpectation.fulfill()
+            XCTAssertTrue(insertedMovie == movieLaDoceVita)
+        }
 
         try localDataManager.saveMovie(for: movieLaDoceVita)
         wait(for: [coreDataExpectation], timeout: 1)
     }
 
-    fileprivate func getInsertedMovie(from notification: Notification) -> Movie? {
-        guard let userInfo = notification.userInfo,
-            let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject>,
-            let insertedMovie = inserts.first as? Movie else {
-                return nil
+    func testSaveTMDbApiConfiguration() throws {
+        let coreDataExpectation = self.expectation(description: "Core data actions")
+        let config = TMDbApiConfigurationFactory.Config
+
+        observeCoreDataInserted(TMDbApiConfiguration.self) { (insertedConfig: TMDbApiConfiguration) in
+            coreDataExpectation.fulfill()
+            XCTAssertTrue(insertedConfig == config)
         }
-        return insertedMovie
+
+        try localDataManager.saveTMDbApiConfiguration(for: config)
+        wait(for: [coreDataExpectation], timeout: 1)
     }
 
-    fileprivate func observeInsertedMovie(isEqualto movieResponse: MovieUpcomingResponse.ResultsElement) {
+    func testGetSavedTMDbApiConfiguration() throws {
+        let configurationApiResponse = TMDbApiConfigurationFactory.Config
+        try localDataManager.saveTMDbApiConfiguration(for: configurationApiResponse)
+
+        let configurationEntity = (try localDataManager.getTMDbApiConfiguration())!
+
+        XCTAssertTrue(configurationEntity == configurationApiResponse)
+    }
+
+    fileprivate func getInserted<T>(_ type: T.Type, from notification: Notification) -> T? {
+        guard let userInfo = notification.userInfo,
+            let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject>,
+            let insertedObject = inserts.first as? T else {
+                return nil
+        }
+        return insertedObject
+    }
+
+    fileprivate func observeCoreDataInserted<T>(_ type: T.Type, completion: @escaping (T) -> ()) {
         NotificationCenter.default.addObserver(
             forName: .NSManagedObjectContextDidSave,
             object: inMemoryManagedObjectContext,
             queue: nil) { (notification) in
-                guard let insertedMovie = self.getInsertedMovie(from: notification) else {
+                guard let insertedObject = self.getInserted(type, from: notification) else {
                     XCTFail()
                     return
                 }
-
-                self.coreDataExpectation.fulfill()
-                XCTAssertTrue(movieResponse == insertedMovie)
+                completion(insertedObject)
         }
     }
 }

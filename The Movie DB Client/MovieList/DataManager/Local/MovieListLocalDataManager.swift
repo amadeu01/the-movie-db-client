@@ -17,8 +17,7 @@ class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
     }
 
     func getTMDbApiConfiguration() throws -> ConfigurationEntity? {
-        let request: NSFetchRequest<TMDbApiConfiguration> = NSFetchRequest(entityName: String(describing: TMDbApiConfiguration.self))
-
+        let request: NSFetchRequest<TMDbApiConfiguration> = TMDbApiConfiguration.fetchRequest()
         let localConfig = try managedObjectContext.fetch(request).first
 
         if let localConfig = localConfig {
@@ -40,6 +39,12 @@ class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
         return try managedObjectContext.fetch(request)
     }
 
+    func saveMovie(for movieUpcomingResponse: MovieUpcomingResponse) throws {
+        movieUpcomingResponse.results.forEach { resultsElement in
+            try? saveMovie(for: resultsElement)
+        }
+    }
+
     func saveMovie(for movieUpcomingElement: MovieUpcomingResponse.ResultsElement) throws {
         let movie: Movie
 
@@ -54,14 +59,6 @@ class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
         try managedObjectContext.save()
     }
 
-    func createMovieEntity() throws -> Movie {
-        guard let newMovie = NSEntityDescription
-            .entity(forEntityName: "Movie", in: managedObjectContext) else {
-                throw PersistenceError.couldNotSaveObject
-        }
-        return Movie(entity: newMovie, insertInto: managedObjectContext)
-    }
-
     func getMovieEntity(for id: Int) throws -> Movie {
         let request: NSFetchRequest<Movie> = Movie.fetchRequest()
         request.predicate = NSPredicate(format: "remoteId == %d", id)
@@ -73,6 +70,14 @@ class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
         }
 
         return fetchedMovie
+    }
+
+    fileprivate func createMovieEntity() throws -> Movie {
+        guard let newMovie = NSEntityDescription
+            .entity(forEntityName: "Movie", in: managedObjectContext) else {
+                throw PersistenceError.couldNotSaveObject
+        }
+        return Movie(entity: newMovie, insertInto: managedObjectContext)
     }
 
     fileprivate func populateMovieEntity(
@@ -92,44 +97,49 @@ class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
         movieEntity.originalLanguage = movieUpcomingElement.originalLanguage
     }
 
-    func saveMovie(for movieUpcomingResponse: MovieUpcomingResponse) throws {
-        movieUpcomingResponse.results.forEach { resultsElement in
-            try? saveMovie(for: resultsElement)
+    func saveTMDbApiConfiguration(for configurationResponse: TMDbApiConfigurationResponse) throws {
+        let configuration: TMDbApiConfiguration
+
+        do {
+            configuration = try getTMDbApiConfigurationEntity()
+        } catch is PersistenceError {
+            configuration = try createConfigurationEntity()
         }
+
+        populateConfigurationEntity(configuration, with: configurationResponse)
+        try managedObjectContext.save()
     }
 
-    func saveTMDbApiConfiguration(for configuration: TMDbApiConfigurationResponse) throws {
-        let request: NSFetchRequest<TMDbApiConfiguration> = NSFetchRequest(entityName: String(describing: TMDbApiConfiguration.self))
-
-        let fetched = try managedObjectContext.fetch(request)
-
-        if fetched.count == 1 {
-            let tempConfig = fetched.first!
-            tempConfig.backdropSizes = (configuration.images?.backdropSizes)!
-            tempConfig.baseUrl = configuration.images?.baseUrl
-            tempConfig.logoSizes = (configuration.images?.logoSizes)!
-            tempConfig.backdropSizes = (configuration.images?.backdropSizes)!
-            tempConfig.posterSizes = (configuration.images?.posterSizes)!
-            tempConfig.secureBaseUrl = configuration.images?.secureBaseUrl
-            tempConfig.stillSizes = (configuration.images?.stillSizes)!
-            tempConfig.profileSizes = (configuration.images?.profileSizes)!
-
-            try managedObjectContext.save()
-        } else {
-            if let newConfig = NSEntityDescription.entity(forEntityName: "TMDbApiConfiguration",
-                                                          in: managedObjectContext) {
-                let config = TMDbApiConfiguration(entity: newConfig, insertInto: managedObjectContext)
-                config.backdropSizes = (configuration.images?.backdropSizes)!
-                config.baseUrl = configuration.images?.baseUrl
-                config.logoSizes = (configuration.images?.logoSizes)!
-                config.backdropSizes = (configuration.images?.backdropSizes)!
-                config.posterSizes = (configuration.images?.posterSizes)!
-                config.secureBaseUrl = configuration.images?.secureBaseUrl
-                config.stillSizes = (configuration.images?.stillSizes)!
-                config.profileSizes = (configuration.images?.profileSizes)!
-
-                try managedObjectContext.save()
-            }
+    fileprivate func createConfigurationEntity() throws -> TMDbApiConfiguration {
+        guard let newConfiguration = NSEntityDescription
+            .entity(forEntityName: "TMDbApiConfiguration", in: managedObjectContext) else {
+                throw PersistenceError.couldNotSaveObject
         }
+        return TMDbApiConfiguration(entity: newConfiguration, insertInto: managedObjectContext)
+    }
+
+    fileprivate func populateConfigurationEntity(_ configurationEntity: TMDbApiConfiguration,
+                                                 with configuration: TMDbApiConfigurationResponse) {
+        configurationEntity.backdropSizes = (configuration.images?.backdropSizes)!
+        configurationEntity.baseUrl = configuration.images?.baseUrl
+        configurationEntity.logoSizes = (configuration.images?.logoSizes)!
+        configurationEntity.backdropSizes = (configuration.images?.backdropSizes)!
+        configurationEntity.posterSizes = (configuration.images?.posterSizes)!
+        configurationEntity.secureBaseUrl = configuration.images?.secureBaseUrl
+        configurationEntity.stillSizes = (configuration.images?.stillSizes)!
+        configurationEntity.profileSizes = (configuration.images?.profileSizes)!
+        configurationEntity.changeKeys = configuration.changeKeys
+    }
+
+    func getTMDbApiConfigurationEntity() throws -> TMDbApiConfiguration {
+        let request: NSFetchRequest<TMDbApiConfiguration> = TMDbApiConfiguration.fetchRequest()
+        let fetchedObjectContext = try managedObjectContext.fetch(request)
+
+        guard fetchedObjectContext.count == 1,
+            let fetchedConfiguration = fetchedObjectContext.first else {
+                throw PersistenceError.objectNotFound
+        }
+
+        return fetchedConfiguration
     }
 }
