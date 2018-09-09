@@ -26,7 +26,7 @@ extension MovieListInteractor: UpcomingMovieOutputProtocol {
         if let configurationResponse = configuration {
             configurationEntity = ConfigurationEntity(from: configurationResponse)
         } else {
-            configurationEntity = (try! localDatamanager?.getTMDbApiConfiguration())!
+            configurationEntity = (try! localDatamanager?.getConfigurationEntity())!
         }
 
         let movieList = movies.results.map { (movieResponse: MovieUpcomingResponse.ResultsElement) -> MovieEntity in
@@ -35,7 +35,7 @@ extension MovieListInteractor: UpcomingMovieOutputProtocol {
         }
 
         do {
-            try localDatamanager?.saveMovie(forMovieUpcomingResponse: movies)
+            try localDatamanager?.saveMovie(for: movies)
 
         } catch {
             presenter?.onError()
@@ -47,7 +47,7 @@ extension MovieListInteractor: UpcomingMovieOutputProtocol {
     func onError() {
         do {
             let movies: [Movie]? = try localDatamanager?.getNextMoviesReleases()
-            let configuration = try localDatamanager?.getTMDbApiConfiguration()
+            let configuration = try localDatamanager?.getConfigurationEntity()
 
             let movieEntityList = movies?.map { (movie: Movie) -> MovieEntity in
                 return MovieEntity(withLocalMovie: movie, withLocalConfiguration: configuration)
@@ -65,6 +65,6 @@ extension MovieListInteractor: UpcomingMovieOutputProtocol {
 
 extension MovieListInteractor: TMDbApiConfigurationOutputProtocol {
     func onTMDbApiConfigurationRetrieved(_ config: TMDbApiConfigurationResponse) {
-        try! localDatamanager?.saveTMDbApiConfiguration(forConfiguration: config)
+        try! localDatamanager?.saveTMDbApiConfiguration(for: config)
     }
 }

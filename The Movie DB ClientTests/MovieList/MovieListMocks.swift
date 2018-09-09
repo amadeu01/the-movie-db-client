@@ -123,17 +123,17 @@ final class MovieListMocks {
             return movies
         }
 
-        func getTMDbApiConfiguration() throws -> ConfigurationEntity? {
+        func getConfigurationEntity() throws -> ConfigurationEntity {
             fetchTMDbApiConfigurationInvoked = true
-            return configurationEntity
+            return configurationEntity!
         }
 
-        func saveMovie(forMovieUpcomingResponse movieUpcomingResponse: MovieUpcomingResponse) throws {
+        func saveMovie(for movieUpcomingResponse: MovieUpcomingResponse) throws {
             saveMovieInvoked = true
             saveMovieParameters = movieUpcomingResponse
         }
 
-        func saveTMDbApiConfiguration(forConfiguration configuration: TMDbApiConfigurationResponse) throws {
+        func saveTMDbApiConfiguration(for configuration: TMDbApiConfigurationResponse) throws {
             saveTMDbApiConfigurationInvoked = true
             saveTMDbApiConfigurationParameters = configuration
         }

@@ -9,7 +9,7 @@
 import CoreData
 
 final class ManagedObjectContextFactory {
-    static func make() -> NSManagedObjectContext? {
+    static func make() -> NSManagedObjectContext {
         return PersistentContainerFactory.make().viewContext
     }
 }

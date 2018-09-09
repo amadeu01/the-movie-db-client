@@ -9,127 +9,135 @@
 import CoreData
 
 class MovieListLocalDataManager: MovieListLocalDataManagerInputProtocol {
-    func getTMDbApiConfiguration() throws -> ConfigurationEntity? {
-        guard let managedOC = CoreDataStore.managedObjectContext else {
-            throw PersistenceError.managedObjectContextNotFound
-        }
 
-        let request: NSFetchRequest<TMDbApiConfiguration> = NSFetchRequest(entityName: String(describing: TMDbApiConfiguration.self))
+    fileprivate let managedObjectContext: NSManagedObjectContext
 
-        let localConfig = try managedOC.fetch(request).first
+    init(managedObjectContext: NSManagedObjectContext) {
+        self.managedObjectContext = managedObjectContext
+    }
 
-        if let localConfig = localConfig {
-            return ConfigurationEntity(from: localConfig)
-        } else {
-            return nil
-        }
+    func getConfigurationEntity() throws -> ConfigurationEntity {
+        let localConfig = try getTMDbApiConfigurationEntity()
+
+        return ConfigurationEntity(from: localConfig)
     }
 
     func searchMovie(forTitle title: String) throws -> [Movie] {
-        guard let managedOC = CoreDataStore.managedObjectContext else {
-            throw PersistenceError.managedObjectContextNotFound
-        }
         let request: NSFetchRequest<Movie> = NSFetchRequest(entityName: String(describing: Movie.self))
         request.predicate = NSPredicate(format: "title like[cd] %@", title)
-        return try managedOC.fetch(request)
+        return try managedObjectContext.fetch(request)
     }
 
     func getNextMoviesReleases() throws -> [Movie] {
-        guard let managedOC = CoreDataStore.managedObjectContext else {
-            throw PersistenceError.managedObjectContextNotFound
-        }
-
-        let request: NSFetchRequest<Movie> = NSFetchRequest(entityName: String(describing: Movie.self))
-
-        return try managedOC.fetch(request)
-    }
-
-    func saveMovie(forMovieUpcomingResponseElement movieUpcomingElement: MovieUpcomingResponse.ResultsElement) throws {
-        guard let managedOC = CoreDataStore.managedObjectContext else {
-            throw PersistenceError.managedObjectContextNotFound
-        }
-        let request: NSFetchRequest<Movie> = NSFetchRequest(entityName: String(describing: Movie.self))
-        request.predicate = NSPredicate(format: "remoteId == %d", movieUpcomingElement.id!)
-        let fetched = try managedOC.fetch(request)
-
-        if fetched.count == 1 {
-            let tempMovie = fetched.first!
-            tempMovie.title = movieUpcomingElement.title
-            tempMovie.overview = movieUpcomingElement.overview
-            tempMovie.posterPath = movieUpcomingElement.posterPath
-            tempMovie.backdropPath = movieUpcomingElement.backdropPath
-            tempMovie.releaseDate = movieUpcomingElement.releaseDate
-            tempMovie.originalTitle = movieUpcomingElement.originalTitle
-            tempMovie.video = NSNumber(booleanLiteral: movieUpcomingElement.video!)
-            tempMovie.adult = NSNumber(booleanLiteral: movieUpcomingElement.adult!)
-            tempMovie.genreIds = movieUpcomingElement.genreIds as [NSNumber]
-            tempMovie.voteAverage = movieUpcomingElement.voteAverage
-            tempMovie.popularity = movieUpcomingElement.popularity
-
-            try managedOC.save()
-        } else {
-            if let newMovie = NSEntityDescription.entity(forEntityName: "Movie",
-                                                         in: managedOC) {
-                let movie = Movie(entity: newMovie, insertInto: managedOC)
-                movie.remoteId = Int32(movieUpcomingElement.id!)
-                movie.overview = movieUpcomingElement.overview
-                movie.posterPath = movieUpcomingElement.posterPath
-                movie.backdropPath = movieUpcomingElement.backdropPath
-                movie.releaseDate = movieUpcomingElement.releaseDate
-                movie.originalTitle = movieUpcomingElement.originalTitle
-                movie.video = NSNumber(booleanLiteral: movieUpcomingElement.video!)
-                movie.adult = NSNumber(booleanLiteral: movieUpcomingElement.adult!)
-                movie.genreIds = movieUpcomingElement.genreIds as [NSNumber]
-                movie.voteAverage = movieUpcomingElement.voteAverage
-                movie.popularity = movieUpcomingElement.popularity
-
-                try managedOC.save()
-            }
+        do {
+            let request: NSFetchRequest<Movie> = Movie.fetchRequest()
+            return try managedObjectContext.fetch(request)
+        } catch {
+            throw PersistenceError.objectNotFound
         }
     }
 
-    func saveMovie(forMovieUpcomingResponse movieUpcomingResponse: MovieUpcomingResponse) throws {
-        movieUpcomingResponse.results.map { resultsElement in
-            try? saveMovie(forMovieUpcomingResponseElement: resultsElement)
+    func saveMovie(for movieUpcomingResponse: MovieUpcomingResponse) throws {
+        movieUpcomingResponse.results.forEach { resultsElement in
+            try? saveMovie(for: resultsElement)
         }
     }
 
-    func saveTMDbApiConfiguration(forConfiguration configuration: TMDbApiConfigurationResponse) throws {
-        guard let managedOC = CoreDataStore.managedObjectContext else {
-            throw PersistenceError.managedObjectContextNotFound
+    func saveMovie(for movieUpcomingElement: MovieUpcomingResponse.ResultsElement) throws {
+        let movie: Movie
+
+        do {
+            movie = try getMovieEntity(for: movieUpcomingElement.id!)
+        } catch is PersistenceError {
+            movie = try createMovieEntity()
+            movie.remoteId = movieUpcomingElement.id ?? -1
         }
 
-        let request: NSFetchRequest<TMDbApiConfiguration> = NSFetchRequest(entityName: String(describing: TMDbApiConfiguration.self))
+        populateMovieEntity(movie, with: movieUpcomingElement)
+        try managedObjectContext.save()
+    }
 
-        let fetched = try managedOC.fetch(request)
+    func getMovieEntity(for id: Int) throws -> Movie {
+        let request: NSFetchRequest<Movie> = Movie.fetchRequest()
+        request.predicate = NSPredicate(format: "remoteId == %d", id)
+        let fetchedObjectContext = try managedObjectContext.fetch(request)
 
-        if fetched.count == 1 {
-            let tempConfig = fetched.first!
-            tempConfig.backdropSizes = (configuration.images?.backdropSizes)!
-            tempConfig.baseUrl = configuration.images?.baseUrl
-            tempConfig.logoSizes = (configuration.images?.logoSizes)!
-            tempConfig.backdropSizes = (configuration.images?.backdropSizes)!
-            tempConfig.posterSizes = (configuration.images?.posterSizes)!
-            tempConfig.secureBaseUrl = configuration.images?.secureBaseUrl
-            tempConfig.stillSizes = (configuration.images?.stillSizes)!
-            tempConfig.profileSizes = (configuration.images?.profileSizes)!
-
-            try managedOC.save()
-        } else {
-            if let newConfig = NSEntityDescription.entity(forEntityName: "TMDbApiConfiguration",
-                                                          in: managedOC) {
-                let config = TMDbApiConfiguration(entity: newConfig, insertInto: managedOC)
-                config.backdropSizes = (configuration.images?.backdropSizes)!
-                config.baseUrl = configuration.images?.baseUrl
-                config.logoSizes = (configuration.images?.logoSizes)!
-                config.backdropSizes = (configuration.images?.backdropSizes)!
-                config.posterSizes = (configuration.images?.posterSizes)!
-                config.secureBaseUrl = configuration.images?.secureBaseUrl
-                config.stillSizes = (configuration.images?.stillSizes)!
-                config.profileSizes = (configuration.images?.profileSizes)!
-
-                try managedOC.save()
-            }
+        guard fetchedObjectContext.count == 1,
+            let fetchedMovie = fetchedObjectContext.first else {
+                throw PersistenceError.objectNotFound
         }
+
+        return fetchedMovie
+    }
+
+    fileprivate func createMovieEntity() throws -> Movie {
+        guard let newMovie = NSEntityDescription
+            .entity(forEntityName: "Movie", in: managedObjectContext) else {
+                throw PersistenceError.couldNotSaveObject
+        }
+        return Movie(entity: newMovie, insertInto: managedObjectContext)
+    }
+
+    fileprivate func populateMovieEntity(
+        _ movieEntity: Movie, with movieUpcomingElement: MovieUpcomingResponse.ResultsElement) {
+
+        movieEntity.title = movieUpcomingElement.title
+        movieEntity.overview = movieUpcomingElement.overview
+        movieEntity.posterPath = movieUpcomingElement.posterPath
+        movieEntity.backdropPath = movieUpcomingElement.backdropPath
+        movieEntity.releaseDate = movieUpcomingElement.releaseDate
+        movieEntity.originalTitle = movieUpcomingElement.originalTitle
+        movieEntity.video = NSNumber(booleanLiteral: movieUpcomingElement.video ?? false)
+        movieEntity.adult = NSNumber(booleanLiteral: movieUpcomingElement.adult ?? false)
+        movieEntity.genreIds = movieUpcomingElement.genreIds as [NSNumber]
+        movieEntity.voteAverage = movieUpcomingElement.voteAverage
+        movieEntity.popularity = movieUpcomingElement.popularity
+        movieEntity.originalLanguage = movieUpcomingElement.originalLanguage
+    }
+
+    func saveTMDbApiConfiguration(for configurationResponse: TMDbApiConfigurationResponse) throws {
+        let configuration: TMDbApiConfiguration
+
+        do {
+            configuration = try getTMDbApiConfigurationEntity()
+        } catch is PersistenceError {
+            configuration = try createConfigurationEntity()
+        }
+
+        populateConfigurationEntity(configuration, with: configurationResponse)
+        try managedObjectContext.save()
+    }
+
+    fileprivate func createConfigurationEntity() throws -> TMDbApiConfiguration {
+        guard let newConfiguration = NSEntityDescription
+            .entity(forEntityName: "TMDbApiConfiguration", in: managedObjectContext) else {
+                throw PersistenceError.couldNotSaveObject
+        }
+        return TMDbApiConfiguration(entity: newConfiguration, insertInto: managedObjectContext)
+    }
+
+    fileprivate func populateConfigurationEntity(_ configurationEntity: TMDbApiConfiguration,
+                                                 with configuration: TMDbApiConfigurationResponse) {
+        configurationEntity.backdropSizes = (configuration.images?.backdropSizes)!
+        configurationEntity.baseUrl = configuration.images?.baseUrl
+        configurationEntity.logoSizes = (configuration.images?.logoSizes)!
+        configurationEntity.backdropSizes = (configuration.images?.backdropSizes)!
+        configurationEntity.posterSizes = (configuration.images?.posterSizes)!
+        configurationEntity.secureBaseUrl = configuration.images?.secureBaseUrl
+        configurationEntity.stillSizes = (configuration.images?.stillSizes)!
+        configurationEntity.profileSizes = (configuration.images?.profileSizes)!
+        configurationEntity.changeKeys = configuration.changeKeys
+    }
+
+    func getTMDbApiConfigurationEntity() throws -> TMDbApiConfiguration {
+        let request: NSFetchRequest<TMDbApiConfiguration> = TMDbApiConfiguration.fetchRequest()
+        let fetchedObjectContext = try managedObjectContext.fetch(request)
+
+        guard fetchedObjectContext.count == 1,
+            let fetchedConfiguration = fetchedObjectContext.first else {
+                throw PersistenceError.objectNotFound
+        }
+
+        return fetchedConfiguration
     }
 }

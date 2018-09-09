@@ -9,7 +9,7 @@
 import CoreData
 
 final class PersistenceStoreCoordinatorFactory {
-    static func make() -> NSPersistentStoreCoordinator? {
+    static func make() -> NSPersistentStoreCoordinator {
         return PersistentContainerFactory.make().persistentStoreCoordinator
     }
 }
